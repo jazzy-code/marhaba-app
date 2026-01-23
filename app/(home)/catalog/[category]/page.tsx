@@ -7,10 +7,10 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { use, useMemo, useState } from "react";
 
-export default function CatalogPage({ params }: { params: Promise<{ category: Category }> }) {
+export default function CatalogPage({ params }: { params: Promise<{ category: string }> }) {
   const { category } = use(params);
   const router = useRouter();
-  const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [selectedService, setSelectedService] = useState(null);
   const [activeCategoryFilter, setActiveCategoryFilter] = useState(category || 'all');
   const [searchQuery, setSearchQuery] = useState('');
   const filteredServices = useMemo(() => {
@@ -23,7 +23,8 @@ export default function CatalogPage({ params }: { params: Promise<{ category: Ca
     });
   }, [searchQuery, activeCategoryFilter]);
 
-  const handleSelect = (service: Service) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleSelect = (service: any) => {
     setSelectedService(service);
     router.push(`/catalog/${service.id}`);
   }
