@@ -1,4 +1,17 @@
+"use client";
+
+import { useAuth } from "@clerk/nextjs";
+
 export default function Page() {
+  const { getToken } = useAuth();
+  
+  const getTokenAsync = async () => {
+    const token = await getToken();
+    console.log(token);
+    return token;
+  };
+
+  getTokenAsync();
   return (
 
     <div className="flex-1 overflow-y-auto p-6 lg:p-10">
