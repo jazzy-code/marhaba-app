@@ -5,9 +5,7 @@ export const apiFetchServer = async (endpoint: string, options: RequestInit = {}
   const { getToken } = await auth();
   const token = await getToken();
 
-  const baseUrl = process.env.API_BASE_URL;
-
-  console.log("baseUrl", baseUrl);
+  const apiUrl = process.env.API_URL;
 
   // 2. Fusionar headers
   const headers = new Headers(options.headers);
@@ -17,15 +15,22 @@ export const apiFetchServer = async (endpoint: string, options: RequestInit = {}
   headers.set("Content-Type", "application/json");
 
   // 3. Petición
-  const response = await fetch(`${baseUrl}/api${endpoint}`, {
+  const response = await fetch(`${apiUrl}/api${endpoint}`, {
     ...options,
     headers,
   });
 
+  const data = await response.json();
+
   // Manejo básico de errores
   if (!response.ok) {
-    throw new Error(`API Error: ${response.status}`);
+    console.error("Error:", data)
+    return {
+      error: true,
+      ...data
+    }
+    // throw new Error(error.message)
   }
 
-  return response.json();
+  return data;
 };

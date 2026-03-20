@@ -4,19 +4,19 @@ export default function InquiresPage() {
       <div className="max-w-7xl mx-auto flex flex-col gap-8 h-full">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <h1 className="font-serif text-2xl text-brown-dark dark:text-white font-medium">My Inquiries</h1>
+            <h1 className="font-serif text-2xl text-brown-dark font-medium">My Inquiries</h1>
             <p className="text-warm-grey mt-2 font-sans text-sm">Review and manage inquiries for your services.</p>
           </div>
           <div className="relative group w-full md:w-64">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <i className="w-4 h-4 text-stone-400 group-focus-within:text-primary-gold transition-colors" data-lucide="search"></i>
             </div>
-            <input className="block w-full pl-10 pr-3 py-2 border-none border-b border-transparent border-b-stone-200 focus:border-b-primary-gold focus:ring-0 bg-white dark:bg-surface-dark placeholder-stone-400 text-sm transition-all shadow-sm rounded-sm" placeholder="Search inquiries..." type="text" />
+            <input className="block w-full pl-10 pr-3 py-2 border-none border-b border-transparent border-b-stone-200 focus:border-b-primary-gold focus:ring-0 bg-white placeholder-stone-400 text-sm transition-all shadow-sm rounded-sm" placeholder="Search inquiries..." type="text" />
           </div>
         </div>
-        <div className="bg-white dark:bg-surface-dark rounded-sm shadow-sm border border-subtle-border dark:border-stone-800 flex flex-col">
+        <div className="bg-white rounded-sm shadow-sm border border-subtle-border dark:border-stone-800 flex flex-col">
           <div className="p-6 border-b border-subtle-border dark:border-stone-800">
-            <h2 className="font-serif text-xl text-brown-dark dark:text-white font-medium">Received Inquiries</h2>
+            <h2 className="font-serif text-xl text-brown-dark font-medium">Received Inquiries</h2>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">

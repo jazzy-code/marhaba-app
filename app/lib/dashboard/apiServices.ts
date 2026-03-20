@@ -3,12 +3,14 @@
 import { apiFetchServer } from "@/config/apiFetchServer"
 
 export async function getServices() {
-  try {
-    const data = await apiFetchServer("/categories")
+  const data = await apiFetchServer("/services")
+  console.log(data)
+  if (data.error) return []
+  return data
+}
 
-    return data
-  } catch (error) {
-    console.error("Error getting services:", error)
-    return []
-  }
+export async function getService(id: string) {
+  const data = await apiFetchServer(`/services/${id}`)
+  if (data.error) return null
+  return data
 }

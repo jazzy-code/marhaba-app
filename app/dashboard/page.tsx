@@ -1,70 +1,77 @@
-"use client";
+"use client"
 
-import { useAuth } from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs"
 
 export default function Page() {
-  const { getToken } = useAuth();
-  
+  const { getToken } = useAuth()
+
   const getTokenAsync = async () => {
-    const token = await getToken();
-    console.log(token);
-    return token;
-  };
+    const token = await getToken()
+    console.log(token)
+    return token
+  }
 
-  getTokenAsync();
+  getTokenAsync()
   return (
-
     <div className="flex-1 overflow-y-auto p-6 lg:p-10">
       <div className="max-w-7xl mx-auto flex flex-col gap-8 h-full">
         <div className="flex flex-col gap-2">
           <div className="flex justify-between items-end">
             <div>
-              <h1 className="font-serif text-2xl text-brown-dark dark:text-white font-medium">Dashboard</h1>
-              <p className="text-warm-grey mt-2 font-sans text-sm">Overview of your portfolio performance and recent activity.</p>
+              <h1 className="font-serif text-2xl text-brown-dark font-medium">Dashboard</h1>
+              <p className="text-warm-grey mt-2 font-sans text-sm">
+                Overview of your portfolio performance and recent activity.
+              </p>
             </div>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-white dark:bg-surface-dark rounded-sm shadow-sm border border-subtle-border dark:border-stone-800 p-6 flex flex-col justify-between h-40 group hover:shadow-md transition-shadow duration-300">
+          <div className="bg-white rounded-sm shadow-sm border border-subtle-border dark:border-stone-800 p-6 flex flex-col justify-between h-40 group hover:shadow-md transition-shadow duration-300">
             <div className="flex justify-between items-start">
-              <span className="text-5xl font-serif text-brown-dark dark:text-white font-medium">12</span>
+              <span className="text-5xl font-serif text-brown-dark font-medium">12</span>
               <div className="p-2 bg-stone-50 dark:bg-stone-800 rounded-full text-warm-grey">
                 <i className="w-5 h-5" data-lucide="briefcase"></i>
               </div>
             </div>
-            <span className="font-sans text-xs uppercase tracking-widest text-warm-grey font-semibold">Active Services</span>
+            <span className="font-sans text-xs uppercase tracking-widest text-warm-grey font-semibold">
+              Active Services
+            </span>
           </div>
-          <div className="bg-white dark:bg-surface-dark rounded-sm shadow-sm border border-subtle-border dark:border-stone-800 p-6 flex flex-col justify-between h-40 group hover:shadow-md transition-shadow duration-300">
+          <div className="bg-white rounded-sm shadow-sm border border-subtle-border dark:border-stone-800 p-6 flex flex-col justify-between h-40 group hover:shadow-md transition-shadow duration-300">
             <div className="flex justify-between items-start">
-              <span className="text-5xl font-serif text-brown-dark dark:text-white font-medium">50k</span>
+              <span className="text-5xl font-serif text-brown-dark font-medium">50k</span>
               <div className="p-2 bg-stone-50 dark:bg-stone-800 rounded-full text-warm-grey">
                 <i className="w-5 h-5" data-lucide="eye"></i>
               </div>
             </div>
-            <span className="font-sans text-xs uppercase tracking-widest text-warm-grey font-semibold">Total Views</span>
+            <span className="font-sans text-xs uppercase tracking-widest text-warm-grey font-semibold">
+              Total Views
+            </span>
           </div>
-          <div className="bg-white dark:bg-surface-dark rounded-sm shadow-sm border border-subtle-border dark:border-stone-800 p-6 flex flex-col justify-between h-40 group hover:shadow-md transition-shadow duration-300">
+          <div className="bg-white rounded-sm shadow-sm border border-subtle-border dark:border-stone-800 p-6 flex flex-col justify-between h-40 group hover:shadow-md transition-shadow duration-300">
             <div className="flex justify-between items-start">
-              <span className="text-5xl font-serif text-brown-dark dark:text-white font-medium">3</span>
+              <span className="text-5xl font-serif text-brown-dark font-medium">3</span>
               <div className="p-2 bg-stone-50 dark:bg-stone-800 rounded-full text-warm-grey">
                 <i className="w-5 h-5" data-lucide="mail"></i>
               </div>
             </div>
             <span className="font-sans text-xs uppercase tracking-widest text-warm-grey font-semibold">New Leads</span>
           </div>
-          <div className="bg-white dark:bg-surface-dark rounded-sm shadow-sm border border-subtle-border dark:border-stone-800 p-6 flex flex-col justify-between h-40 group hover:shadow-md transition-shadow duration-300">
+          <div className="bg-white rounded-sm shadow-sm border border-subtle-border dark:border-stone-800 p-6 flex flex-col justify-between h-40 group hover:shadow-md transition-shadow duration-300">
             <div className="flex justify-between items-start">
-              <span className="text-5xl font-serif text-brown-dark dark:text-white font-medium">1</span>
+              <span className="text-5xl font-serif text-brown-dark font-medium">1</span>
               <div className="p-2 bg-stone-50 dark:bg-stone-800 rounded-full text-warm-grey">
                 <i className="w-5 h-5" data-lucide="clock"></i>
               </div>
             </div>
-            <span className="font-sans text-xs uppercase tracking-widest text-warm-grey font-semibold">Pending Approvals</span>
+            <span className="font-sans text-xs uppercase tracking-widest text-warm-grey font-semibold">
+              Pending Approvals
+            </span>
           </div>
         </div>
-        <div className="bg-white dark:bg-surface-dark rounded-sm border border-subtle-border dark:border-stone-800 shadow-sm flex flex-col">
+        <div className="bg-white rounded-sm border border-subtle-border dark:border-stone-800 shadow-sm flex flex-col">
           <div className="p-6 border-b border-subtle-border dark:border-stone-800 flex justify-between items-center">
-            <h2 className="font-serif text-xl text-brown-dark dark:text-white font-medium">Recent Activity</h2>
+            <h2 className="font-serif text-xl text-brown-dark font-medium">Recent Activity</h2>
           </div>
           <div className="flex flex-col">
             <div className="flex items-start gap-4 p-6 border-b border-subtle-border dark:border-stone-800 hover:bg-stone-50 dark:hover:bg-stone-800/30 transition-colors">
@@ -73,7 +80,8 @@ export default function Page() {
               </div>
               <div className="flex-1">
                 <p className="font-sans text-brown-dark dark:text-stone-200 text-sm">
-                  New inquiry for <span className="font-semibold">{"'Yacht Charter'"}</span> from <span className="font-semibold">John Doe</span>
+                  New inquiry for <span className="font-semibold">{"'Yacht Charter'"}</span> from{" "}
+                  <span className="font-semibold">John Doe</span>
                 </p>
                 <p className="text-xs text-warm-grey mt-1">1 hour ago</p>
               </div>
@@ -106,7 +114,8 @@ export default function Page() {
               </div>
               <div className="flex-1">
                 <p className="font-sans text-brown-dark dark:text-stone-200 text-sm">
-                  New inquiry for <span className="font-semibold">{"'Exclusive Catering'"}</span> from <span className="font-semibold">Sarah Smith</span>
+                  New inquiry for <span className="font-semibold">{"'Exclusive Catering'"}</span> from{" "}
+                  <span className="font-semibold">Sarah Smith</span>
                 </p>
                 <p className="text-xs text-warm-grey mt-1">Oct 24, 2023</p>
               </div>
@@ -118,8 +127,12 @@ export default function Page() {
               <button className="p-2 rounded-sm hover:bg-stone-200 dark:hover:bg-stone-800 text-stone-500 disabled:opacity-50">
                 <i className="w-4 h-4" data-lucide="chevron-left"></i>
               </button>
-              <button className="px-3 py-1 rounded-sm bg-primary-gold text-white text-xs font-medium shadow-sm">1</button>
-              <button className="px-3 py-1 rounded-sm hover:bg-stone-200 dark:hover:bg-stone-800 text-stone-600 dark:text-stone-400 text-xs font-medium transition-colors">2</button>
+              <button className="px-3 py-1 rounded-sm bg-primary-gold text-white text-xs font-medium shadow-sm">
+                1
+              </button>
+              <button className="px-3 py-1 rounded-sm hover:bg-stone-200 dark:hover:bg-stone-800 text-stone-600 dark:text-stone-400 text-xs font-medium transition-colors">
+                2
+              </button>
               <button className="p-2 rounded-sm hover:bg-stone-200 dark:hover:bg-stone-800 text-stone-500">
                 <i className="w-4 h-4" data-lucide="chevron-right"></i>
               </button>
@@ -128,5 +141,5 @@ export default function Page() {
         </div>
       </div>
     </div>
-  );
+  )
 }

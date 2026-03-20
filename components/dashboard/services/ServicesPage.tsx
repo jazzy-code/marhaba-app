@@ -1,32 +1,114 @@
 "use client"
 
+import DataTable from "@/components/DataTable";
+import { SERVICE_STATUS_APPROVED_ID, SERVICE_STATUS_PENDING_ID } from "@/constants/index";
+import { formatDate } from "@/utils/date";
+import { Avatar, Chip, IconButton } from "@mui/material";
+import dayjs from "dayjs";
+import { Eye, Pencil, Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { FC, useState } from "react";
 
 interface ServicesPageProps {
   initialData: any[];
 }
 
-const ServicesPage: FC<ServicesPageProps> = ({ initialData }) => {
-  const [services, setServices ] = useState(initialData);
-  console.log("services", services);
+const ServicesPage: FC<ServicesPageProps> = ({ initialData = [] }) => {
+  const router = useRouter();
+  const [services, setServices] = useState<any[]>(initialData);
+  console.log(services)
+
+  const handleEdit = (id: string) => {
+    router.push(`/dashboard/services/${id}/edit`)
+  }
+
+  const handleDelete = (id: string) => {
+    const newServices = services.filter(s => s.id !== id);
+    setServices(newServices);
+  }
+
+  const handlePreview = (id: string) => {
+    router.push(`/services/${id}/preview`)
+  }
+
+  const columns = [
+    {
+      key: 'name',
+      header: 'Service',
+      renderCell: ({ service }: any) => {
+        return (
+          <div className="flex items-center gap-2">
+            <div>
+              <Avatar sx={{ width: '3rem', height: '3rem' }} alt={service.title || ''} src={service.heroImage} />
+            </div>
+            <div>
+              <p>{service.title}</p>
+              <small>{service.shortDescription}</small>
+            </div>
+          </div>
+        )
+      }
+    },
+    { key: 'category', header: 'Service Type', renderCell: ({ service }: any) => service.serviceType.name },
+    {
+      key: 'status',
+      header: 'Status',
+      renderCell: ({ service }: any) => {
+        const status = service.serviceStatus
+        return (
+          <Chip
+            label={status.name}
+            variant="filled"
+            color={status.id === SERVICE_STATUS_PENDING_ID ? 'warning' : status.id === SERVICE_STATUS_APPROVED_ID ? 'success' : 'error'}
+          />
+        )
+      }
+    },
+    { key: 'updatedAt', header: 'Last Update', renderCell: ({ service: baseService, ...service }: any) => dayjs(baseService.updatedAt).isAfter(dayjs(service.updatedAt)) ? formatDate(baseService.updatedAt) : formatDate(service.updatedAt) },
+    {
+      key: 'actions',
+      header: 'Actions',
+      renderCell: ({ service }: any, rowIndex: number) => {
+        return (
+          <div className="flex gap-2">
+            <IconButton
+              data-row-index={rowIndex}
+              onClick={() => handlePreview(service.id)}>
+              <Eye />
+            </IconButton>
+            <IconButton
+              data-row-index={rowIndex}
+              onClick={() => handleEdit(service.id)}>
+              <Pencil />
+            </IconButton>
+            <IconButton data-row-index={rowIndex} onClick={() => handleDelete(service.id)}>
+              <Trash />
+            </IconButton>
+          </div>
+        )
+      }
+    }
+  ];
+
   return (
     <div className="flex-1 overflow-y-auto p-6 lg:p-10">
       <div className="max-w-7xl mx-auto flex flex-col gap-8 h-full">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <h1 className="font-serif text-2xl text-brown-dark dark:text-white font-medium">My Services</h1>
+            <h1 className="font-serif text-2xl text-brown-dark font-medium">My Services</h1>
             <p className="text-warm-grey mt-2 font-sans text-sm">Manage your exclusive service listings and their status.</p>
           </div>
-          <button className="bg-[#2F2003] hover:bg-[#4a340a] text-white px-4 py-2.5 rounded-sm text-sm font-medium flex items-center gap-2 transition-colors shadow-sm self-start md:self-auto">
+          <button className="bg-[#2F2003] hover:bg-[#4a340a] text-white px-4 py-2.5 rounded-sm text-sm font-medium flex items-center gap-2 transition-colors shadow-sm self-start md:self-auto" onClick={() => router.push('/dashboard/services/create')}>
             <i className="w-4 h-4" data-lucide="plus"></i>
             Add New Service
           </button>
         </div>
-        <div className="bg-white dark:bg-surface-dark rounded-sm shadow-sm border border-subtle-border dark:border-stone-800 flex flex-col">
+        <div className="bg-white rounded-sm shadow-sm border border-subtle-border dark:border-stone-800 flex flex-col">
           <div className="p-6 border-b border-subtle-border dark:border-stone-800">
-            <h2 className="font-serif text-xl text-brown-dark dark:text-white font-medium">Your Listings</h2>
+            <h2 className="font-serif text-xl text-brown-dark font-medium">Your Listings</h2>
           </div>
-          <div className="overflow-x-auto">
+          <DataTable data={services} columns={columns} />
+          {/* <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="text-xs font-sans text-warm-grey uppercase tracking-widest bg-stone-50/50 dark:bg-stone-900/50 border-b border-subtle-border dark:border-stone-800">
@@ -194,7 +276,7 @@ const ServicesPage: FC<ServicesPageProps> = ({ initialData }) => {
                 </tr>
               </tbody>
             </table>
-          </div>
+          </div> */}
           <div className="border-t border-subtle-border dark:border-stone-800 bg-stone-50 dark:bg-stone-900 p-4 flex items-center justify-between rounded-b-sm">
             <span className="text-xs text-stone-500">Showing 1-5 of 12 Services</span>
             <div className="flex gap-1">
