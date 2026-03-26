@@ -148,7 +148,7 @@ const DataTable = ({
             ) : data.length === 0 ? (
               <TableRow>
                 <TableCell size="small" colSpan={columns.length} sx={{ padding: ".5rem", textAlign: "center" }}>
-                  No se encontraron registros
+                  No records found
                 </TableCell>
               </TableRow>
             ) : (
@@ -172,7 +172,8 @@ const DataTable = ({
       </TableContainer>
       {isPaginated && (
         <TablePagination
-          sx={{ borderTop: "1px solid #ddd" }}
+          // sx={{ borderTop: "1px solid #ddd" }}
+          className="border-t border-subtle-border bg-stone-50"
           component="div"
           count={total || 0}
           rowsPerPage={rowsPerPage || 10}
@@ -180,8 +181,8 @@ const DataTable = ({
           page={page || 0}
           onPageChange={onPageChange}
           onRowsPerPageChange={onRowsPerPageChange}
-          labelRowsPerPage="Resultados por página"
-          labelDisplayedRows={({ from, to, count }) => `Mostrando los resultados ${from} - ${to} de ${count} en total`}
+          labelRowsPerPage="Results per page"
+          labelDisplayedRows={({ from, to, count }) => `Showing results ${from} - ${to} of ${count} in total`}
         />
       )}
     </Paper>

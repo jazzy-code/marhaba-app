@@ -10,6 +10,7 @@ declare module "@mui/material/styles" {
     light: Palette["primary"]
     neutral: Palette["primary"]
     neutralDark: Palette["primary"]
+    deepBrown: Palette["primary"]
   }
   interface PaletteOptions {
     dark: PaletteOptions["primary"]
@@ -18,6 +19,7 @@ declare module "@mui/material/styles" {
     light: PaletteOptions["primary"]
     neutral: PaletteOptions["primary"]
     neutralDark: PaletteOptions["primary"]
+    deepBrown: PaletteOptions["primary"]
   }
 }
 
@@ -30,6 +32,7 @@ declare module "@mui/material/Button" {
     light: true
     neutral: true
     neutralDark: true
+    deepBrown: true
   }
 }
 

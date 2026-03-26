@@ -1,10 +1,14 @@
 "use client"
 
+import { Archive, LayoutDashboard } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
+import { useServicesStats } from "@/hooks/useServicesStats"
+
 const SideMenu = () => {
   const pathname = usePathname()
+  const { data } = useServicesStats()
 
   const menuSelectedClasses =
     "flex items-center gap-3 px-4 py-3 bg-primary-gold/10 text-primary-gold dark:text-primary-gold rounded-sm transition-colors group"
@@ -28,23 +32,25 @@ const SideMenu = () => {
         <p className="px-4 text-xs font-semibold text-stone-400 uppercase tracking-wider mb-2">Portfolio</p>
         {/* Menu items */}
         <Link className={pathname === "/dashboard" ? menuSelectedClasses : menuClasses} href="/dashboard">
-          <span className="material-symbols-outlined fill-1">dashboard</span>
+          <LayoutDashboard className="group-hover:text-primary-gold transition-colors" />
           <span className="font-medium text-sm">Dashboard</span>
         </Link>
         <Link
           className={pathname.includes("/dashboard/services") ? menuSelectedClasses : menuClasses}
           href="/dashboard/services">
-          <span className="material-symbols-outlined group-hover:text-primary-gold transition-colors">inventory_2</span>
+          <Archive className="group-hover:text-primary-gold transition-colors" />
           <span className="font-medium text-sm">My Services</span>
-          <span className="ml-auto bg-stone-200 text-stone-600 text-[10px] font-bold px-2 py-0.5 rounded-full">12</span>
+          <span className="ml-auto bg-stone-200 text-stone-600 text-[10px] font-bold px-2 py-0.5 rounded-full">
+            {data?.total || 0}
+          </span>
         </Link>
-        <Link
+        {/* <Link
           className={pathname === "/dashboard/inquiries" ? menuSelectedClasses : menuClasses}
           href="/dashboard/inquiries">
           <span className="material-symbols-outlined group-hover:text-primary-gold transition-colors">mail</span>
           <span className="font-medium text-sm">Inquiries</span>
           <span className="ml-auto bg-stone-200 text-stone-600 text-[10px] font-bold px-2 py-0.5 rounded-full">3</span>
-        </Link>
+        </Link> */}
         <p className="px-4 text-xs font-semibold text-stone-400 uppercase tracking-wider mb-2 mt-8">Account</p>
         <a
           className="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-sm transition-colors group"

@@ -1,17 +1,7 @@
-"use client"
+import { getServicesStats } from "@/api/services/services.server"
 
-import { useAuth } from "@clerk/nextjs"
-
-export default function Page() {
-  const { getToken } = useAuth()
-
-  const getTokenAsync = async () => {
-    const token = await getToken()
-    console.log(token)
-    return token
-  }
-
-  getTokenAsync()
+export default async function Page() {
+  const stats = await getServicesStats()
   return (
     <div className="flex-1 overflow-y-auto p-6 lg:p-10">
       <div className="max-w-7xl mx-auto flex flex-col gap-8 h-full">
@@ -28,38 +18,40 @@ export default function Page() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="bg-white rounded-sm shadow-sm border border-subtle-border dark:border-stone-800 p-6 flex flex-col justify-between h-40 group hover:shadow-md transition-shadow duration-300">
             <div className="flex justify-between items-start">
-              <span className="text-5xl font-serif text-brown-dark font-medium">12</span>
+              <span className="text-5xl font-serif text-brown-dark font-medium">{stats?.total || 0}</span>
               <div className="p-2 bg-stone-50 dark:bg-stone-800 rounded-full text-warm-grey">
                 <i className="w-5 h-5" data-lucide="briefcase"></i>
               </div>
             </div>
             <span className="font-sans text-xs uppercase tracking-widest text-warm-grey font-semibold">
-              Active Services
+              Total Services
             </span>
           </div>
           <div className="bg-white rounded-sm shadow-sm border border-subtle-border dark:border-stone-800 p-6 flex flex-col justify-between h-40 group hover:shadow-md transition-shadow duration-300">
             <div className="flex justify-between items-start">
-              <span className="text-5xl font-serif text-brown-dark font-medium">50k</span>
+              <span className="text-5xl font-serif text-brown-dark font-medium">{stats?.totalApproved || 0}</span>
               <div className="p-2 bg-stone-50 dark:bg-stone-800 rounded-full text-warm-grey">
                 <i className="w-5 h-5" data-lucide="eye"></i>
               </div>
             </div>
             <span className="font-sans text-xs uppercase tracking-widest text-warm-grey font-semibold">
-              Total Views
+              Approved Services
             </span>
           </div>
           <div className="bg-white rounded-sm shadow-sm border border-subtle-border dark:border-stone-800 p-6 flex flex-col justify-between h-40 group hover:shadow-md transition-shadow duration-300">
             <div className="flex justify-between items-start">
-              <span className="text-5xl font-serif text-brown-dark font-medium">3</span>
+              <span className="text-5xl font-serif text-brown-dark font-medium">{stats?.totalRejected || 0}</span>
               <div className="p-2 bg-stone-50 dark:bg-stone-800 rounded-full text-warm-grey">
                 <i className="w-5 h-5" data-lucide="mail"></i>
               </div>
             </div>
-            <span className="font-sans text-xs uppercase tracking-widest text-warm-grey font-semibold">New Leads</span>
+            <span className="font-sans text-xs uppercase tracking-widest text-warm-grey font-semibold">
+              Rejected Services
+            </span>
           </div>
           <div className="bg-white rounded-sm shadow-sm border border-subtle-border dark:border-stone-800 p-6 flex flex-col justify-between h-40 group hover:shadow-md transition-shadow duration-300">
             <div className="flex justify-between items-start">
-              <span className="text-5xl font-serif text-brown-dark font-medium">1</span>
+              <span className="text-5xl font-serif text-brown-dark font-medium">{stats?.totalPending || 0}</span>
               <div className="p-2 bg-stone-50 dark:bg-stone-800 rounded-full text-warm-grey">
                 <i className="w-5 h-5" data-lucide="clock"></i>
               </div>

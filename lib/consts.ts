@@ -10,7 +10,7 @@ export const SERVICE_LIST = [
   { value: 'PrivateStaff', label: 'Private Staff' },
   { value: 'BeautySpa', label: 'Beauty & Spa' },
   { value: 'Golf', label: 'Golf Experiences' },
-  { value: 'SupportCoach', label: 'SupportCoach & Trainer' },
+  { value: 'TrainingCoach', label: 'TrainingCoach & Trainer' },
 ]
 
 /** REAL ESTATE */
@@ -165,7 +165,7 @@ export const MedicalCareServices = [
   { value: 3, label: "Preventive Medicine" }
 ]
 
-export const MedicalCareSpecialities = [
+export const MedicalCareSpecialties = [
   { value: 1, label: "Cardiology" },
   { value: 2, label: "Dermatology" },
   { value: 3, label: "Pediatrics" },
@@ -264,26 +264,26 @@ export const GolfAmenities = [
 ]
 
 /** SUPPORT COACH */
-export const SupportCoachLevels = [
+export const TrainingCoachLevels = [
   { value: "BEGINNER", label: "Beginner" },
   { value: "AMATEUR", label: "Amateur" },
   { value: "EXPERIENCED", label: "Experienced" },
   { value: "PROFESSIONAL", label: "Professional" }
 ]
 
-export const SupportCoachPlaces = [
+export const TrainingCoachPlaces = [
   { value: "PRIVATE_GYM", label: "Private Gym" },
   { value: "PUBLIC_GYM", label: "Public Gym" },
   { value: "IN_VILLA", label: "In Villa" },
   { value: "OUTDOORS", label: "Outdoors" }
 ]
 
-export const SupportCoachEquipments = [
+export const TrainingCoachEquipments = [
   { value: "COACH_HAS", label: "Coach Provides Equipment" },
   { value: "CLIENT_HAS", label: "Client Provides Equipment" }
 ]
 
-export const SupportCoachDisciplines = [
+export const TrainingCoachDisciplines = [
   { value: 1, label: "Personal Training" },
   { value: 2, label: "Yoga" },
   { value: 3, label: "Pilates" },

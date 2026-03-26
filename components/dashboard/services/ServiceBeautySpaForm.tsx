@@ -1,132 +1,119 @@
-import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-  Grid,
-  TextField
-} from "@mui/material"
+import { Checkbox, FormControlLabel, FormGroup, FormLabel, Grid, TextField } from "@mui/material"
+import { FormikProvider, useFormik } from "formik"
 
-import {
-  BeautySpaTreatments,
-  BeautySpaProducts
-} from "@/lib/consts"
+import { useServices } from "@/context/ServicesContext"
+import useFormikHelpers from "@/hooks/useFormikHelpers"
+import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 
-const ServiceBeautySpaForm = ({ formik }: any) => {
+import { serviceBeautySpaForm } from "../lib/ServicesFormValues"
 
-  const {
-    values,
-    handleChange,
-    handleBlur,
-    errors,
-    touched,
-    setFieldValue
-  } = formik
+import ServiceBaseFormWrapper from "./ServiceBaseFormWrapper"
+
+const ServiceBeautySpaForm = ({
+  serviceToEditForm,
+  serviceType,
+  isCreate,
+  mutate,
+  isPending
+}: {
+  serviceToEditForm?: any
+  serviceType: any
+  isCreate: boolean
+  mutate: (values: any) => void
+  isPending: boolean
+}) => {
+  const { beautySpa } = useServices()
+  const { treatments, products } = beautySpa
+
+  const formik = useFormik({
+    initialValues: isCreate
+      ? formatServiceForm(serviceBeautySpaForm, serviceType)
+      : formatServiceToEditForm(serviceToEditForm, ["Treatment", "Product"]),
+    validateOnChange: false,
+    validateOnBlur: true,
+    onSubmit: (values) => mutate(values)
+  })
+
+  const { values, handleChange, handleBlur, setFieldValue } = formik
+  const { handleErrorField, handleErrorFieldMessage } = useFormikHelpers(formik)
 
   return (
-    <>
-
-      {/* DURATION */}
-
-      <Grid size={6}>
-        <FormLabel>Duration (Minutes)</FormLabel>
-
-        <TextField
-          type="number"
-          name="durationMinutes"
-          value={values.durationMinutes}
-          error={touched.durationMinutes && Boolean(errors.durationMinutes)}
-          helperText={touched.durationMinutes && errors.durationMinutes}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
-      </Grid>
-
-      {/* EQUIPMENT */}
-
-      <Grid size={6}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={values.hasEquipment || false}
-              onChange={(e) =>
-                setFieldValue("hasEquipment", e.target.checked)
-              }
+    <FormikProvider value={formik}>
+      <ServiceBaseFormWrapper isPending={isPending} isCreate={isCreate}>
+        <Grid container spacing={3}>
+          <Grid size={6}>
+            <FormLabel>Duration (Minutes)</FormLabel>
+            <TextField
+              type="number"
+              name="durationMinutes"
+              value={values.durationMinutes}
+              error={handleErrorField("durationMinutes")}
+              helperText={handleErrorFieldMessage("durationMinutes")}
+              onChange={handleChange}
+              onBlur={handleBlur}
             />
-          }
-          label="Equipment Included"
-        />
-      </Grid>
-
-      {/* TREATMENTS */}
-
-      <Grid size={12}>
-        <FormLabel>Treatments</FormLabel>
-
-        <FormGroup>
-          <Grid container spacing={1}>
-
-            {BeautySpaTreatments.map(treatment => (
-
-              <Grid size={4} key={treatment.value}>
-
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      name="beautySpaHasTreatments"
-                      value={String(treatment.value)}
-                      checked={values.beautySpaHasTreatments.includes(
-                        String(treatment.value)
-                      )}
-                      onChange={handleChange}
-                    />
-                  }
-                  label={treatment.label}
-                />
-
-              </Grid>
-
-            ))}
-
           </Grid>
-        </FormGroup>
-      </Grid>
 
-      {/* PRODUCTS */}
-
-      <Grid size={12}>
-        <FormLabel>Products</FormLabel>
-
-        <FormGroup>
-          <Grid container spacing={1}>
-
-            {BeautySpaProducts.map(product => (
-
-              <Grid size={4} key={product.value}>
-
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      name="beautySpaHasProducts"
-                      value={String(product.value)}
-                      checked={values.beautySpaHasProducts.includes(
-                        String(product.value)
-                      )}
-                      onChange={handleChange}
-                    />
-                  }
-                  label={product.label}
+          <Grid size={6}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={values.hasEquipment || false}
+                  onChange={(e) => setFieldValue("hasEquipment", e.target.checked)}
                 />
-
-              </Grid>
-
-            ))}
-
+              }
+              label="Equipment Included"
+            />
           </Grid>
-        </FormGroup>
-      </Grid>
 
-    </>
+          <Grid size={12}>
+            <FormLabel>Treatments</FormLabel>
+            <FormGroup>
+              <Grid container spacing={1}>
+                {treatments.map((treatment) => (
+                  <Grid size={4} key={treatment.id}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name="beautySpaHasTreatments"
+                          value={String(treatment.id)}
+                          checked={values.beautySpaHasTreatments.includes(String(treatment.id))}
+                          onChange={handleChange}
+                        />
+                      }
+                      label={treatment.name}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            </FormGroup>
+          </Grid>
+
+          <Grid size={12}>
+            <FormLabel>Products</FormLabel>
+            <FormGroup>
+              <Grid container spacing={1}>
+                {products.map((product) => (
+                  <Grid size={4} key={product.id}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name="beautySpaHasProducts"
+                          value={String(product.id)}
+                          checked={values.beautySpaHasProducts.includes(String(product.id))}
+                          onChange={handleChange}
+                        />
+                      }
+                      label={product.name}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            </FormGroup>
+          </Grid>
+        </Grid>
+      </ServiceBaseFormWrapper>
+    </FormikProvider>
   )
 }
 

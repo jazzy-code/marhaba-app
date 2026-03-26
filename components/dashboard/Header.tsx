@@ -13,10 +13,10 @@ const Header = () => {
         <SignedIn>
           <UserButton />
         </SignedIn>
-        <div className="h-8 w-px bg-stone-200 dark:bg-stone-700 mx-2"></div>
+        {/* <div className="h-8 w-px bg-stone-200 dark:bg-stone-700 mx-2"></div>
         <button className="text-sm font-medium text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-200">
           Help Center
-        </button>
+        </button> */}
       </div>
     </header>
   )

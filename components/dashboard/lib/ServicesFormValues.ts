@@ -1,86 +1,70 @@
 export const baseServiceForm = {
-  serviceType: '',
-  reference: '',
-  title: '',
-  subtitle: 'A Subtitle',
-  shortDescription: '',
-  longDescription: '',
-  location: '',
-  locationUrl: '',
+  serviceType: "",
+  serviceTypeId: "",
+  reference: "",
+  title: "",
+  subtitle: "A Subtitle",
+  shortDescription: "",
+  longDescription: "",
+  location: "",
+  locationUrl: "",
   exclusiveListing: true,
-  latitute: '',
-  longitude: '',
+  latitute: "",
+  longitude: "",
   privacyLevel: 0,
-  modelPrice: 'FIXED',
+  priceModel: "FIXED",
   price: 100,
-  currency: 'EUR',
-  heroImage: '',
-  videoUrl: '',
+  currency: "EUR",
+  heroImage: "",
+  videoUrl: "",
   serviceStatusId: 1 // PENDING
 }
 
 export const serviceRealEstateForm = {
   ...baseServiceForm,
-  serviceType: 'RealEstate',
+  modality: "SALE",
   realEstateTypeId: 1,
-  modality: 'SALE',
-  surfaceBuiltMt2: '',
-  surfaceTerraceMt2: '',
-  surfacePlotMt2: '',
-  rooms: '',
-  fullBathrooms: '',
-  halfBathrooms: '',
-  realEstateStayTypeId: 1,
-  touristLicense: '',
-  guestsCapacity: '',
-  realEstateHousingStatusId: 1,
-  realEstateHasAmenities: []
-}
-
-export const servicePropertyManagementForm = {
-  reference: '',
-  serviceType: 'PropertyManagement',
-  title: '',
-  subtitle: '',
-  shortDescription: '',
-  longDescription: '',
-  location: '',
-  locationUrl: '',
-  exclusiveListing: false,
-  latitute: '',
-  longitude: '',
-  monthlyRate: '',
-  managementFee: '',
-  hasTechnicalInspection: false,
-  propertyManagementTypeId: '',
-  propertyManagementHasAmenities: [] as string[],
+  surfaceBuiltMt2: "",
+  surfaceTerraceMt2: "",
+  surfacePlotMt2: "",
+  rooms: "",
+  fullBathrooms: "",
+  halfBathrooms: "",
+  realEstateStayTypeId: "",
+  touristLicense: "",
+  guestsCapacity: "",
+  realEstateHousingStatusId: "",
+  realEstateHasAmenities: [],
+  realEstateHasServices: []
 }
 
 export const serviceLuxuryCarForm = {
-  isServiceInitialized: true,
-  serviceType: 'LuxuryCar',
+  ...baseServiceForm,
+  modality: "RENT",
   brand: "",
   model: "",
   edition: "",
   year: "",
-  exteriorLuxuryCarColorId: "",
-  interiorLuxuryCarColorId: "",
-  passengersCapacity: "",
-  driveMode: "SELFDRIVE",
   transmission: "AUTOMATIC",
-  dailyRate: "",
+  motorType: "",
+  cv: "",
+  passengersCapacity: "",
+  luxuryCarExteriorColorId: "",
+  luxuryCarInteriorColorId: "",
+  fullServiceHistory: true,
+  driveMode: "SELFDRIVE",
   securityDeposit: "",
   dailyKilometers: "",
   minAge: "",
-  sellPrice: "",
   kilometers: "",
-  luxuryCarHasAmenities: [] as string[],
+  ownerType: "SINGLE",
+  luxuryCarLegalSituationId: "",
+  luxuryCarHasAmenities: [] as string[]
 }
 
 export const serviceYachtForm = {
-  isServiceInitialized: true,
-  serviceType: 'Yacht',
-  modality: 'SALE',
+  ...baseServiceForm,
+  modality: "SALE",
   shipyard: "",
   model: "",
   constructionYear: "",
@@ -92,24 +76,21 @@ export const serviceYachtForm = {
   totalCabins: "",
   passengersCapacity: "",
   port: "",
-  dailyRate: "",
   fuelPerformance: "",
   apa: "",
-  sellPrice: "",
   motorHours: "",
   countryId: "",
   yachtHasAmenities: [] as string[],
-  yachtTripulations: [
+  yachtTripulation: [
     {
       name: "",
-      yachtTripulationRoleId: "",
-    },
-  ],
+      yachtTripulationRoleId: ""
+    }
+  ]
 }
 
 export const serviceJetForm = {
-  isServiceInitialized: true,
-  serviceType: "Jet",
+  ...baseServiceForm,
   modality: "RENT",
   model: "",
   jetCategoryId: "",
@@ -119,14 +100,12 @@ export const serviceJetForm = {
   maxSpeed: "",
   jetCateringId: "",
   hourlyRate: "",
-  sellPrice: "",
   totalHours: "",
   jetHasAmenities: [] as string[]
 }
 
 export const serviceLuxuryStayForm = {
-  isServiceInitialized: true,
-  serviceType: "LuxuryStay",
+  ...baseServiceForm,
   totalGuests: "",
   checkIn: "",
   checkOut: "",
@@ -137,31 +116,30 @@ export const serviceLuxuryStayForm = {
 }
 
 export const serviceMedicalCareForm = {
-  isServiceInitialized: true,
-  serviceType: "MedicalCare",
+  ...baseServiceForm,
   certifications: "",
   response: "",
   isCleanupIncluded: false,
   isServiceAndTravelIncluded: false,
   medicalCareHasServices: [] as string[],
   medicalCareHasLanguages: [] as string[],
-  medicalCareHasSpecialities: [] as string[],
+  medicalCareHasSpecialties: [] as string[],
   medicalCareHasAttentions: [] as string[]
 }
 
 export const serviceSecurityGuardForm = {
-  isServiceInitialized: true,
-  serviceType: "SecurityGuard",
+  ...baseServiceForm,
   isArmed: false,
   discretion: "",
   minContractUnity: "",
   minContractPeriod: "",
-  securityGuardProfileId: ""
+  securityGuardBackgroundTypeId: "",
+  securityGuardHasProfiles: [] as string[],
+  securityGuardHasLanguages: [] as string[]
 }
 
 export const servicePrivateEventForm = {
-  isServiceInitialized: true,
-  serviceType: "PrivateEvent",
+  ...baseServiceForm,
   capacity: "",
   leadTimeDays: "",
   privateEventTypeId: "",
@@ -169,17 +147,16 @@ export const servicePrivateEventForm = {
 }
 
 export const servicePrivateStaffForm = {
-  isServiceInitialized: true,
-  serviceType: "PrivateStaff",
+  ...baseServiceForm,
   privateStaffRoleId: "",
   regime: "",
   hasVetting: false,
-  privateStaffHasQualifications: [] as string[]
+  privateStaffHasQualifications: [] as string[],
+  privateStaffHasLanguages: [] as string[]
 }
 
 export const serviceBeautySpaForm = {
-  isServiceInitialized: true,
-  serviceType: "BeautySpa",
+  ...baseServiceForm,
   durationMinutes: "",
   hasEquipment: false,
   beautySpaHasTreatments: [] as string[],
@@ -187,8 +164,7 @@ export const serviceBeautySpaForm = {
 }
 
 export const serviceGolfForm = {
-  isServiceInitialized: true,
-  serviceType: "Golf",
+  ...baseServiceForm,
   totalHoles: "",
   handicapRequiredMale: "",
   handicapRequiredFemale: "",
@@ -199,42 +175,11 @@ export const serviceGolfForm = {
   golfHasAmenities: [] as string[]
 }
 
-export const serviceSupportCoachForm = {
-  isServiceInitialized: true,
-  serviceType: "SupportCoach",
+export const serviceTrainingCoachForm = {
+  ...baseServiceForm,
   level: "",
   place: "",
   equipment: "",
-  supportCoachDisciplineId: ""
-}
-
-export const getServiceFormInitalValues = (serviceType : string) => {
-  switch (serviceType) {
-    case 'RealEstate':
-      return {...baseServiceForm, ...serviceRealEstateForm}
-    case 'LuxuryCar':
-      return {...baseServiceForm, ...serviceLuxuryCarForm}
-    case 'Yacht':
-      return {...baseServiceForm, ...serviceYachtForm}
-    case 'Jet':
-      return {...baseServiceForm, ...serviceJetForm}
-    case 'LuxuryStay':
-      return {...baseServiceForm, ...serviceLuxuryStayForm}
-    case 'MedicalCare':
-      return {...baseServiceForm, ...serviceMedicalCareForm}
-    case 'SecurityGuard':
-      return {...baseServiceForm, ...serviceSecurityGuardForm}
-    case 'PrivateEvent':
-      return {...baseServiceForm, ...servicePrivateEventForm}
-    case 'PrivateStaff':
-      return {...baseServiceForm, ...servicePrivateStaffForm}
-    case 'BeautySpa':
-      return {...baseServiceForm, ...serviceBeautySpaForm}
-    case 'Golf':
-      return {...baseServiceForm, ...serviceGolfForm}
-    case 'SupportCoach':
-      return {...baseServiceForm, ...serviceSupportCoachForm}
-    default:
-      return baseServiceForm
-  }
+  trainingCoachHasDisciplines: [] as string[],
+  trainingCoachHasLanguages: [] as string[]
 }

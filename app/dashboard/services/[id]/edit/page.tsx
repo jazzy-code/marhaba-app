@@ -1,10 +1,10 @@
-import { getService } from "@/app/lib/dashboard/apiServices"
+import { getService } from "@/api/services/services.server"
 import ServiceForm from "@/components/dashboard/services/ServiceForm"
 
-export default async function Page({ params }: { params: Promise<{ id: string[] }> }) {
+export default async function Page({ params }: { params: Promise<{ id: number }> }) {
   const { id } = await params
 
-  const service = await getService(id[0])
+  const service = await getService(id)
 
-  return <ServiceForm serviceToEdit={service} />
+  return <ServiceForm isCreate={false} serviceToEdit={service} />
 }

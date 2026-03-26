@@ -3,37 +3,33 @@ import { FormikProvider, useFormik } from "formik"
 
 import SelectModality from "@/components/fields/SelectModality"
 import { useServices } from "@/context/ServicesContext"
-import { RealEstateAmenities } from "@/lib/consts"
 import { onKeyPressValidateDecimalNumber, onKeyPressValidateIntegerNumber } from "@/lib/onKeyPressValidations"
+import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 
 import { serviceRealEstateForm } from "../lib/ServicesFormValues"
 
 import ServiceBaseFormWrapper from "./ServiceBaseFormWrapper"
 
 const ServiceRealEstateForm = ({
-  serviceToEdit,
+  serviceToEditForm,
+  serviceType,
   isCreate,
   mutate,
   isPending
 }: {
-  serviceToEdit?: any
+  serviceToEditForm?: any
+  serviceType: any
   isCreate: boolean
   mutate: (values: any) => void
   isPending: boolean
 }) => {
   const { realEstate } = useServices()
-  const { amenities, types, stayTypes, housingStatus } = realEstate
-
-  const serviceDetails = { ...serviceToEdit }
-  const { service = {} } = serviceToEdit
-  delete serviceDetails.service
-
-  const serviceToEditForm = serviceDetails?.id
-    ? { ...service, ...serviceDetails, serviceType: service.serviceType.key }
-    : null
+  const { amenities, services, types, stayTypes, housingStatus } = realEstate
 
   const formik = useFormik({
-    initialValues: isCreate ? serviceRealEstateForm : serviceToEditForm,
+    initialValues: isCreate
+      ? formatServiceForm(serviceRealEstateForm, serviceType)
+      : formatServiceToEditForm(serviceToEditForm, ["Amenity", "Service"]),
     validateOnChange: false,
     validateOnBlur: true,
     onSubmit: (values) => mutate(values)
@@ -205,24 +201,46 @@ const ServiceRealEstateForm = ({
                   onBlur={handleBlur}
                 />
               </Grid>
+              <Grid size={12}>
+                <FormLabel>Services</FormLabel>
+                <FormGroup>
+                  <Grid container spacing={1}>
+                    {services.map((service) => (
+                      <Grid size={4} key={service.id}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              name="realEstateHasServices"
+                              value={service.id}
+                              onChange={handleChange}
+                              checked={values.realEstateHasServices?.includes(String(service.id))}
+                            />
+                          }
+                          label={service.name}
+                        />
+                      </Grid>
+                    ))}
+                  </Grid>
+                </FormGroup>
+              </Grid>
             </>
           )}
           <Grid size={12}>
             <FormLabel>Amenities</FormLabel>
             <FormGroup>
               <Grid container spacing={1}>
-                {RealEstateAmenities.map((amenity) => (
-                  <Grid size={4} key={amenity.value}>
+                {amenities.map((amenity) => (
+                  <Grid size={4} key={amenity.id}>
                     <FormControlLabel
                       control={
                         <Checkbox
                           name="realEstateHasAmenities"
-                          value={amenity.value}
+                          value={amenity.id}
                           onChange={handleChange}
-                          checked={values.realEstateHasAmenities.includes(String(amenity.value))}
+                          checked={values.realEstateHasAmenities.includes(String(amenity.id))}
                         />
                       }
-                      label={amenity.label}
+                      label={amenity.name}
                     />
                   </Grid>
                 ))}

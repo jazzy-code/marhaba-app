@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation"
 
 import BasicInformationForm from "./BasicInformationForm"
 import BookingGalleryForm from "./BookingGalleryForm"
+import PriceConfigurationForm from "./PriceConfigurationForm"
 
 const ServiceBaseFormWrapper = ({
   children,
@@ -37,6 +38,7 @@ const ServiceBaseFormWrapper = ({
                 <h2 className="text-2xl font-serif font-bold text-deep-brown">Service Details</h2>
               </div>
               {children}
+              <PriceConfigurationForm />
             </section>
 
             <hr className="border-luxury-border border-dashed" />

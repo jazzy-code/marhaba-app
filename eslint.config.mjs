@@ -27,8 +27,7 @@ const eslintConfig = defineConfig([
       "prettier/prettier": [
         "error",
         {
-          // Aquí puedes poner overrides si no quieres usar un archivo .prettierrc separado,
-          // pero lo ideal es que lea tu .prettierrc automáticamente.
+          // Here you can override any rules specified in the base configs, but is better to have yout .prettierrc
         }
       ],
       // Import order

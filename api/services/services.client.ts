@@ -1,7 +1,7 @@
 // services/services.api.ts
 import { api } from "@/api/axios"
 
-export const getServices = async (params: any) => {
+export const getServices = async (params?: any) => {
   const { data } = await api.get("/services", { params })
   return data
 }
@@ -16,13 +16,17 @@ export const createService = async (payload: any) => {
   return data
 }
 
-export const updateService = async ({ id, ...props }: any) => {
-  console.log(props)
-  const { data } = await api.put(`/services/${id}`, props)
+export const updateService = async ({ serviceId, ...props }: any) => {
+  const { data } = await api.put(`/services/${serviceId}`, props)
   return data
 }
 
 export const deleteService = async (id: string) => {
   const { data } = await api.delete(`/services/${id}`)
+  return data
+}
+
+export const getServiceStats = async () => {
+  const { data } = await api.get("/services/stats")
   return data
 }

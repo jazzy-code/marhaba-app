@@ -1,124 +1,115 @@
-import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-  Grid,
-  MenuItem,
-  TextField
-} from "@mui/material"
+import { Checkbox, FormControlLabel, FormGroup, FormLabel, Grid, MenuItem, TextField } from "@mui/material"
+import { FormikProvider, useFormik } from "formik"
 
-import {
-  PrivateEventAmenities,
-  PrivateEventTypes
-} from "@/lib/consts"
+import { useServices } from "@/context/ServicesContext"
+import useFormikHelpers from "@/hooks/useFormikHelpers"
+import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 
-const ServicePrivateEventForm = ({ formik }: any) => {
+import { servicePrivateEventForm } from "../lib/ServicesFormValues"
 
-  const {
-    values,
-    handleChange,
-    handleBlur,
-    errors,
-    touched
-  } = formik
+import ServiceBaseFormWrapper from "./ServiceBaseFormWrapper"
 
-  console.log(values)
+const ServicePrivateEventForm = ({
+  serviceToEditForm,
+  serviceType,
+  isCreate,
+  mutate,
+  isPending
+}: {
+  serviceToEditForm?: any
+  serviceType: any
+  isCreate: boolean
+  mutate: (values: any) => void
+  isPending: boolean
+}) => {
+  const { privateEvent } = useServices()
+  const { types, amenities } = privateEvent
+
+  const formik = useFormik({
+    initialValues: isCreate
+      ? formatServiceForm(servicePrivateEventForm, serviceType)
+      : formatServiceToEditForm(serviceToEditForm, ["Amenity"]),
+    validateOnChange: false,
+    validateOnBlur: true,
+    onSubmit: (values) => mutate(values)
+  })
+
+  const { values, handleChange, handleBlur } = formik
+  const { handleErrorField, handleErrorFieldMessage } = useFormikHelpers(formik)
 
   return (
-    <>
-
-      {/* EVENT TYPE */}
-
-      <Grid size={6}>
-        <FormLabel>Event Type</FormLabel>
-
-        <TextField
-          select
-          name="privateEventTypeId"
-          value={values.privateEventTypeId}
-          error={touched.privateEventTypeId && Boolean(errors.privateEventTypeId)}
-          helperText={touched.privateEventTypeId && errors.privateEventTypeId}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        >
-          {PrivateEventTypes.map(type => (
-            <MenuItem key={type.value} value={type.value}>
-              {type.label}
-            </MenuItem>
-          ))}
-        </TextField>
-      </Grid>
-
-      {/* CAPACITY */}
-
-      <Grid size={3}>
-        <FormLabel>Capacity</FormLabel>
-
-        <TextField
-          type="number"
-          name="capacity"
-          value={values.capacity}
-          error={touched.capacity && Boolean(errors.capacity)}
-          helperText={touched.capacity && errors.capacity}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
-      </Grid>
-
-      {/* LEAD TIME */}
-
-      <Grid size={3}>
-        <FormLabel>Lead Time (Days)</FormLabel>
-
-        <TextField
-          type="number"
-          name="leadTimeDays"
-          value={values.leadTimeDays}
-          error={touched.leadTimeDays && Boolean(errors.leadTimeDays)}
-          helperText={touched.leadTimeDays && errors.leadTimeDays}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
-      </Grid>
-
-      {/* AMENITIES */}
-
-      <Grid size={12}>
-        <FormLabel>Amenities</FormLabel>
-
-        <FormGroup>
-
-          <Grid container spacing={1}>
-
-            {PrivateEventAmenities.map(amenity => (
-
-              <Grid size={4} key={amenity.value}>
-
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      name="privateEventHasAmenities"
-                      value={String(amenity.value)}
-                      checked={values.privateEventHasAmenities.includes(
-                        String(amenity.value)
-                      )}
-                      onChange={handleChange}
-                    />
-                  }
-                  label={amenity.label}
-                />
-
-              </Grid>
-
-            ))}
-
+    <FormikProvider value={formik}>
+      <ServiceBaseFormWrapper isPending={isPending} isCreate={isCreate}>
+        <Grid container spacing={3}>
+          <Grid size={6}>
+            <FormLabel>Event Type</FormLabel>
+            <TextField
+              select
+              name="privateEventTypeId"
+              value={values.privateEventTypeId}
+              error={handleErrorField("privateEventTypeId")}
+              helperText={handleErrorFieldMessage("privateEventTypeId")}
+              onChange={handleChange}
+              onBlur={handleBlur}>
+              {types.map((type) => (
+                <MenuItem key={type.id} value={type.id}>
+                  {type.name}
+                </MenuItem>
+              ))}
+            </TextField>
           </Grid>
 
-        </FormGroup>
-      </Grid>
+          <Grid size={3}>
+            <FormLabel>Capacity</FormLabel>
+            <TextField
+              type="number"
+              name="capacity"
+              value={values.capacity}
+              error={handleErrorField("capacity")}
+              helperText={handleErrorFieldMessage("capacity")}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </Grid>
 
-    </>
+          <Grid size={3}>
+            <FormLabel>Lead Time (Days)</FormLabel>
+            <TextField
+              type="number"
+              name="leadTimeDays"
+              value={values.leadTimeDays}
+              error={handleErrorField("leadTimeDays")}
+              helperText={handleErrorFieldMessage("leadTimeDays")}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </Grid>
+
+          <Grid size={12}>
+            <FormLabel>Amenities</FormLabel>
+            <FormGroup>
+              <Grid container spacing={1}>
+                {amenities.map((amenity) => (
+                  <Grid size={4} key={amenity.id}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name="privateEventHasAmenities"
+                          value={String(amenity.id)}
+                          checked={values.privateEventHasAmenities.includes(String(amenity.id))}
+                          onChange={handleChange}
+                        />
+                      }
+                      label={amenity.name}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            </FormGroup>
+          </Grid>
+        </Grid>
+      </ServiceBaseFormWrapper>
+    </FormikProvider>
   )
 }
 
