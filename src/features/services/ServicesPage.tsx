@@ -84,7 +84,7 @@ const ServicesPage: FC<ServicesPageProps> = ({ initialData }) => {
   }
 
   const handlePreview = (id: string) => {
-    router.push(`/services/${id}/preview`)
+    router.push(`/dashboard/services/${id}/preview`)
   }
 
   const columns = [
@@ -100,7 +100,7 @@ const ServicesPage: FC<ServicesPageProps> = ({ initialData }) => {
             </div>
             <div>
               <p>{service.title}</p>
-              <small>{service.shortDescription}</small>
+              <small>{service.subtitle}</small>
             </div>
           </div>
         )

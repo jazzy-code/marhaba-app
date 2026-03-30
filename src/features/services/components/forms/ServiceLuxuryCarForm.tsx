@@ -1,5 +1,6 @@
-import { Checkbox, FormControlLabel, FormGroup, FormLabel, Grid, MenuItem, TextField } from "@mui/material"
+import { useEffect } from "react"
 
+import { Checkbox, FormControlLabel, FormGroup, FormLabel, Grid, MenuItem, TextField } from "@mui/material"
 import { FormikProvider, useFormik } from "formik"
 
 import SelectModality from "@/components/fields/SelectModality"
@@ -10,7 +11,7 @@ import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 
 import { serviceLuxuryCarForm } from "../../lib/ServicesFormValues"
 
-import ServiceBaseFormWrapper from "../../../../components/dashboard/services/ServiceBaseFormWrapper"
+import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServiceLuxuryCarsForm = ({
   serviceToEditForm,
@@ -37,8 +38,21 @@ const ServiceLuxuryCarsForm = ({
     onSubmit: (values) => mutate(values)
   })
 
-  const { values, handleChange, handleBlur } = formik
+  const { values, handleChange, handleBlur, setFieldValue } = formik
   const { handleErrorField, handleErrorFieldMessage } = useFormikHelpers(formik)
+
+  useEffect(() => {
+    if (values.modality === "RENT") {
+      setFieldValue("realEstateHousingStatusId", "")
+    }
+
+    if (values.modality === "SALE") {
+      setFieldValue("realEstateStayTypeId", "")
+      setFieldValue("touristLicense", "")
+      setFieldValue("guestsCapacity", "")
+      setFieldValue("realEstateHasServices", [])
+    }
+  }, [setFieldValue, values.modality])
 
   return (
     <FormikProvider value={formik}>

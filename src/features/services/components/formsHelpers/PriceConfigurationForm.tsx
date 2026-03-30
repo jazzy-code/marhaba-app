@@ -2,10 +2,20 @@ import { FormLabel, MenuItem, TextField } from "@mui/material"
 import { useFormikContext } from "formik"
 import { Banknote, DollarSign } from "lucide-react"
 
+import { useCurrency } from "@/hooks/useCurrency"
 import { onKeyPressValidateDecimalNumber } from "@/lib/onKeyPressValidations"
 
 const PriceConfigurationForm = () => {
-  const { values, handleChange, handleBlur, errors, touched } = useFormikContext<any>()
+  const { values, handleChange, handleBlur, setFieldValue } = useFormikContext<any>()
+
+  const { formatStringCurrency } = useCurrency(values.currency)
+
+  const handleCurrencyOnBlur = (e: { target: { name: any; value: any } }) => {
+    const { name, value } = e.target
+    handleBlur(e)
+    setFieldValue(name, formatStringCurrency(value))
+  }
+
   return (
     <div className="md:col-span-3 p-6 bg-luxury-input dark:bg-zinc-800/50 rounded-lg border border-luxury-border mt-4">
       <h3 className="text-lg font-serif font-semibold text-deep-brown mb-6 flex items-center gap-2">
@@ -51,7 +61,7 @@ const PriceConfigurationForm = () => {
               }
             }}
             onChange={handleChange}
-            onBlur={handleBlur}
+            onBlur={handleCurrencyOnBlur}
             onKeyDown={onKeyPressValidateDecimalNumber}
           />
         </div>

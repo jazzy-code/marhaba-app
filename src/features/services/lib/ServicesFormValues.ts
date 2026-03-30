@@ -6,7 +6,10 @@ export const baseServiceForm = {
   subtitle: "A Subtitle",
   shortDescription: "",
   longDescription: "",
-  location: "",
+  regionId: 3,
+  cityId: 68, // Marbella in Database
+  district: "",
+  address: "",
   locationUrl: "",
   exclusiveListing: true,
   latitute: "",

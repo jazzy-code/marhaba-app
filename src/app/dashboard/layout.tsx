@@ -1,7 +1,7 @@
 import { currentUser } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
 
-import { getcountries, getLanguages } from "@/api/helpers/helpers.server"
+import { getCountries, getLanguages, getMalagaCities, getMalagaRegions } from "@/api/helpers/helpers.server"
 import { getBeautySpaProducts, getBeautySpaTreatments } from "@/api/serviceBeautySpa/serviceBeautySpa.server"
 import { getGolfAmenities } from "@/api/serviceGolf/serviceGolf.server"
 import { getJetAmenities, getJetCategories, getJetCaterings } from "@/api/serviceJet/serviceJet.server"
@@ -51,8 +51,13 @@ export default async function LayoutDashboard({ children }: { children: React.Re
   if (publicMetadata?.userType && publicMetadata?.userType === "ADMIN") redirect("/")
 
   // Helpers
-  const [languages, countries] = await Promise.all([getLanguages(), getcountries()])
-  const helpers = { languages, countries }
+  const [languages, countries, malagaRegions, malagaCities] = await Promise.all([
+    getLanguages(),
+    getCountries(),
+    getMalagaRegions(),
+    getMalagaCities()
+  ])
+  const helpers = { languages, countries, malagaRegions, malagaCities }
 
   // Services Helpers
   const [serviceTypes, serviceStatus] = await Promise.all([getServiceTypes(), getServiceStatus()])

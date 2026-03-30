@@ -1,11 +1,16 @@
 "use client"
 
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Switch, TextField } from "@mui/material"
+import { FormControl, FormControlLabel, FormLabel, MenuItem, Radio, RadioGroup, Switch, TextField } from "@mui/material"
 import { useFormikContext } from "formik"
 import { Map } from "lucide-react"
 
+import AutocompleteMarbellaDistricts from "@/components/fields/AutocompleteMarbellaDistricts"
+import { useServices } from "@/context/ServicesContext"
+
 const BasicInformationForm = () => {
-  const { values, handleChange, handleBlur } = useFormikContext<any>()
+  const { helpers } = useServices()
+  const { malagaRegions, malagaCities } = helpers
+  const { values, handleChange, handleBlur, setFieldValue } = useFormikContext<any>()
 
   return (
     <section className="space-y-8">
@@ -17,11 +22,19 @@ const BasicInformationForm = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2 mt-2">
-          <FormLabel required>Title</FormLabel>
+          <div className="flex justify-between items-center mb-1">
+            <FormLabel className="!mb-0" required>
+              Title
+            </FormLabel>
+            <span className="text-[10px] bg-primary-gold/10 text-primary-gold px-2 py-0.5 rounded-full font-medium">
+              {values.title?.length || 0}/100
+            </span>
+          </div>
           <TextField
             name="title"
             placeholder="Ej: Cena Gastronómica Privada al Atardecer"
             value={values.title}
+            slotProps={{ htmlInput: { maxLength: 100 } }}
             onChange={handleChange}
             onBlur={handleBlur}
           />
@@ -36,13 +49,41 @@ const BasicInformationForm = () => {
             onBlur={handleBlur}
           />
         </div>
-        <div className="md:col-span-2">
+        <div className="md:col-span-2 mt-2">
+          <div className="flex justify-between items-center mb-1">
+            <FormLabel className="!mb-0" required>
+              Subtitle / Tagline
+            </FormLabel>
+            <span className="text-[10px] bg-primary-gold/10 text-primary-gold px-2 py-0.5 rounded-full font-medium">
+              {values.subtitle?.length || 0}/100
+            </span>
+          </div>
+          <TextField
+            name="subtitle"
+            placeholder="Ej: Cena Gastronómica Privada al Atardecer"
+            value={values.subtitle}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+        </div>
+        <div className="md:col-span-1 flex items-end">
+          <FormControlLabel
+            control={
+              <Switch
+                checked={values.exclusiveListing}
+                onChange={(e) => setFieldValue("exclusiveListing", e.target.checked)}
+              />
+            }
+            label="Exclusive Listing"
+          />
+        </div>
+        <div className="md:col-span-3">
           <div className="flex justify-between items-center mb-1">
             <FormLabel className="!mb-0" required>
               Short description
             </FormLabel>
             <span className="text-[10px] bg-primary-gold/10 text-primary-gold px-2 py-0.5 rounded-full font-medium">
-              0/180
+              {values.shortDescription?.length || 0}/300
             </span>
           </div>
           <TextField
@@ -55,33 +96,75 @@ const BasicInformationForm = () => {
             onBlur={handleBlur}
           />
         </div>
-        <div className="md:col-span-1 flex items-center">
-          <FormControlLabel control={<Switch defaultChecked />} label="Exclusive Listing" />
-        </div>
         <div className="md:col-span-3">
-          <FormLabel required>Long description</FormLabel>
+          <div className="flex justify-between items-center mb-1">
+            <FormLabel className="!mb-0" required>
+              Long description
+            </FormLabel>
+            <span className="text-[10px] bg-primary-gold/10 text-primary-gold px-2 py-0.5 rounded-full font-medium">
+              {values.longDescription?.length || 0}/1000
+            </span>
+          </div>
           <TextField
             multiline
-            rows={7}
+            rows={10}
             name="longDescription"
             value={values.longDescription}
             onChange={handleChange}
             onBlur={handleBlur}
           />
-          <p className="text-xs text-luxury-gray/60 mt-2 text-right">
-            Se recomiendan mínimo 300 caracteres para mejor posicionamiento.
-          </p>
         </div>
         <div className="md:col-span-3">
-          <h3 className="text-lg font-serif font-semibold text-deep-brown mb-3 flex items-center gap-2">
+          <h3 className="text-lg font-serif font-semibold text-deep-brown flex items-center gap-2">
             <Map className="text-primary-gold" />
             Location
           </h3>
-          <FormLabel required>Location</FormLabel>
+        </div>
+        <div className="md:col-span-1">
+          <FormLabel required>Málaga Region</FormLabel>
+          <TextField select name="regionId" value={values.regionId} onChange={handleChange} onBlur={handleBlur}>
+            {malagaRegions.map((region: any) => (
+              <MenuItem key={region.id} value={region.id}>
+                {region.name}
+              </MenuItem>
+            ))}
+          </TextField>
+        </div>
+        <div className="md:col-span-1">
+          <FormLabel required>{malagaRegions.find((r: any) => r.id === values.regionId)?.name} City</FormLabel>
+          <TextField
+            select
+            name="cityId"
+            value={values.cityId}
+            onChange={(e) => [handleChange(e), setFieldValue("district", "")]}
+            onBlur={handleBlur}>
+            {malagaCities
+              .filter((c: any) => c.regionId === values.regionId)
+              .map((city: any) => (
+                <MenuItem key={city.id} value={city.id}>
+                  {city.name}
+                </MenuItem>
+              ))}
+          </TextField>
+        </div>
+        <div className="md:col-span-1">
+          <FormLabel>District</FormLabel>
+          {values.cityId === 68 ? (
+            <AutocompleteMarbellaDistricts
+              value={values.district}
+              onChange={(e: any, newValue: any) => handleChange({ target: { name: "district", value: newValue } })}
+              onBlur={handleBlur}
+            />
+          ) : (
+            <TextField name="district" value={values.district} onChange={handleChange} onBlur={handleBlur} />
+          )}
+        </div>
+        <div className="md:col-span-3">
+          <FormLabel required>Address</FormLabel>
           <TextField
             placeholder="Av. Paseo de la Reforma 123"
-            name="location"
-            value={values.location}
+            name="address"
+            value={values.address}
             onChange={handleChange}
             onBlur={handleBlur}
           />

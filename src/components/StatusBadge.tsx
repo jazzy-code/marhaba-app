@@ -13,7 +13,7 @@ const StatusBadge: React.FC<BadgeProps> = ({ status }: BadgeProps) => {
     Rejected: "error"
   }
 
-  return <Chip label={status} color={statusColor[status]} />
+  return <Chip label={status} color={statusColor[status]} size="medium" />
 }
 
 export default StatusBadge

@@ -11,7 +11,7 @@ import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 
 import { serviceJetForm } from "../../lib/ServicesFormValues"
 
-import ServiceBaseFormWrapper from "../../../../components/dashboard/services/ServiceBaseFormWrapper"
+import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServiceJetForm = ({
   serviceToEditForm,
@@ -48,7 +48,6 @@ const ServiceJetForm = ({
 
     if (values.modality === "SALE") {
       setFieldValue("jetCateringId", "")
-      setFieldValue("hourlyRate", "")
     }
   }, [setFieldValue, values.modality])
 

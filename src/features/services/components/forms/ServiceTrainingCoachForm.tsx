@@ -7,7 +7,7 @@ import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 
 import { serviceTrainingCoachForm } from "../../lib/ServicesFormValues"
 
-import ServiceBaseFormWrapper from "../../../../components/dashboard/services/ServiceBaseFormWrapper"
+import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServiceTrainingCoachForm = ({
   serviceToEditForm,

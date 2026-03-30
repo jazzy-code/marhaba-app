@@ -6,8 +6,7 @@ import useFormikHelpers from "@/hooks/useFormikHelpers"
 import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 
 import { serviceGolfForm } from "../../lib/ServicesFormValues"
-
-import ServiceBaseFormWrapper from "../../../../components/dashboard/services/ServiceBaseFormWrapper"
+import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServiceGolfForm = ({
   serviceToEditForm,

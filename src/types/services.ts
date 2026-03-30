@@ -25,9 +25,15 @@ export interface CountryItem extends CatalogItem {
   iso: string
 }
 
+export interface CityItem extends CatalogItem {
+  regionId: number
+}
+
 export interface Helpers {
   languages: CatalogItem[]
   countries: CountryItem[]
+  malagaRegions: CatalogItem[]
+  malagaCities: CityItem[]
 }
 
 // Service Helpers

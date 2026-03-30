@@ -1,16 +1,16 @@
+import { useEffect } from "react"
+
 import { Checkbox, FormControlLabel, FormGroup, FormLabel, Grid, MenuItem, TextField, Button } from "@mui/material"
 import { FormikProvider, useFormik } from "formik"
 
 import SelectModality from "@/components/fields/SelectModality"
-
 import { useServices } from "@/context/ServicesContext"
 import useFormikHelpers from "@/hooks/useFormikHelpers"
 import { onKeyPressValidateDecimalNumber, onKeyPressValidateIntegerNumber } from "@/lib/onKeyPressValidations"
 import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 
 import { serviceYachtForm } from "../../lib/ServicesFormValues"
-
-import ServiceBaseFormWrapper from "../../../../components/dashboard/services/ServiceBaseFormWrapper"
+import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServiceYachtForm = ({
   serviceToEditForm,
@@ -38,7 +38,7 @@ const ServiceYachtForm = ({
     onSubmit: (values) => mutate(values)
   })
 
-  const { values, handleChange, handleBlur, setFieldValue, touched, errors } = formik
+  const { errors, touched, values, handleChange, handleBlur, setFieldValue } = formik
   const { handleErrorField, handleErrorFieldMessage } = useFormikHelpers(formik)
 
   const addTripulation = () => {
@@ -50,6 +50,20 @@ const ServiceYachtForm = ({
     updated.splice(index, 1)
     setFieldValue("yachtTripulation", updated)
   }
+
+  useEffect(() => {
+    if (values.modality === "RENT") {
+      setFieldValue("motorHours", "")
+      setFieldValue("countryId", "")
+    }
+
+    if (values.modality === "SALE") {
+      setFieldValue("port", "")
+      setFieldValue("fuelPerformance", "")
+      setFieldValue("apa", "")
+      setFieldValue("realEstateHasServices", [])
+    }
+  }, [setFieldValue, values.modality])
 
   return (
     <FormikProvider value={formik}>

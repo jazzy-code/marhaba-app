@@ -121,13 +121,13 @@ const Header = () => {
             </SignedOut>
           </div>
           <button
-            // onClick={() => setIsInquiryModalOpen(true)}
+            onClick={() => router.push("/dashboard")}
             className={`h-11 items-center justify-center rounded-sm px-8 text-[11px] uppercase tracking-[0.2em] font-bold transition-all active:scale-95 shadow-lg flex ${
               scrolled || !isHome
                 ? "bg-brand-primary text-white hover:bg-primary-gold"
                 : "bg-white text-deep-brown hover:bg-primary-gold hover:text-white"
             }`}>
-            Inquire
+            My Dashboard
           </button>
           <SignedIn>
             <UserButton />

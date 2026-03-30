@@ -1,14 +1,18 @@
-import { Checkbox, FormControlLabel, FormGroup, FormLabel, Grid, MenuItem, TextField } from "@mui/material"
+import { useEffect } from "react"
+
+import { FormGroup, FormLabel, Grid, MenuItem, TextField } from "@mui/material"
 import { FormikProvider, useFormik } from "formik"
 
+import CheckboxGroup from "@/components/fields/CheckboxGroup"
 import SelectModality from "@/components/fields/SelectModality"
 import { useServices } from "@/context/ServicesContext"
+import useFormikHelpers from "@/hooks/useFormikHelpers"
 import { onKeyPressValidateDecimalNumber, onKeyPressValidateIntegerNumber } from "@/lib/onKeyPressValidations"
 import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 
 import { serviceRealEstateForm } from "../../lib/ServicesFormValues"
 
-import ServiceBaseFormWrapper from "../../../../components/dashboard/services/ServiceBaseFormWrapper"
+import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServiceRealEstateForm = ({
   serviceToEditForm,
@@ -35,7 +39,21 @@ const ServiceRealEstateForm = ({
     onSubmit: (values) => mutate(values)
   })
 
-  const { values, handleChange, handleBlur, errors, touched } = formik
+  const { values, handleChange, handleBlur, setFieldValue } = formik
+  const { handleErrorField, handleErrorFieldMessage } = useFormikHelpers(formik)
+
+  useEffect(() => {
+    if (values.modality === "RENT") {
+      setFieldValue("realEstateHousingStatusId", "")
+    }
+
+    if (values.modality === "SALE") {
+      setFieldValue("realEstateStayTypeId", "")
+      setFieldValue("touristLicense", "")
+      setFieldValue("guestsCapacity", "")
+      setFieldValue("realEstateHasServices", [])
+    }
+  }, [setFieldValue, values.modality])
 
   return (
     <FormikProvider value={formik}>
@@ -45,8 +63,8 @@ const ServiceRealEstateForm = ({
             <FormLabel>Modality</FormLabel>
             <SelectModality
               value={values.modality}
-              error={touched.modality && Boolean(errors.modality)}
-              helperText={touched?.modality && errors?.modality}
+              error={handleErrorField("modality")}
+              helperText={handleErrorFieldMessage("modality")}
               onChange={handleChange}
               onBlur={handleBlur}
             />
@@ -59,8 +77,8 @@ const ServiceRealEstateForm = ({
               value={values.realEstateTypeId}
               onChange={handleChange}
               onBlur={handleBlur}
-              error={touched.realEstateTypeId && Boolean(errors.realEstateTypeId)}
-              helperText={touched.realEstateTypeId && String(errors.realEstateTypeId)}>
+              error={handleErrorField("realEstateTypeId")}
+              helperText={handleErrorFieldMessage("realEstateTypeId")}>
               {types.map((type) => (
                 <MenuItem key={type.id} value={type.id}>
                   {type.name}
@@ -73,8 +91,8 @@ const ServiceRealEstateForm = ({
             <TextField
               name="rooms"
               value={values.rooms}
-              error={touched.rooms && Boolean(errors.rooms)}
-              helperText={touched.rooms && String(errors.rooms)}
+              error={handleErrorField("rooms")}
+              helperText={handleErrorFieldMessage("rooms")}
               onChange={handleChange}
               onBlur={handleBlur}
               onKeyDown={onKeyPressValidateIntegerNumber}
@@ -85,20 +103,20 @@ const ServiceRealEstateForm = ({
             <TextField
               name="fullBathrooms"
               value={values.fullBathrooms}
-              error={touched.fullBathrooms && Boolean(errors.fullBathrooms)}
-              helperText={touched.fullBathrooms && String(errors.fullBathrooms)}
+              error={handleErrorField("fullBathrooms")}
+              helperText={handleErrorFieldMessage("fullBathrooms")}
               onChange={handleChange}
               onBlur={handleBlur}
               onKeyDown={onKeyPressValidateIntegerNumber}
             />
           </Grid>
           <Grid size={4}>
-            <FormLabel>Full Bathrooms</FormLabel>
+            <FormLabel>Half Bathrooms</FormLabel>
             <TextField
               name="halfBathrooms"
               value={values.halfBathrooms}
-              error={touched.halfBathrooms && Boolean(errors.halfBathrooms)}
-              helperText={touched.halfBathrooms && String(errors.halfBathrooms)}
+              error={handleErrorField("halfBathrooms")}
+              helperText={handleErrorFieldMessage("halfBathrooms")}
               onChange={handleChange}
               onBlur={handleBlur}
               onKeyDown={onKeyPressValidateIntegerNumber}
@@ -109,8 +127,8 @@ const ServiceRealEstateForm = ({
             <TextField
               name="surfaceBuiltMt2"
               value={values.surfaceBuiltMt2}
-              error={touched.surfaceBuiltMt2 && Boolean(errors.surfaceBuiltMt2)}
-              helperText={touched.surfaceBuiltMt2 && String(errors.surfaceBuiltMt2)}
+              error={handleErrorField("surfaceBuiltMt2")}
+              helperText={handleErrorFieldMessage("surfaceBuiltMt2")}
               onChange={handleChange}
               onBlur={handleBlur}
               onKeyDown={onKeyPressValidateDecimalNumber}
@@ -121,8 +139,8 @@ const ServiceRealEstateForm = ({
             <TextField
               name="surfacePlotMt2"
               value={values.surfacePlotMt2}
-              error={touched.surfacePlotMt2 && Boolean(errors.surfacePlotMt2)}
-              helperText={touched.surfacePlotMt2 && String(errors.surfacePlotMt2)}
+              error={handleErrorField("surfacePlotMt2")}
+              helperText={handleErrorFieldMessage("surfacePlotMt2")}
               onChange={handleChange}
               onBlur={handleBlur}
               onKeyDown={onKeyPressValidateDecimalNumber}
@@ -133,8 +151,8 @@ const ServiceRealEstateForm = ({
             <TextField
               name="surfaceTerraceMt2"
               value={values.surfaceTerraceMt2}
-              error={touched.surfaceTerraceMt2 && Boolean(errors.surfaceTerraceMt2)}
-              helperText={touched.surfaceTerraceMt2 && String(errors.surfaceTerraceMt2)}
+              error={handleErrorField("surfaceTerraceMt2")}
+              helperText={handleErrorFieldMessage("surfaceTerraceMt2")}
               onChange={handleChange}
               onBlur={handleBlur}
               onKeyDown={onKeyPressValidateDecimalNumber}
@@ -147,8 +165,8 @@ const ServiceRealEstateForm = ({
                 select
                 name="realEstateHousingStatusId"
                 value={values.realEstateHousingStatusId}
-                error={touched.realEstateHousingStatusId && Boolean(errors.realEstateHousingStatusId)}
-                helperText={touched.realEstateHousingStatusId && String(errors.realEstateHousingStatusId)}
+                error={handleErrorField("realEstateHousingStatusId")}
+                helperText={handleErrorFieldMessage("realEstateHousingStatusId")}
                 onChange={handleChange}
                 onBlur={handleBlur}>
                 {housingStatus.map((type) => (
@@ -166,8 +184,8 @@ const ServiceRealEstateForm = ({
                 <TextField
                   name="guestsCapacity"
                   value={values.guestsCapacity}
-                  error={touched.guestsCapacity && Boolean(errors.guestsCapacity)}
-                  helperText={touched.guestsCapacity && String(errors.guestsCapacity)}
+                  error={handleErrorField("guestsCapacity")}
+                  helperText={handleErrorFieldMessage("guestsCapacity")}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   onKeyDown={onKeyPressValidateDecimalNumber}
@@ -179,8 +197,8 @@ const ServiceRealEstateForm = ({
                   select
                   name="realEstateStayTypeId"
                   value={values.realEstateStayTypeId}
-                  error={touched.realEstateStayTypeId && Boolean(errors.realEstateStayTypeId)}
-                  helperText={touched.realEstateStayTypeId && String(errors.realEstateStayTypeId)}
+                  error={handleErrorField("realEstateStayTypeId")}
+                  helperText={handleErrorFieldMessage("realEstateStayTypeId")}
                   onChange={handleChange}
                   onBlur={handleBlur}>
                   {stayTypes.map((type) => (
@@ -195,8 +213,8 @@ const ServiceRealEstateForm = ({
                 <TextField
                   name="touristLicense"
                   value={values.touristLicense}
-                  error={touched.touristLicense && Boolean(errors.touristLicense)}
-                  helperText={touched.touristLicense && String(errors.touristLicense)}
+                  error={handleErrorField("touristLicense")}
+                  helperText={handleErrorFieldMessage("touristLicense")}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
@@ -204,23 +222,12 @@ const ServiceRealEstateForm = ({
               <Grid size={12}>
                 <FormLabel>Services</FormLabel>
                 <FormGroup>
-                  <Grid container spacing={1}>
-                    {services.map((service) => (
-                      <Grid size={4} key={service.id}>
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              name="realEstateHasServices"
-                              value={service.id}
-                              onChange={handleChange}
-                              checked={values.realEstateHasServices?.includes(String(service.id))}
-                            />
-                          }
-                          label={service.name}
-                        />
-                      </Grid>
-                    ))}
-                  </Grid>
+                  <CheckboxGroup
+                    items={services}
+                    name="realEstateHasServices"
+                    selectedValues={values.realEstateHasServices}
+                    onChange={handleChange}
+                  />
                 </FormGroup>
               </Grid>
             </>
@@ -228,23 +235,12 @@ const ServiceRealEstateForm = ({
           <Grid size={12}>
             <FormLabel>Amenities</FormLabel>
             <FormGroup>
-              <Grid container spacing={1}>
-                {amenities.map((amenity) => (
-                  <Grid size={4} key={amenity.id}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name="realEstateHasAmenities"
-                          value={amenity.id}
-                          onChange={handleChange}
-                          checked={values.realEstateHasAmenities.includes(String(amenity.id))}
-                        />
-                      }
-                      label={amenity.name}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
+              <CheckboxGroup
+                items={amenities}
+                name="realEstateHasAmenities"
+                selectedValues={values.realEstateHasAmenities}
+                onChange={handleChange}
+              />
             </FormGroup>
           </Grid>
         </Grid>

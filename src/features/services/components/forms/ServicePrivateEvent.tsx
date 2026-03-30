@@ -7,7 +7,7 @@ import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 
 import { servicePrivateEventForm } from "../../lib/ServicesFormValues"
 
-import ServiceBaseFormWrapper from "../../../../components/dashboard/services/ServiceBaseFormWrapper"
+import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServicePrivateEventForm = ({
   serviceToEditForm,

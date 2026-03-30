@@ -1,15 +1,14 @@
-import { Checkbox, FormControlLabel, FormGroup, FormLabel, Grid, MenuItem, TextField } from "@mui/material"
+import { FormGroup, FormLabel, Grid, MenuItem, TextField } from "@mui/material"
 import { FormikProvider, useFormik } from "formik"
 
+import CheckboxGroup from "@/components/fields/CheckboxGroup"
 import { useServices } from "@/context/ServicesContext"
 import useFormikHelpers from "@/hooks/useFormikHelpers"
-import { LuxuryStayCategories, LuxuryStayRooms, LuxuryStayCancelations, LuxuryStayAmenities } from "@/lib/consts"
 import { onKeyPressValidateIntegerNumber } from "@/lib/onKeyPressValidations"
 import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 
 import { serviceLuxuryStayForm } from "../../lib/ServicesFormValues"
-
-import ServiceBaseFormWrapper from "../../../../components/dashboard/services/ServiceBaseFormWrapper"
+import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServiceLuxuryStayForm = ({
   serviceToEditForm,
@@ -25,7 +24,7 @@ const ServiceLuxuryStayForm = ({
   isPending: boolean
 }) => {
   const { luxuryStay } = useServices()
-  const { amenities } = luxuryStay
+  const { amenities, categories, rooms } = luxuryStay
 
   const formik = useFormik({
     initialValues: isCreate
@@ -96,9 +95,9 @@ const ServiceLuxuryStayForm = ({
               helperText={handleErrorFieldMessage("luxuryStayCategoryId")}
               onChange={handleChange}
               onBlur={handleBlur}>
-              {LuxuryStayCategories.map((category) => (
-                <MenuItem key={category.value} value={category.value}>
-                  {category.label}
+              {categories.map((category) => (
+                <MenuItem key={category.id} value={category.id}>
+                  {category.name}
                 </MenuItem>
               ))}
             </TextField>
@@ -114,9 +113,9 @@ const ServiceLuxuryStayForm = ({
               helperText={handleErrorFieldMessage("luxuryStayRoomId")}
               onChange={handleChange}
               onBlur={handleBlur}>
-              {LuxuryStayRooms.map((room) => (
-                <MenuItem key={room.value} value={room.value}>
-                  {room.label}
+              {rooms.map((room) => (
+                <MenuItem key={room.id} value={room.id}>
+                  {room.name}
                 </MenuItem>
               ))}
             </TextField>
@@ -132,11 +131,8 @@ const ServiceLuxuryStayForm = ({
               helperText={handleErrorFieldMessage("cancelation")}
               onChange={handleChange}
               onBlur={handleBlur}>
-              {LuxuryStayCancelations.map((cancel) => (
-                <MenuItem key={cancel.value} value={cancel.value}>
-                  {cancel.label}
-                </MenuItem>
-              ))}
+              <MenuItem value="STRICT">Strict</MenuItem>
+              <MenuItem value="FLEXIBLE">Flexible</MenuItem>
             </TextField>
           </Grid>
 
@@ -145,23 +141,12 @@ const ServiceLuxuryStayForm = ({
           <Grid size={12}>
             <FormLabel>Amenities</FormLabel>
             <FormGroup>
-              <Grid container spacing={1}>
-                {amenities.map((amenity) => (
-                  <Grid size={4} key={amenity.id}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name="luxuryStayHasAmenities"
-                          value={String(amenity.id)}
-                          checked={values.luxuryStayHasAmenities.includes(String(amenity.id))}
-                          onChange={handleChange}
-                        />
-                      }
-                      label={amenity.id}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
+              <CheckboxGroup
+                items={amenities}
+                name="luxuryStayHasAmenities"
+                selectedValues={values.luxuryStayHasAmenities}
+                onChange={handleChange}
+              />
             </FormGroup>
           </Grid>
         </Grid>

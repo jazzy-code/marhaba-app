@@ -12,6 +12,7 @@ import { setAuthToken } from "@/api/apiClient"
 import { createService, updateService } from "@/api/services/services.client"
 import StatusBadge from "@/components/StatusBadge"
 import { useServices } from "@/context/ServicesContext"
+import { parseToNumber } from "@/utils/numbers"
 
 import ServiceBeautySpaForm from "./components/forms/ServiceBeautySpaForm"
 import ServiceGolfForm from "./components/forms/ServiceGolfForm"
@@ -52,7 +53,8 @@ const ServiceForm = ({ isCreate = true, serviceToEdit }: { isCreate?: boolean; s
     mutationFn: async (data: any) => {
       const token = await getToken()
       setAuthToken(token)
-      return isCreate ? createService(data) : updateService(data)
+      const dataFormatted = { ...data, price: parseToNumber(data.price) }
+      return isCreate ? createService(dataFormatted) : updateService(dataFormatted)
     },
     onSuccess: () => {
       setServiceSaved(true)
