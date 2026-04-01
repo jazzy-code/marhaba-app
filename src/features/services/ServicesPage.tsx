@@ -47,7 +47,7 @@ const ServicesPage: FC<ServicesPageProps> = ({ initialData }) => {
   } = useDataTable(setservicesParams, setSearchBarValue, searchBarValue)
 
   const {
-    data: { data: services, total, totalPages }
+    data: { data: services, total }
   } = useQuery({
     queryKey: ["services", servicesParams],
     queryFn: async () => {

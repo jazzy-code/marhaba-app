@@ -14,7 +14,6 @@ const SearchBar = ({ value, placeholder = "Search by Title", onChange, onClear, 
     <TextField
       className="searchbar"
       sx={{
-        width: "22rem !important",
         marginBottom: 0,
         marginRight: "1rem",
         "& .MuiInputBase-root": {

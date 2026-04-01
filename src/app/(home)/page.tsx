@@ -1,9 +1,29 @@
+"use client"
+
+import { useEffect } from "react"
+
+import { useUser, useClerk } from "@clerk/nextjs"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 
 import Hero from "@/app/(home)/_components/Hero"
 
 export default function HomePage() {
+  const { user, isLoaded } = useUser()
+  const { signOut } = useClerk()
+
+  useEffect(() => {
+    // Verificamos que Clerk haya cargado y que haya un usuario
+    if (isLoaded && user) {
+      const userType = user.publicMetadata?.userType
+
+      // Si NO es ADMIN, cerramos la sesión forzosamente
+      if (userType === "ADMIN") {
+        signOut({ redirectUrl: "/" })
+      }
+    }
+  }, [user, isLoaded, signOut])
+
   return (
     <>
       <Hero />

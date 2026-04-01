@@ -9,7 +9,7 @@ import StatusBadge from "@/components/StatusBadge"
 import ServiceLuxuryStayPreview from "./components/previews/ServiceLuxuryStayPreview"
 import ServiceRealEstatePreview from "./components/previews/ServiceRealEstatePreview"
 
-const ServicePreviewPage = ({ service }: any) => {
+const ServicePreviewPage = ({ service, isPublic }: { service: any; isPublic?: boolean }) => {
   const router = useRouter()
 
   const serviceDetails = service && { ...service }
@@ -35,6 +35,24 @@ const ServicePreviewPage = ({ service }: any) => {
     MedicalCare: <ServiceLuxuryStayPreview service={serviceFormatted} />,
     BeautySpa: <ServiceLuxuryStayPreview service={serviceFormatted} />,
     Golf: <ServiceLuxuryStayPreview service={serviceFormatted} />
+  }
+
+  if (isPublic) {
+    return (
+      <div className="overflow-y-auto h-full py-5 px-4 sm:px-6 lg:px-8 mt-24">
+        <div className="flex items-center justify-between pe-2 lg:pe-4">
+          <Button
+            startIcon={<ArrowLeft />}
+            size="small"
+            type="button"
+            color="secondaryDark"
+            onClick={() => router.back()}>
+            Back
+          </Button>
+        </div>
+        {servicesPreviews[serviceFormatted.serviceType]}
+      </div>
+    )
   }
 
   return (

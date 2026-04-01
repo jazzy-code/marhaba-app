@@ -2,20 +2,52 @@
 
 import { useState } from "react"
 
-import { useRouter } from "next/navigation"
+import { useAuth } from "@clerk/nextjs"
+import { useQuery } from "@tanstack/react-query"
+import { Search } from "lucide-react"
+import { useSearchParams } from "next/navigation"
+
+import { setAuthToken } from "@/api/apiClient"
+import { getPublicServices } from "@/api/services/services.client"
 
 import SearchBar from "../../components/fields/SearchBar"
 
 import CatalogServicesResults from "./components/CatalogServicesResults"
 import ServicesList from "./components/ServicesList"
 
-const CatalogPage = ({ services }: any) => {
-  const router = useRouter()
-  const [searchQuery, setSearchQuery] = useState("")
+interface CatalogPageProps {
+  initialData: any[]
+  slug?: string
+}
+
+const CatalogPage = ({ initialData, slug }: CatalogPageProps) => {
+  const searchParams = useSearchParams()
+  const { getToken } = useAuth()
+
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "")
+  const [servicesParams, setServicesParams] = useState({
+    page: 1,
+    size: 100,
+    sort: "createdAt",
+    order: "desc",
+    slug,
+    search: searchParams.get("search")
+  })
+
+  const { data: services } = useQuery({
+    queryKey: ["publicServices", servicesParams],
+    queryFn: async () => {
+      const token = await getToken()
+      setAuthToken(token)
+      return getPublicServices({ ...servicesParams })
+    },
+    initialData: initialData,
+    refetchOnMount: false
+  })
 
   return (
     <div className="bg-page min-h-screen pt-32 pb-20 flex flex-col">
-      <div className="flex-1 max-w-[1400px] mx-auto px-0 lg:px-12 flex flex-col">
+      <div className="flex-1 max-w-[1400px] mx-auto px-4 lg:px-12 flex flex-col w-full">
         <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <span className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3 text-primary-gold block">
@@ -27,12 +59,13 @@ const CatalogPage = ({ services }: any) => {
             <SearchBar
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              onClear={() => setSearchQuery("")}
+              onClear={() => [setSearchQuery(""), setServicesParams({ ...servicesParams, search: "" })]}
+              onKeyDown={(e) => e.key === "Enter" && setServicesParams({ ...servicesParams, search: searchQuery })}
             />
           </div>
         </div>
 
-        <div className="flex flex-1 flex-col md:flex-row gap-12 max-h-[calc(100vh-200px)]">
+        <div className="flex flex-1 flex-col md:flex-row gap-12 md:max-h-[calc(100vh-200px)] w-full">
           <ServicesList />
 
           <div className="flex-1 overflow-y-auto">
@@ -40,15 +73,8 @@ const CatalogPage = ({ services }: any) => {
               <CatalogServicesResults services={services} />
             ) : (
               <div className="text-center py-32 bg-white border border-dashed border-brand-border">
-                <span className="material-symbols-outlined text-[48px] text-brand-border mx-auto mb-4 icon-thin">
-                  search
-                </span>
-                <p className="text-brand-secondary text-sm">No exclusive services found matching your criteria.</p>
-                <button
-                  onClick={() => router.push("/catalog")}
-                  className="mt-4 text-primary-gold font-bold text-[10px] uppercase tracking-widest hover:underline">
-                  Clear all filters
-                </button>
+                <Search size={40} className="text-primary-gold mx-auto mb-4" />
+                <p className="text-brand-secondary text-lg">No services found.</p>
               </div>
             )}
           </div>

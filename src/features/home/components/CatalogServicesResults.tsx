@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 
 const CatalogServicesResults = ({ services }: { services: any }) => {
   const { data = [] } = services
+  console.log("data", data)
   const router = useRouter()
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -20,15 +21,15 @@ const CatalogServicesResults = ({ services }: { services: any }) => {
             />
             <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1">
               <span className="text-[10px] uppercase font-bold tracking-wider text-primary-gold">
-                {service.category}
+                {service.serviceType.name}
               </span>
             </div>
           </div>
           <div className="p-6 flex flex-col flex-1">
             <h3 className="font-serif text-xl text-deep-brown mb-2">{service.title}</h3>
             <div className="flex items-center gap-2 text-[10px] text-text-muted uppercase tracking-wider mb-6">
-              <span className="material-symbols-outlined text-primary-gold text-[14px] icon-filled">location_on</span>{" "}
-              {service.location}
+              <span className="material-symbols-outlined text-primary-gold text-[14px] icon-filled">location_on</span>
+              {service.city?.name}, {service.district}
             </div>
             <div className="mt-auto pt-6 border-t border-brand-border/20 flex justify-between items-center">
               <div>
@@ -39,7 +40,7 @@ const CatalogServicesResults = ({ services }: { services: any }) => {
             <div className="flex justify-end mt-2">
               <button
                 className="text-[11px] uppercase tracking-widest font-medium text-deep-brown flex items-center gap-2 group/btn"
-                onClick={() => router.push(`/catalog/${service.id}`)}>
+                onClick={() => router.push(`/service/${service.id}`)}>
                 Explore <ArrowRight className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
               </button>
             </div>

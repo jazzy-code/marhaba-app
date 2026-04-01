@@ -1,10 +1,11 @@
 "use client"
 import { createContext, ReactNode, useContext } from "react"
 
-import { ServiceTypeItem } from "@/types/services"
+import { CategoryItem, ServiceTypeItem } from "@/types/services"
 
 interface PublicServicesContextProps {
   serviceTypes: ServiceTypeItem[]
+  categories: CategoryItem[]
 }
 
 const PublicServicesContext = createContext<PublicServicesContextProps | undefined>(undefined)

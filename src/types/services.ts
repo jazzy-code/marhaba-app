@@ -17,6 +17,10 @@ export interface ServiceTypeItem extends CatalogItem {
   slug: string
 }
 
+export interface CategoryItem extends CatalogItem {
+  serviceTypes: ServiceTypeItem[]
+}
+
 export interface ColorItem extends CatalogItem {
   hex: string
 }

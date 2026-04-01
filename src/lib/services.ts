@@ -10,6 +10,7 @@ const toLowerCaseFirst = (str: string): string => {
 export const formatServiceForm = (form: any, serviceType: any) => {
   return { ...form, serviceType: serviceType.key, serviceTypeId: serviceType.id }
 }
+
 export const formatServiceToEditForm = (form: any, manyToManyModelEntities: string[] = ["Amenity"]) => {
   const serviceType = toLowerCaseFirst(form.serviceType)
   const formatManyToManyModels: Record<string, any> = {}
