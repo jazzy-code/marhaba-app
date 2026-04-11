@@ -4,24 +4,21 @@ import { FormikProvider, useFormik } from "formik"
 import { useServices } from "@/context/ServicesContext"
 import useFormikHelpers from "@/hooks/useFormikHelpers"
 import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
+import type { ServiceFormProps } from "@/types/services"
 
 import { servicePrivateEventForm } from "../../lib/ServicesFormValues"
 
 import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServicePrivateEventForm = ({
+  serviceFiles,
+  setServiceFiles,
   serviceToEditForm,
   serviceType,
   isCreate,
   mutate,
   isPending
-}: {
-  serviceToEditForm?: any
-  serviceType: any
-  isCreate: boolean
-  mutate: (values: any) => void
-  isPending: boolean
-}) => {
+}: ServiceFormProps) => {
   const { privateEvent } = useServices()
   const { types, amenities } = privateEvent
 
@@ -39,7 +36,11 @@ const ServicePrivateEventForm = ({
 
   return (
     <FormikProvider value={formik}>
-      <ServiceBaseFormWrapper isPending={isPending} isCreate={isCreate}>
+      <ServiceBaseFormWrapper
+        isPending={isPending}
+        isCreate={isCreate}
+        serviceFiles={serviceFiles}
+        setServiceFiles={setServiceFiles}>
         <Grid container spacing={3}>
           <Grid size={6}>
             <FormLabel>Event Type</FormLabel>

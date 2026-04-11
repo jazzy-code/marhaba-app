@@ -122,9 +122,9 @@ const theme = createTheme({
     MuiDialogTitle: {
       styleOverrides: {
         root: {
-          boxShadow: "0px 3px 11px 0px rgba(86, 86, 86, 0.31)",
-          webkitBoxShadow: "0px 3px 11px 0px rgba(86, 86, 86, 0.31)",
-          mozBoxShadow: "0px 3px 11px 0px rgba(86, 86, 86, 0.31)",
+          // boxShadow: "0px 3px 11px 0px rgba(86, 86, 86, 0.31)",
+          // webkitBoxShadow: "0px 3px 11px 0px rgba(86, 86, 86, 0.31)",
+          // mozBoxShadow: "0px 3px 11px 0px rgba(86, 86, 86, 0.31)",
           justifyContent: "space-between",
           alignItems: "center",
           display: "flex"

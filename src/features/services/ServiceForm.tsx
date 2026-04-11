@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
 import { useAuth } from "@clerk/nextjs"
 import { Button, MenuItem, TextField } from "@mui/material"
@@ -9,7 +9,7 @@ import { ArrowLeft } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 import { setAuthToken } from "@/api/apiClient"
-import { createService, updateService } from "@/api/services/services.client"
+import { createService, updateService, uploadServiceFiles } from "@/api/services/services.client"
 import StatusBadge from "@/components/StatusBadge"
 import { useServices } from "@/context/ServicesContext"
 import { parseToNumber } from "@/utils/numbers"
@@ -35,19 +35,72 @@ const ServiceForm = ({ isCreate = true, serviceToEdit }: { isCreate?: boolean; s
   const { services } = useServices()
   const { types } = services
 
-  const serviceDetails = serviceToEdit && { ...serviceToEdit }
-  const serviceToEditForm = serviceDetails
-    ? {
-        ...serviceDetails,
-        serviceType: serviceDetails.serviceType.key,
-        ...serviceDetails[`service${serviceDetails.serviceType.key}`]
-      }
-    : null
+  const serviceDetails = useMemo(() => serviceToEdit && { ...serviceToEdit }, [serviceToEdit])
+  const serviceToEditForm = useMemo(() => {
+    return serviceDetails
+      ? {
+          ...serviceDetails,
+          serviceType: serviceDetails.serviceType.key,
+          ...serviceDetails[`service${serviceDetails.serviceType.key}`]
+        }
+      : null
+  }, [serviceDetails])
   delete serviceToEditForm?.[`service${serviceDetails.serviceType.key}`]
   const serviceExists = !isCreate && Boolean(serviceToEditForm)
 
   const [serviceType, setServiceType] = useState(isCreate ? "" : serviceExists ? serviceToEditForm.serviceType : "")
   const [serviceSaved, setServiceSaved] = useState(false)
+  const [serviceFiles, setServiceFiles] = useState({
+    heroImage: null,
+    providerLogo: null,
+    galleryFiles: isCreate ? [] : serviceToEditForm.serviceFiles
+  })
+
+  const filesHaveChanges = useMemo(() => {
+    if (isCreate) {
+      return (
+        serviceFiles.heroImage !== null || serviceFiles.providerLogo !== null || serviceFiles.galleryFiles.length > 0
+      )
+    }
+
+    if (!serviceToEditForm) return false
+
+    const heroChanged = serviceFiles.heroImage !== null
+    const logoChanged = serviceFiles.providerLogo !== null
+
+    const originalGallery = serviceToEditForm.serviceFiles || []
+    const currentGallery = serviceFiles.galleryFiles || []
+
+    const galleryChanged =
+      originalGallery.length !== currentGallery.length ||
+      currentGallery.some((file: any, idx: number) => file.id !== originalGallery[idx]?.id)
+
+    return heroChanged || logoChanged || galleryChanged
+  }, [serviceFiles, serviceToEditForm, isCreate])
+
+  const { mutate: uploadFiles, isPending: isUploading } = useMutation({
+    mutationFn: async (data: any) => {
+      const token = await getToken()
+      setAuthToken(token)
+
+      // We filter because the array galleryFiles in "EDIT" has the current file items stored in DB
+      // and we need to separate the new "File" elements from the "serviceFile" elements
+      const files = serviceFiles.galleryFiles.filter((file: any) => !file.id)
+      const existingFileIds = serviceFiles.galleryFiles.filter((file: any) => file.id).map((file: any) => file.id)
+
+      return uploadServiceFiles(data.serviceId, {
+        ...serviceFiles,
+        galleryFiles: files,
+        existingFileIds: [...existingFileIds]
+      })
+    },
+    onSuccess: () => {
+      setServiceSaved(true)
+    },
+    onError: (error: any) => {
+      console.error(error)
+    }
+  })
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: any) => {
@@ -56,8 +109,12 @@ const ServiceForm = ({ isCreate = true, serviceToEdit }: { isCreate?: boolean; s
       const dataFormatted = { ...data, price: parseToNumber(data.price) }
       return isCreate ? createService(dataFormatted) : updateService(dataFormatted)
     },
-    onSuccess: () => {
-      setServiceSaved(true)
+    onSuccess: (data: any) => {
+      if (filesHaveChanges) {
+        uploadFiles(data)
+      } else {
+        setServiceSaved(true)
+      }
     },
     onError: (error: any) => {
       console.error(error)
@@ -71,7 +128,9 @@ const ServiceForm = ({ isCreate = true, serviceToEdit }: { isCreate?: boolean; s
         serviceToEditForm={serviceToEditForm}
         isCreate={isCreate}
         mutate={mutate}
-        isPending={isPending}
+        isPending={isPending || isUploading}
+        serviceFiles={serviceFiles}
+        setServiceFiles={setServiceFiles}
       />
     ),
     LuxuryCar: (
@@ -80,7 +139,9 @@ const ServiceForm = ({ isCreate = true, serviceToEdit }: { isCreate?: boolean; s
         serviceToEditForm={serviceToEditForm}
         isCreate={isCreate}
         mutate={mutate}
-        isPending={isPending}
+        isPending={isPending || isUploading}
+        serviceFiles={serviceFiles}
+        setServiceFiles={setServiceFiles}
       />
     ),
     LuxuryStay: (
@@ -89,7 +150,9 @@ const ServiceForm = ({ isCreate = true, serviceToEdit }: { isCreate?: boolean; s
         serviceToEditForm={serviceToEditForm}
         isCreate={isCreate}
         mutate={mutate}
-        isPending={isPending}
+        isPending={isPending || isUploading}
+        serviceFiles={serviceFiles}
+        setServiceFiles={setServiceFiles}
       />
     ),
     PrivateStaff: (
@@ -98,7 +161,9 @@ const ServiceForm = ({ isCreate = true, serviceToEdit }: { isCreate?: boolean; s
         serviceToEditForm={serviceToEditForm}
         isCreate={isCreate}
         mutate={mutate}
-        isPending={isPending}
+        isPending={isPending || isUploading}
+        serviceFiles={serviceFiles}
+        setServiceFiles={setServiceFiles}
       />
     ),
     PrivateEvent: (
@@ -107,7 +172,9 @@ const ServiceForm = ({ isCreate = true, serviceToEdit }: { isCreate?: boolean; s
         serviceToEditForm={serviceToEditForm}
         isCreate={isCreate}
         mutate={mutate}
-        isPending={isPending}
+        isPending={isPending || isUploading}
+        serviceFiles={serviceFiles}
+        setServiceFiles={setServiceFiles}
       />
     ),
     SecurityGuard: (
@@ -116,7 +183,9 @@ const ServiceForm = ({ isCreate = true, serviceToEdit }: { isCreate?: boolean; s
         serviceToEditForm={serviceToEditForm}
         isCreate={isCreate}
         mutate={mutate}
-        isPending={isPending}
+        isPending={isPending || isUploading}
+        serviceFiles={serviceFiles}
+        setServiceFiles={setServiceFiles}
       />
     ),
     TrainingCoach: (
@@ -125,7 +194,9 @@ const ServiceForm = ({ isCreate = true, serviceToEdit }: { isCreate?: boolean; s
         serviceToEditForm={serviceToEditForm}
         isCreate={isCreate}
         mutate={mutate}
-        isPending={isPending}
+        isPending={isPending || isUploading}
+        serviceFiles={serviceFiles}
+        setServiceFiles={setServiceFiles}
       />
     ),
     Jet: (
@@ -134,7 +205,9 @@ const ServiceForm = ({ isCreate = true, serviceToEdit }: { isCreate?: boolean; s
         serviceToEditForm={serviceToEditForm}
         isCreate={isCreate}
         mutate={mutate}
-        isPending={isPending}
+        isPending={isPending || isUploading}
+        serviceFiles={serviceFiles}
+        setServiceFiles={setServiceFiles}
       />
     ),
     Yacht: (
@@ -143,7 +216,9 @@ const ServiceForm = ({ isCreate = true, serviceToEdit }: { isCreate?: boolean; s
         serviceToEditForm={serviceToEditForm}
         isCreate={isCreate}
         mutate={mutate}
-        isPending={isPending}
+        isPending={isPending || isUploading}
+        serviceFiles={serviceFiles}
+        setServiceFiles={setServiceFiles}
       />
     ),
     MedicalCare: (
@@ -152,7 +227,9 @@ const ServiceForm = ({ isCreate = true, serviceToEdit }: { isCreate?: boolean; s
         serviceToEditForm={serviceToEditForm}
         isCreate={isCreate}
         mutate={mutate}
-        isPending={isPending}
+        isPending={isPending || isUploading}
+        serviceFiles={serviceFiles}
+        setServiceFiles={setServiceFiles}
       />
     ),
     BeautySpa: (
@@ -161,7 +238,9 @@ const ServiceForm = ({ isCreate = true, serviceToEdit }: { isCreate?: boolean; s
         serviceToEditForm={serviceToEditForm}
         isCreate={isCreate}
         mutate={mutate}
-        isPending={isPending}
+        isPending={isPending || isUploading}
+        serviceFiles={serviceFiles}
+        setServiceFiles={setServiceFiles}
       />
     ),
     Golf: (
@@ -170,7 +249,9 @@ const ServiceForm = ({ isCreate = true, serviceToEdit }: { isCreate?: boolean; s
         serviceToEditForm={serviceToEditForm}
         isCreate={isCreate}
         mutate={mutate}
-        isPending={isPending}
+        isPending={isPending || isUploading}
+        serviceFiles={serviceFiles}
+        setServiceFiles={setServiceFiles}
       />
     )
   }

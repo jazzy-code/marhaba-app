@@ -2,6 +2,9 @@ export const SERVICE_STATUS_PENDING_ID = 1
 export const SERVICE_STATUS_APPROVED_ID = 2
 export const SERVICE_STATUS_REJECTED_ID = 3
 
+export const MAX_SIZE_FILES = 5000000
+export const MAX_GALLERY_FILES = 6
+
 export const CUR_SYM: Record<string, string> = {
   MXN: "$",
   USD: "$",

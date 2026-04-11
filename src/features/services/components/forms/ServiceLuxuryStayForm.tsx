@@ -6,23 +6,20 @@ import { useServices } from "@/context/ServicesContext"
 import useFormikHelpers from "@/hooks/useFormikHelpers"
 import { onKeyPressValidateIntegerNumber } from "@/lib/onKeyPressValidations"
 import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
+import type { ServiceFormProps } from "@/types/services"
 
 import { serviceLuxuryStayForm } from "../../lib/ServicesFormValues"
 import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServiceLuxuryStayForm = ({
+  serviceFiles,
+  setServiceFiles,
   serviceToEditForm,
   serviceType,
   isCreate,
   mutate,
   isPending
-}: {
-  serviceToEditForm?: any
-  serviceType: any
-  isCreate: boolean
-  mutate: (values: any) => void
-  isPending: boolean
-}) => {
+}: ServiceFormProps) => {
   const { luxuryStay } = useServices()
   const { amenities, categories, rooms } = luxuryStay
 
@@ -40,7 +37,11 @@ const ServiceLuxuryStayForm = ({
 
   return (
     <FormikProvider value={formik}>
-      <ServiceBaseFormWrapper isPending={isPending} isCreate={isCreate}>
+      <ServiceBaseFormWrapper
+        isPending={isPending}
+        isCreate={isCreate}
+        serviceFiles={serviceFiles}
+        setServiceFiles={setServiceFiles}>
         <Grid container spacing={3}>
           {/* BASIC INFO */}
 

@@ -1,4 +1,4 @@
-import { getPublicServices, getServicesBySlug } from "@/api/services/services.server"
+import { getPublicServices } from "@/api/services/services.server"
 import CatalogPage from "@/features/home/CatalogPage"
 
 export default async function Page({ params }: { params: Promise<{ serviceSlug: string }> }) {

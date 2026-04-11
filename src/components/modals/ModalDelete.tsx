@@ -1,15 +1,20 @@
-import { Button, Dialog, DialogActions, DialogContent, IconButton } from "@mui/material"
+import type { ReactNode } from "react"
+
+import { Alert, Button, Dialog, DialogActions, DialogContent, IconButton } from "@mui/material"
 import { X } from "lucide-react"
 
 interface ModalDeleteProps {
+  action?: string
+  message?: ReactNode
   open: boolean
   loading: boolean
-  element: React.ReactNode
+  element: ReactNode
   onCancel: () => void
   onConfirm: () => void
 }
 
-const ModalDelete = ({ open, loading, element, onCancel, onConfirm }: ModalDeleteProps) => {
+const ModalDelete = ({ action = "delete", message, open, loading, element, onCancel, onConfirm }: ModalDeleteProps) => {
+  const actionLabel = action.charAt(0).toUpperCase() + action.slice(1)
   return (
     <Dialog
       open={open}
@@ -22,10 +27,16 @@ const ModalDelete = ({ open, loading, element, onCancel, onConfirm }: ModalDelet
           <X />
         </IconButton>
         <div className="mt-8 text-center">
-          <h2 className="text-xl font-bold">Delete this element?</h2>
+          <h2 className="text-xl font-bold font-serif mb-6">{actionLabel} this element?</h2>
           {element}
-          <p>Are you sure you want to delete this item? </p>
-          <p>This action cannot be undone and everything related to this element will be deleted.</p>
+          <p className="my-6">Are you sure you want to {action} this item? </p>
+          {message ? (
+            message
+          ) : (
+            <Alert severity="warning">
+              This action cannot be undone and everything related to this element will be deleted.
+            </Alert>
+          )}
         </div>
       </DialogContent>
       <DialogActions>
@@ -43,7 +54,7 @@ const ModalDelete = ({ open, loading, element, onCancel, onConfirm }: ModalDelet
           sx={{ width: "12rem !important" }}
           loading={loading}
           onClick={onConfirm}>
-          Delete
+          {actionLabel}
         </Button>
       </DialogActions>
     </Dialog>

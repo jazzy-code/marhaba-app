@@ -35,12 +35,11 @@ interface DataTableProps {
 const DataTable = ({
   columns = [],
   data = [],
-  idsSelected = [],
+  // idsSelected = [],
   isPaginated,
   loading,
   loadingRows = 10,
   maxHeight = "calc(100vh - 17rem)",
-  disableEditAction,
   rowsPerPage,
   page,
   total,
@@ -172,8 +171,8 @@ const DataTable = ({
       </TableContainer>
       {isPaginated && (
         <TablePagination
-          // sx={{ borderTop: "1px solid #ddd" }}
-          className="border-t border-subtle-border bg-stone-50"
+          sx={{ borderTop: "1px solid #969696", "& .MuiInputBase-root": { backgroundColor: "transparent !important" } }}
+          className="border-t bg-stone"
           component="div"
           count={total || 0}
           rowsPerPage={rowsPerPage || 10}

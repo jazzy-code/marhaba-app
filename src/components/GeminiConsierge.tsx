@@ -1,51 +1,57 @@
+import React, { useState, useRef, useEffect } from "react"
 
-import React, { useState, useRef, useEffect } from 'react';
-import { Send, User, Sparkles, X, MessageSquare, ExternalLink } from 'lucide-react';
-import { chatWithConcierge } from '../services/gemini';
-import { ChatMessage } from '../types';
-import Button from './Button';
+import { Send, Sparkles, X, ExternalLink } from "lucide-react"
+
+import type { ChatMessage } from "@/types/services"
+
+import { chatWithConcierge } from "../services/gemini"
 
 const GeminiConcierge: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [input, setInput] = useState('');
+  const [isOpen, setIsOpen] = useState(false)
+  const [input, setInput] = useState("")
   const [messages, setMessages] = useState<ChatMessage[]>([
-    { role: 'model', text: 'Welcome to Marhaba Marbella. I am your personal luxury concierge. How may I orchestrate your stay today?' }
-  ]);
-  const [loading, setLoading] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
+    {
+      role: "model",
+      text: "Welcome to Marhaba Marbella. I am your personal luxury concierge. How may I orchestrate your stay today?"
+    }
+  ])
+  const [loading, setLoading] = useState(false)
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight
     }
-  }, [messages]);
+  }, [messages])
 
   const handleSend = async () => {
-    if (!input.trim() || loading) return;
+    if (!input.trim() || loading) return
 
-    const userMsg = input.trim();
-    setInput('');
-    setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
-    setLoading(true);
+    const userMsg = input.trim()
+    setInput("")
+    setMessages((prev) => [...prev, { role: "user", text: userMsg }])
+    setLoading(true)
 
-    const result = await chatWithConcierge(messages, userMsg);
-    setMessages(prev => [...prev, { 
-      role: 'model', 
-      text: result.text,
-      grounding: result.grounding 
-    }]);
-    setLoading(false);
-  };
+    const result = await chatWithConcierge(messages, userMsg)
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "model",
+        text: result.text,
+        grounding: result.grounding
+      }
+    ])
+    setLoading(false)
+  }
 
   if (!isOpen) {
     return (
-      <button 
+      <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 w-14 h-14 bg-[#B08D57] text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform z-50 group"
-      >
+        className="fixed bottom-6 right-6 w-14 h-14 bg-[#B08D57] text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform z-50 group">
         <Sparkles className="w-6 h-6 group-hover:animate-pulse" />
       </button>
-    );
+    )
   }
 
   return (
@@ -60,17 +66,18 @@ const GeminiConcierge: React.FC = () => {
             <p className="text-[10px] uppercase tracking-widest text-[#B08D57]">Powered by Gemini</p>
           </div>
         </div>
-        <button onClick={() => setIsOpen(false)}><X className="w-5 h-5 text-white/60 hover:text-white" /></button>
+        <button onClick={() => setIsOpen(false)}>
+          <X className="w-5 h-5 text-white/60 hover:text-white" />
+        </button>
       </div>
 
       <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 no-scrollbar bg-[#F9F8F6]">
         {messages.map((m, i) => (
-          <div key={i} className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'}`}>
-            <div className={`max-w-[85%] p-4 rounded-lg text-sm leading-relaxed ${
-              m.role === 'user' 
-                ? 'bg-[#B08D57] text-white' 
-                : 'bg-white border border-[#E7E5E4] text-[#2F2003]'
-            }`}>
+          <div key={i} className={`flex flex-col ${m.role === "user" ? "items-end" : "items-start"}`}>
+            <div
+              className={`max-w-[85%] p-4 rounded-lg text-sm leading-relaxed ${
+                m.role === "user" ? "bg-[#B08D57] text-white" : "bg-white border border-[#E7E5E4] text-[#2F2003]"
+              }`}>
               {m.text}
 
               {/* Display grounding links if Google Search or Maps was used */}
@@ -78,20 +85,19 @@ const GeminiConcierge: React.FC = () => {
                 <div className="mt-4 pt-3 border-t border-brand-border/20 space-y-2">
                   <p className="text-[9px] uppercase tracking-widest font-bold opacity-60">Verified Sources:</p>
                   {m.grounding.map((chunk, idx) => {
-                    const source = chunk.web || chunk.maps;
-                    if (!source) return null;
+                    const source = chunk.web || chunk.maps
+                    if (!source) return null
                     return (
-                      <a 
+                      <a
                         key={idx}
                         href={source.uri}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-[10px] text-primary-gold hover:underline"
-                      >
+                        className="flex items-center gap-2 text-[10px] text-primary-gold hover:underline">
                         <ExternalLink className="w-2.5 h-2.5" />
                         <span className="truncate">{source.title || source.uri}</span>
                       </a>
-                    );
+                    )
                   })}
                 </div>
               )}
@@ -113,25 +119,24 @@ const GeminiConcierge: React.FC = () => {
 
       <div className="p-4 border-t border-[#E7E5E4] bg-white">
         <div className="flex gap-2">
-          <input 
-            type="text" 
+          <input
+            type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+            onKeyDown={(e) => e.key === "Enter" && handleSend()}
             placeholder="Type your inquiry..."
             className="flex-1 bg-[#F9F8F6] border-none outline-none px-4 py-3 text-sm rounded-sm"
           />
-          <button 
+          <button
             onClick={handleSend}
             disabled={loading}
-            className="p-3 bg-[#2F2003] text-white rounded-sm hover:opacity-90 transition-opacity"
-          >
+            className="p-3 bg-[#2F2003] text-white rounded-sm hover:opacity-90 transition-opacity">
             <Send className="w-4 h-4" />
           </button>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default GeminiConcierge;
+export default GeminiConcierge

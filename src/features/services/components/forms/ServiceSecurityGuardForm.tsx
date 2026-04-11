@@ -4,24 +4,21 @@ import { FormikProvider, useFormik } from "formik"
 import { useServices } from "@/context/ServicesContext"
 import useFormikHelpers from "@/hooks/useFormikHelpers"
 import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
+import type { ServiceFormProps } from "@/types/services"
 
 import { serviceSecurityGuardForm } from "../../lib/ServicesFormValues"
 
 import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServiceSecurityGuardForm = ({
+  serviceFiles,
+  setServiceFiles,
   serviceToEditForm,
   serviceType,
   isCreate,
   mutate,
   isPending
-}: {
-  serviceToEditForm?: any
-  serviceType: any
-  isCreate: boolean
-  mutate: (values: any) => void
-  isPending: boolean
-}) => {
+}: ServiceFormProps) => {
   const { securityGuard, helpers } = useServices()
   const { profiles, backgroundTypes } = securityGuard
   const { languages } = helpers
@@ -40,7 +37,11 @@ const ServiceSecurityGuardForm = ({
 
   return (
     <FormikProvider value={formik}>
-      <ServiceBaseFormWrapper isPending={isPending} isCreate={isCreate}>
+      <ServiceBaseFormWrapper
+        isPending={isPending}
+        isCreate={isCreate}
+        serviceFiles={serviceFiles}
+        setServiceFiles={setServiceFiles}>
         <Grid container spacing={3}>
           <Grid size={4}>
             <FormLabel>Background Type</FormLabel>
@@ -60,7 +61,7 @@ const ServiceSecurityGuardForm = ({
             </TextField>
           </Grid>
           <Grid size={4}>
-            <FormLabel>Discretion</FormLabel>
+            <FormLabel required>Discretion</FormLabel>
             <TextField
               select
               name="discretion"

@@ -4,24 +4,21 @@ import { FormikProvider, useFormik } from "formik"
 import { useServices } from "@/context/ServicesContext"
 import useFormikHelpers from "@/hooks/useFormikHelpers"
 import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
+import type { ServiceFormProps } from "@/types/services"
 
 import { serviceMedicalCareForm } from "../../lib/ServicesFormValues"
 
 import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServiceMedicalCareForm = ({
+  serviceFiles,
+  setServiceFiles,
   serviceToEditForm,
   serviceType,
   isCreate,
   mutate,
   isPending
-}: {
-  serviceToEditForm?: any
-  serviceType: any
-  isCreate: boolean
-  mutate: (values: any) => void
-  isPending: boolean
-}) => {
+}: ServiceFormProps) => {
   const { medicalCare, helpers } = useServices()
   const { attentions, services, specialties } = medicalCare
   const { languages } = helpers
@@ -40,7 +37,11 @@ const ServiceMedicalCareForm = ({
 
   return (
     <FormikProvider value={formik}>
-      <ServiceBaseFormWrapper isPending={isPending} isCreate={isCreate}>
+      <ServiceBaseFormWrapper
+        isPending={isPending}
+        isCreate={isCreate}
+        serviceFiles={serviceFiles}
+        setServiceFiles={setServiceFiles}>
         <Grid container spacing={3}>
           <Grid size={12}>
             <FormLabel>Certifications</FormLabel>

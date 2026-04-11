@@ -1,25 +1,35 @@
-import { Button } from "@mui/material"
+import { useState } from "react"
+
+import { Button, Checkbox } from "@mui/material"
 
 import { useFormikContext } from "formik"
 import { ArrowLeft } from "lucide-react"
-
 import { useRouter } from "next/navigation"
+
+import LightTooltip from "@/components/LightTooltip"
 
 import BasicInformationForm from "./BasicInformationForm"
 import BookingGalleryForm from "./BookingGalleryForm"
 import PriceConfigurationForm from "./PriceConfigurationForm"
 
-const ServiceBaseFormWrapper = ({
-  children,
-  isPending,
-  isCreate
-}: {
+interface ServiceBaseFormWrapperProps {
   children: React.ReactNode
   isPending: boolean
   isCreate: boolean
-}) => {
+  serviceFiles: any
+  setServiceFiles: (files: any) => void
+}
+const ServiceBaseFormWrapper = ({
+  children,
+  isPending,
+  isCreate,
+  serviceFiles,
+  setServiceFiles
+}: ServiceBaseFormWrapperProps) => {
   const router = useRouter()
   const { handleSubmit } = useFormikContext()
+
+  const [acceptTerms, setAcceptTerms] = useState(false)
 
   return (
     <form onSubmit={handleSubmit}>
@@ -43,7 +53,30 @@ const ServiceBaseFormWrapper = ({
 
             <hr className="border-luxury-border border-dashed" />
 
-            <BookingGalleryForm />
+            <BookingGalleryForm serviceFiles={serviceFiles} setServiceFiles={setServiceFiles} />
+
+            <hr className="border-luxury-border border-dashed" />
+
+            <section>
+              <div className="flex items-start gap-2 pl-3 pr-5 py-5 rounded-lg bg-luxury-input border border-luxury-border hover:border-primary-gold/50 transition-colors">
+                <div className="mt-[-8]">
+                  {/* <input
+                    className="h-5 w-5 rounded border-gray-300 text-primary-gold focus:ring-primary-gold/20"
+                    type="checkbox"
+                  /> */}
+                  <Checkbox checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} />
+                </div>
+                <div className="text-sm text-luxury-gray">
+                  <span className="font-bold text-deep-brown block mb-1">Declaración de Conformidad</span>
+                  Confirmo que tengo los permisos necesarios para publicar la información e imágenes proporcionadas, y
+                  acepto los{" "}
+                  <a className="text-primary-gold hover:text-primary-gold-dark underline" href="#">
+                    Términos y Condiciones
+                  </a>{" "}
+                  del Portal de Proveedores Marhaba.
+                </div>
+              </div>
+            </section>
           </div>
         </div>
         <footer className="px-8 py-6 bg-surface border-t border-luxury-border flex items-center justify-between z-10">
@@ -56,9 +89,19 @@ const ServiceBaseFormWrapper = ({
             onClick={() => router.back()}>
             Back
           </Button>
-          <Button disabled={isPending} loading={isPending} size="large" variant="contained" type="submit">
-            {isCreate ? "Create" : "Update"} Service
-          </Button>
+          {acceptTerms ? (
+            <Button disabled={isPending} loading={isPending} size="large" variant="contained" type="submit">
+              {isCreate ? "Create" : "Update"} Service
+            </Button>
+          ) : (
+            <LightTooltip title="You must accept the Terms and Conditions" arrow>
+              <div>
+                <Button disabled size="large" variant="contained" type="submit">
+                  {isCreate ? "Create" : "Update"} Service
+                </Button>
+              </div>
+            </LightTooltip>
+          )}
         </footer>
       </div>
     </form>

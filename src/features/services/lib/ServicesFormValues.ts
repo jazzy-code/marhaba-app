@@ -3,7 +3,7 @@ export const baseServiceForm = {
   serviceTypeId: "",
   reference: "",
   title: "",
-  subtitle: "A Subtitle",
+  subtitle: "",
   shortDescription: "",
   longDescription: "",
   regionId: 3,
@@ -18,7 +18,8 @@ export const baseServiceForm = {
   priceModel: "FIXED",
   price: 100,
   currency: "EUR",
-  heroImage: "",
+  heroImageUrl: "",
+  providerLogoUrl: "",
   videoUrl: "",
   serviceStatusId: 1 // PENDING
 }

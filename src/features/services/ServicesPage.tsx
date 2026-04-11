@@ -15,13 +15,10 @@ import SearchBar from "@/components/fields/SearchBar"
 import ModalDelete from "@/components/modals/ModalDelete"
 import StatusBadge from "@/components/StatusBadge"
 import { useDataTable } from "@/hooks/useDataTable"
+import type { ListPageProps } from "@/types/services"
 import { formatDate } from "@/utils/date"
 
-interface ServicesPageProps {
-  initialData: any[]
-}
-
-const ServicesPage: FC<ServicesPageProps> = ({ initialData }) => {
+const ServicesPage: FC<ListPageProps> = ({ initialData }) => {
   const { getToken } = useAuth()
   const queryClient = useQueryClient()
   const router = useRouter()
@@ -55,7 +52,8 @@ const ServicesPage: FC<ServicesPageProps> = ({ initialData }) => {
       setAuthToken(token)
       return getServices({ ...servicesParams })
     },
-    initialData: initialData
+    initialData: initialData,
+    refetchOnMount: false
   })
 
   const { mutate, isPending: isDeleting } = useMutation({
@@ -66,6 +64,7 @@ const ServicesPage: FC<ServicesPageProps> = ({ initialData }) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["services"] })
+      queryClient.invalidateQueries({ queryKey: ["services-stats"] })
       setModalDeleteOpen(false)
       setSelectedService(null)
     },
@@ -96,7 +95,7 @@ const ServicesPage: FC<ServicesPageProps> = ({ initialData }) => {
         return (
           <div className="flex items-center gap-2">
             <div>
-              <Avatar sx={{ width: "3rem", height: "3rem" }} alt={service.title || ""} src={service.heroImage} />
+              <Avatar sx={{ width: "3rem", height: "3rem" }} alt={service.title || ""} src={service.heroImageUrl} />
             </div>
             <div>
               <p>{service.title}</p>
@@ -142,7 +141,7 @@ const ServicesPage: FC<ServicesPageProps> = ({ initialData }) => {
   return (
     <>
       <div className="flex-1 overflow-y-auto p-6 lg:p-10">
-        <div className="max-w-7xl mx-auto flex flex-col gap-8 h-full">
+        <div className="max-w-7xl mx-auto flex flex-col gap-8">
           <div>
             <h1 className="font-serif text-2xl text-brown-dark font-medium">My Services</h1>
             <p className="text-warm-grey mt-2 font-sans text-sm">
@@ -170,7 +169,7 @@ const ServicesPage: FC<ServicesPageProps> = ({ initialData }) => {
               Add New Service
             </Button>
           </div>
-          <div className="bg-white rounded-sm shadow-sm border border-subtle-border flex flex-col">
+          <div className="shadow-sm">
             <DataTable
               isPaginated
               data={services}
@@ -195,7 +194,7 @@ const ServicesPage: FC<ServicesPageProps> = ({ initialData }) => {
                 <Avatar
                   sx={{ width: "3rem", height: "3rem" }}
                   alt={selectedService.title || ""}
-                  src={selectedService.heroImage}
+                  src={selectedService.heroImageUrl}
                 />
               </div>
               <div>

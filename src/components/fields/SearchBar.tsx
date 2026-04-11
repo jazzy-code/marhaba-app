@@ -31,9 +31,9 @@ const SearchBar = ({ value, placeholder = "Search by Title", onChange, onClear, 
         input: {
           autoComplete: "off",
           startAdornment: <Search className="me-2 text-stone-400" />,
-          endAdornment: (
+          endAdornment: value && (
             <IconButton className="show_clear_button" size="small" onClick={onClear}>
-              <X />
+              <X className="text-stone-400" />
             </IconButton>
           )
         }

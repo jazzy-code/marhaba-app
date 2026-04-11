@@ -8,24 +8,21 @@ import { useServices } from "@/context/ServicesContext"
 import useFormikHelpers from "@/hooks/useFormikHelpers"
 import { onKeyPressValidateDecimalNumber, onKeyPressValidateIntegerNumber } from "@/lib/onKeyPressValidations"
 import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
+import type { ServiceFormProps } from "@/types/services"
 
 import { serviceJetForm } from "../../lib/ServicesFormValues"
 
 import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServiceJetForm = ({
+  serviceFiles,
+  setServiceFiles,
   serviceToEditForm,
   serviceType,
   isCreate,
   mutate,
   isPending
-}: {
-  serviceToEditForm?: any
-  serviceType: any
-  isCreate: boolean
-  mutate: (values: any) => void
-  isPending: boolean
-}) => {
+}: ServiceFormProps) => {
   const { jet } = useServices()
   const { categories, caterings, amenities } = jet
 
@@ -53,7 +50,11 @@ const ServiceJetForm = ({
 
   return (
     <FormikProvider value={formik}>
-      <ServiceBaseFormWrapper isPending={isPending} isCreate={isCreate}>
+      <ServiceBaseFormWrapper
+        isPending={isPending}
+        isCreate={isCreate}
+        serviceFiles={serviceFiles}
+        setServiceFiles={setServiceFiles}>
         <Grid container spacing={3}>
           <Grid size={6}>
             <FormLabel>Modality</FormLabel>

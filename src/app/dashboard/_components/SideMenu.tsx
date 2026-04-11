@@ -1,14 +1,18 @@
 "use client"
 
-import { Archive, LayoutDashboard } from "lucide-react"
+import { useUser } from "@clerk/nextjs"
+import { Archive, Headset, LayoutDashboard, Mail, Rows3, Settings } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
+import { useInquiriesStats } from "@/hooks/useInquiresStats"
 import { useServicesStats } from "@/hooks/useServicesStats"
 
 const SideMenu = () => {
   const pathname = usePathname()
-  const { data } = useServicesStats()
+  const { data: servicesStats } = useServicesStats()
+  const { data: inquiriesStats } = useInquiriesStats()
+  const { user } = useUser()
 
   const menuSelectedClasses =
     "flex items-center gap-3 px-4 py-3 bg-primary-gold/10 text-primary-gold dark:text-primary-gold rounded-sm transition-colors group"
@@ -38,32 +42,38 @@ const SideMenu = () => {
         <Link
           className={pathname.includes("/dashboard/services") ? menuSelectedClasses : menuClasses}
           href="/dashboard/services">
-          <Archive className="group-hover:text-primary-gold transition-colors" />
+          <Rows3 className="group-hover:text-primary-gold transition-colors" />
           <span className="font-medium text-sm">My Services</span>
           <span className="ml-auto bg-stone-200 text-stone-600 text-[10px] font-bold px-2 py-0.5 rounded-full">
-            {data?.total || 0}
+            {servicesStats?.total || 0}
           </span>
         </Link>
-        {/* <Link
+        <Link
           className={pathname === "/dashboard/inquiries" ? menuSelectedClasses : menuClasses}
           href="/dashboard/inquiries">
-          <span className="material-symbols-outlined group-hover:text-primary-gold transition-colors">mail</span>
+          <Mail className="group-hover:text-primary-gold transition-colors" />
           <span className="font-medium text-sm">Inquiries</span>
-          <span className="ml-auto bg-stone-200 text-stone-600 text-[10px] font-bold px-2 py-0.5 rounded-full">3</span>
-        </Link> */}
+          <span className="ml-auto bg-stone-200 text-stone-600 text-[10px] font-bold px-2 py-0.5 rounded-full">
+            {inquiriesStats?.totalNew || 0}
+          </span>
+        </Link>
+        <Link
+          className={pathname === "/dashboard/archive" ? menuSelectedClasses : menuClasses}
+          href="/dashboard/archive">
+          <Archive className="group-hover:text-primary-gold transition-colors" />
+          <span className="font-medium text-sm">Archive</span>
+        </Link>
         <p className="px-4 text-xs font-semibold text-stone-400 uppercase tracking-wider mb-2 mt-8">Account</p>
         <a
           className="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-sm transition-colors group"
           href="#">
-          <span className="material-symbols-outlined group-hover:text-primary-gold transition-colors">settings</span>
+          <Settings className="group-hover:text-primary-gold transition-colors" />
           <span className="font-medium text-sm">Settings</span>
         </a>
         <a
           className="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-sm transition-colors group"
           href="#">
-          <span className="material-symbols-outlined group-hover:text-primary-gold transition-colors">
-            support_agent
-          </span>
+          <Headset className="group-hover:text-primary-gold transition-colors" />
           <span className="font-medium text-sm">Support</span>
         </a>
       </nav>
@@ -76,7 +86,9 @@ const SideMenu = () => {
                 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuDt41JMuspw7_6XCRRRWo7P_24M3FDxXcbkBzhBquXgkuMcH_eennK9FLp-wBL9tdzuWQyodg9pZrwZUxDefhWh3OIS6ErRKpT6yWny8qs8efjMhouGrXR18A5GppOXnMGxTqSur_sJG1VckC3p-c8e9SEbAYC63C-TjMLKDsvsxc47up0oi2wyv0jyaiaQ33JOso8ZVwpUoOv2njPcegi8RkO7d03Sq2EoyFU5U-1zI-QrRGsgAvJiygSe2InqZozrKXk3F6Btmko")'
             }}></div>
           <div className="flex flex-col">
-            <span className="text-sm font-bold text-stone-900">Elena R.</span>
+            <span className="text-sm font-bold text-stone-900">
+              {user?.firstName} {user?.lastName}
+            </span>
             <span className="text-xs text-stone-500">Provider</span>
           </div>
         </div>

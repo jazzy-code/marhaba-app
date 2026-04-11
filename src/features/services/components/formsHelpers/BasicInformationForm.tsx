@@ -6,11 +6,15 @@ import { Map } from "lucide-react"
 
 import AutocompleteMarbellaDistricts from "@/components/fields/AutocompleteMarbellaDistricts"
 import { useServices } from "@/context/ServicesContext"
+import useFormikHelpers from "@/hooks/useFormikHelpers"
 
 const BasicInformationForm = () => {
   const { helpers } = useServices()
   const { malagaRegions, malagaCities } = helpers
-  const { values, handleChange, handleBlur, setFieldValue } = useFormikContext<any>()
+  const formik = useFormikContext<any>()
+  const { values, handleChange, handleBlur, setFieldValue } = formik
+
+  const { handleErrorField, handleErrorFieldMessage } = useFormikHelpers(formik)
 
   return (
     <section className="space-y-8">
@@ -27,14 +31,16 @@ const BasicInformationForm = () => {
               Title
             </FormLabel>
             <span className="text-[10px] bg-primary-gold/10 text-primary-gold px-2 py-0.5 rounded-full font-medium">
-              {values.title?.length || 0}/100
+              {values.title?.length || 0}/50
             </span>
           </div>
           <TextField
             name="title"
             placeholder="Ej: Cena Gastronómica Privada al Atardecer"
             value={values.title}
-            slotProps={{ htmlInput: { maxLength: 100 } }}
+            slotProps={{ htmlInput: { maxLength: 50 } }}
+            error={handleErrorField("title")}
+            helperText={handleErrorFieldMessage("title")}
             onChange={handleChange}
             onBlur={handleBlur}
           />
@@ -45,6 +51,8 @@ const BasicInformationForm = () => {
             name="reference"
             placeholder="Ej: 123456"
             value={values.reference}
+            error={handleErrorField("reference")}
+            helperText={handleErrorFieldMessage("reference")}
             onChange={handleChange}
             onBlur={handleBlur}
           />
@@ -62,6 +70,9 @@ const BasicInformationForm = () => {
             name="subtitle"
             placeholder="Ej: Cena Gastronómica Privada al Atardecer"
             value={values.subtitle}
+            slotProps={{ htmlInput: { maxLength: 100 } }}
+            error={handleErrorField("subtitle")}
+            helperText={handleErrorFieldMessage("subtitle")}
             onChange={handleChange}
             onBlur={handleBlur}
           />
@@ -92,6 +103,8 @@ const BasicInformationForm = () => {
             placeholder="Breve resumen atractivo"
             name="shortDescription"
             value={values.shortDescription}
+            slotProps={{ htmlInput: { maxLength: 300 } }}
+            error={handleErrorField("shortDescription")}
             onChange={handleChange}
             onBlur={handleBlur}
           />
@@ -110,6 +123,9 @@ const BasicInformationForm = () => {
             rows={10}
             name="longDescription"
             value={values.longDescription}
+            slotProps={{ htmlInput: { maxLength: 1000 } }}
+            error={handleErrorField("longDescription")}
+            helperText={handleErrorFieldMessage("longDescription")}
             onChange={handleChange}
             onBlur={handleBlur}
           />
@@ -122,7 +138,14 @@ const BasicInformationForm = () => {
         </div>
         <div className="md:col-span-1">
           <FormLabel required>Málaga Region</FormLabel>
-          <TextField select name="regionId" value={values.regionId} onChange={handleChange} onBlur={handleBlur}>
+          <TextField
+            select
+            name="regionId"
+            value={values.regionId}
+            error={handleErrorField("regionId")}
+            helperText={handleErrorFieldMessage("regionId")}
+            onChange={handleChange}
+            onBlur={handleBlur}>
             {malagaRegions.map((region: any) => (
               <MenuItem key={region.id} value={region.id}>
                 {region.name}
@@ -136,6 +159,8 @@ const BasicInformationForm = () => {
             select
             name="cityId"
             value={values.cityId}
+            error={handleErrorField("cityId")}
+            helperText={handleErrorFieldMessage("cityId")}
             onChange={(e) => [handleChange(e), setFieldValue("district", "")]}
             onBlur={handleBlur}>
             {malagaCities
@@ -165,6 +190,8 @@ const BasicInformationForm = () => {
             placeholder="Av. Paseo de la Reforma 123"
             name="address"
             value={values.address}
+            error={handleErrorField("address")}
+            helperText={handleErrorFieldMessage("address")}
             onChange={handleChange}
             onBlur={handleBlur}
           />
@@ -175,6 +202,8 @@ const BasicInformationForm = () => {
             placeholder="Link de Google Maps"
             name="locationUrl"
             value={values.locationUrl}
+            error={handleErrorField("locationUrl")}
+            helperText={handleErrorFieldMessage("locationUrl")}
             onChange={handleChange}
             onBlur={handleBlur}
           />

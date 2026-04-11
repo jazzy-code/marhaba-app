@@ -1,5 +1,3 @@
-"use client"
-
 import { Bath, Bed, BrickWall, LandPlot, Toilet, Users } from "lucide-react"
 
 import { formatNumber } from "@/utils/numbers"
@@ -28,10 +26,8 @@ const ServiceRealEstatePreview = ({ service }: { service: any }) => {
       service={service}
       characteristics={service.modality === "SALE" ? saleCharacteristics : rentCharacteristics}>
       <div>
-        <h3 className="font-serif text-3xl text-brand-primary mb-8">Details</h3>
-        <div className="text-brand-secondary/90 text-lg leading-[1.8] font-light space-y-6 max-w-3xl whitespace-pre-line break-all">
-          {service.longDescription}
-        </div>
+        <h3 className="font-serif text-3xl text-brand-primary mb-8">More Details</h3>
+        <div className="text-brand-secondary/90 text-lg leading-[1.8] font-light space-y-6 max-w-3xl whitespace-pre-line break-all"></div>
       </div>
     </ServiceBasePreviewWrapper>
   )

@@ -36,3 +36,34 @@ export const getServiceStats = async () => {
   const { data } = await apiClient.get("/services/stats")
   return data
 }
+
+export const uploadServiceFiles = async (serviceId: string, files: any) => {
+  const formData = new FormData()
+
+  Object.keys(files).forEach((key) => {
+    const value = files[key]
+
+    if (value === null || value === undefined) return
+
+    if (Array.isArray(value)) {
+      value.forEach((item, index) => {
+        if (typeof item === "object" && !(item instanceof File)) {
+          Object.keys(item).forEach((objKey) => {
+            formData.append(`${key}[${index}][${objKey}]`, item[objKey])
+          })
+        } else {
+          formData.append(`${key}`, item)
+        }
+      })
+    } else if (typeof value === "boolean") {
+      formData.append(key, value ? "1" : "0")
+    } else {
+      formData.append(key, value)
+    }
+  })
+
+  const { data } = await apiClient.post(`/${prefix}/${serviceId}/files`, formData, {
+    headers: { "Content-Type": "multipart/form-data" }
+  })
+  return data
+}

@@ -1,14 +1,13 @@
-"use client"
-
-import { BedDouble, House, Users } from "lucide-react"
+import { Car, ChessKnight, Fuel, Gauge } from "lucide-react"
 
 import ServiceBasePreviewWrapper from "../previewsHelpers/ServiceBasePreviewWrapper"
 
-const ServiceLuxuryStayPreview = ({ service }: { service: any }) => {
+const ServiceLuxuryCarPreview = ({ service }: { service: any }) => {
   const characteristics = [
-    { label: "Max. Guests", value: service.totalGuests, icon: <Users size={20} /> },
-    { label: service.luxuryStayCategory.name, icon: <House size={20} /> },
-    { label: service.luxuryStayRoom.name, icon: <BedDouble size={20} /> }
+    { label: service.brand, icon: <Car size={20} /> },
+    { label: service.transmission, icon: <Gauge size={20} /> },
+    { label: service.motorType, icon: <Fuel size={20} /> },
+    { label: "Horsepower", value: service.cv, icon: <ChessKnight size={20} /> }
   ]
 
   return (
@@ -21,4 +20,4 @@ const ServiceLuxuryStayPreview = ({ service }: { service: any }) => {
   )
 }
 
-export default ServiceLuxuryStayPreview
+export default ServiceLuxuryCarPreview
