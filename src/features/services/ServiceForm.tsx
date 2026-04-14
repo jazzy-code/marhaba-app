@@ -4,7 +4,7 @@ import { useMemo, useState } from "react"
 
 import { useAuth } from "@clerk/nextjs"
 import { Button, MenuItem, TextField } from "@mui/material"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { ArrowLeft } from "lucide-react"
 import { useRouter } from "next/navigation"
 
@@ -31,6 +31,7 @@ import ServiceFormSubmitted from "./components/ServiceSubmitted"
 
 const ServiceForm = ({ isCreate = true, serviceToEdit }: { isCreate?: boolean; serviceToEdit?: any }) => {
   const { getToken } = useAuth()
+  const queryClient = useQueryClient()
   const router = useRouter()
   const { services } = useServices()
   const { types } = services
@@ -110,6 +111,7 @@ const ServiceForm = ({ isCreate = true, serviceToEdit }: { isCreate?: boolean; s
       return isCreate ? createService(dataFormatted) : updateService(dataFormatted)
     },
     onSuccess: (data: any) => {
+      queryClient.invalidateQueries({ queryKey: ["services-stats"] })
       if (filesHaveChanges) {
         uploadFiles(data)
       } else {

@@ -181,7 +181,7 @@ const ServiceBasePreviewWrapper = ({ service, characteristics, children }: Servi
 
             {/* 🔥 MODAL */}
             {open && (
-              <div className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center">
+              <div className="fixed inset-0 bg-black/95 z-150 flex items-center justify-center">
                 {/* cerrar */}
                 <button onClick={() => setOpen(false)} className="absolute top-6 right-6 text-white text-2xl">
                   ✕
