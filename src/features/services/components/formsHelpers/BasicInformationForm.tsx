@@ -214,12 +214,12 @@ const BasicInformationForm = () => {
             <RadioGroup
               row
               aria-labelledby="demo-row-radio-buttons-group-label"
-              name="locationPrivacy"
-              value={values.locationPrivacy}
+              name="privacyLevel"
+              value={values.privacyLevel}
               onChange={handleChange}>
-              <FormControlLabel value="female" control={<Radio />} label="Exact" />
-              <FormControlLabel value="male" control={<Radio />} label="Aproximately" />
-              <FormControlLabel value="other" control={<Radio />} label="Hidden" />
+              <FormControlLabel value="1" control={<Radio />} label="Exact" />
+              <FormControlLabel value="2" control={<Radio />} label="Aproximately" />
+              <FormControlLabel value="3" control={<Radio />} label="Hidden" />
             </RadioGroup>
           </FormControl>
         </div>

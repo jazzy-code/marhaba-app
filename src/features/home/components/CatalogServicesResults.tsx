@@ -15,7 +15,7 @@ const CatalogServicesResults = ({ services }: { services: any }) => {
           className="group bg-white rounded-sm shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden flex flex-col border border-brand-border animate-fade-in">
           <div className="relative h-64 overflow-hidden">
             <img
-              src={service.image}
+              src={service.heroImageUrl}
               alt={service.title}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
