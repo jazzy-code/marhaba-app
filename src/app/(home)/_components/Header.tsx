@@ -6,6 +6,7 @@ import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@cl
 import { ChevronDown, Menu, X } from "lucide-react"
 import { usePathname, useRouter } from "next/navigation"
 
+import GoogleTranslate from "@/components/GoogleTranslate"
 import { usePublicServices } from "@/context/PublicServicesContext"
 
 const Header = () => {
@@ -38,7 +39,7 @@ const Header = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 z-[100] w-full transition-all duration-300 h-24 flex items-center ${
+        className={`fixed left-0 z-[100] w-full transition-all duration-300 h-24 flex items-center ${
           scrolled || !isHome || isMobileMenuOpen
             ? "bg-page/95 backdrop-blur-md border-b border-brand-border shadow-sm"
             : "bg-transparent"
@@ -72,7 +73,7 @@ const Header = () => {
             </h2>
           </div>
 
-          <nav className="hidden lg:flex gap-10">
+          <nav className="hidden lg:flex gap-6">
             {categories.map((cat) => (
               <div key={cat.id} className="relative group h-24 flex items-center">
                 <button
@@ -102,8 +103,11 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center gap-6">
-            <div className="hidden md:flex items-center gap-4">
-              <SignedOut>
+            <GoogleTranslate />
+            <div
+              className={`h-4 border-l ${scrolled || !isHome ? "border-brand-border" : "border-[#E7E5E4]"} opacity-50`}></div>
+            <SignedOut>
+              <div className="hidden md:flex items-center gap-4">
                 <SignInButton>
                   <button
                     className={`text-sm font-medium transition-colors drop-shadow-md ${
@@ -126,12 +130,12 @@ const Header = () => {
                     Sign Up
                   </button>
                 </SignUpButton>
-              </SignedOut>
-            </div>
+              </div>
+            </SignedOut>
             <SignedIn>
               <button
                 onClick={() => navigate("/dashboard")}
-                className={`h-11 items-center justify-center rounded-sm px-8 text-[11px] uppercase tracking-[0.2em] font-bold transition-all active:scale-95 shadow-lg sm:flex hidden ${
+                className={`h-8 items-center justify-center rounded-sm px-2 text-[11px] uppercase tracking-[0.2em] font-bold transition-all active:scale-95 shadow-lg sm:flex hidden ${
                   scrolled || !isHome
                     ? "bg-brand-primary text-white hover:bg-primary-gold"
                     : "bg-white text-deep-brown hover:bg-primary-gold hover:text-white"

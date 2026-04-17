@@ -12,7 +12,7 @@ import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 import type { ServiceFormProps } from "@/types/services"
 
 import { serviceRealEstateForm } from "../../lib/ServicesFormValues"
-
+import { serviceRealEstateFormSchema } from "../../schemas/serviceForm.schema"
 import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServiceRealEstateForm = ({
@@ -31,6 +31,7 @@ const ServiceRealEstateForm = ({
     initialValues: isCreate
       ? formatServiceForm(serviceRealEstateForm, serviceType)
       : formatServiceToEditForm(serviceToEditForm, ["Amenity", "Service"]),
+    validationSchema: serviceRealEstateFormSchema,
     validateOnChange: false,
     validateOnBlur: true,
     onSubmit: (values) => mutate(values)
@@ -61,7 +62,7 @@ const ServiceRealEstateForm = ({
         setServiceFiles={setServiceFiles}>
         <Grid container spacing={3}>
           <Grid size={6}>
-            <FormLabel>Modality</FormLabel>
+            <FormLabel required>Modality</FormLabel>
             <SelectModality
               value={values.modality}
               error={handleErrorField("modality")}
@@ -124,7 +125,7 @@ const ServiceRealEstateForm = ({
             />
           </Grid>
           <Grid size={6}>
-            <FormLabel>Surface Built (m2)</FormLabel>
+            <FormLabel required>Surface Built (m2)</FormLabel>
             <TextField
               name="surfaceBuiltMt2"
               value={values.surfaceBuiltMt2}
@@ -136,7 +137,7 @@ const ServiceRealEstateForm = ({
             />
           </Grid>
           <Grid size={6}>
-            <FormLabel>Surface Plot(m2)</FormLabel>
+            <FormLabel required>Surface Plot(m2)</FormLabel>
             <TextField
               name="surfacePlotMt2"
               value={values.surfacePlotMt2}
@@ -161,7 +162,7 @@ const ServiceRealEstateForm = ({
           </Grid>
           {values.modality === "SALE" && (
             <Grid size={6}>
-              <FormLabel>Housing Status</FormLabel>
+              <FormLabel required>Housing Status</FormLabel>
               <TextField
                 select
                 name="realEstateHousingStatusId"
@@ -181,7 +182,7 @@ const ServiceRealEstateForm = ({
           {values.modality === "RENT" && (
             <>
               <Grid size={6}>
-                <FormLabel>Guests Capacity</FormLabel>
+                <FormLabel required>Guests Capacity</FormLabel>
                 <TextField
                   name="guestsCapacity"
                   value={values.guestsCapacity}
@@ -193,7 +194,7 @@ const ServiceRealEstateForm = ({
                 />
               </Grid>
               <Grid size={6}>
-                <FormLabel>Stay Type</FormLabel>
+                <FormLabel required>Stay Type</FormLabel>
                 <TextField
                   select
                   name="realEstateStayTypeId"

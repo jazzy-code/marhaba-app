@@ -3,7 +3,7 @@
 import { useEffect } from "react"
 
 import { useUser, useClerk } from "@clerk/nextjs"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Gem, Handshake, UserRoundCheck } from "lucide-react"
 import Link from "next/link"
 
 import Hero from "@/app/(home)/_components/Hero"
@@ -109,23 +109,23 @@ export default function HomePage() {
             {[
               {
                 title: "Unrivaled Access",
-                icon: "diamond",
+                icon: <Gem size={20} />,
                 desc: "Gain entry to off-market properties, private yachts, and exclusive events not available to the public."
               },
               {
                 title: "Vetted Excellence",
-                icon: "verified_user",
+                icon: <UserRoundCheck size={20} />,
                 desc: "Every partner is rigorously screened to ensure they meet our uncompromising standards of luxury and service."
               },
               {
                 title: "Bespoke Concierge",
-                icon: "handshake",
+                icon: <Handshake size={20} />,
                 desc: "A dedicated team orchestrates every detail, ensuring your experience is seamless, personalized, and discreet."
               }
             ].map((item, i) => (
               <div key={i} className="flex flex-col items-center text-center">
                 <div className="mb-6 flex size-16 items-center justify-center rounded-full bg-background-light text-primary-gold shadow-sm">
-                  <span className="material-symbols-outlined text-3xl">{item.icon}</span>
+                  {item.icon}
                 </div>
                 <h3 className="mb-3 font-serif text-2xl text-deep-brown">{item.title}</h3>
                 <p className="font-sans text-text-muted/80 leading-relaxed">{item.desc}</p>

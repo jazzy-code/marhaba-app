@@ -7,6 +7,7 @@ import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 import type { ServiceFormProps } from "@/types/services"
 
 import { serviceGolfForm } from "../../lib/ServicesFormValues"
+import { serviceGolfFormSchema } from "../../schemas/serviceForm.schema"
 import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServiceGolfForm = ({
@@ -25,6 +26,7 @@ const ServiceGolfForm = ({
     initialValues: isCreate
       ? formatServiceForm(serviceGolfForm, serviceType)
       : formatServiceToEditForm(serviceToEditForm, ["Amenity"]),
+    validationSchema: serviceGolfFormSchema,
     validateOnChange: false,
     validateOnBlur: true,
     onSubmit: (values) => mutate(values)
@@ -42,7 +44,7 @@ const ServiceGolfForm = ({
         setServiceFiles={setServiceFiles}>
         <Grid container spacing={3}>
           <Grid size={3}>
-            <FormLabel>Total Holes</FormLabel>
+            <FormLabel required>Total Holes</FormLabel>
             <TextField
               type="number"
               name="totalHoles"
@@ -55,7 +57,7 @@ const ServiceGolfForm = ({
           </Grid>
 
           <Grid size={3}>
-            <FormLabel>Max Players</FormLabel>
+            <FormLabel required>Max Players</FormLabel>
             <TextField
               type="number"
               name="maxPlayers"

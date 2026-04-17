@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react"
 
 import { useAuth } from "@clerk/nextjs"
-import { Button, MenuItem, TextField } from "@mui/material"
+import { Alert, AlertTitle, Button, MenuItem, TextField } from "@mui/material"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { ArrowLeft } from "lucide-react"
 import { useRouter } from "next/navigation"
@@ -108,9 +108,10 @@ const ServiceForm = ({ isCreate = true, serviceToEdit }: { isCreate?: boolean; s
       const token = await getToken()
       setAuthToken(token)
       const dataFormatted = { ...data, price: parseToNumber(data.price) }
-      return isCreate ? createService(dataFormatted) : updateService(dataFormatted)
+      return isCreate ? createService(dataFormatted) : updateService({ ...dataFormatted, serviceStatusId: 1 })
     },
     onSuccess: (data: any) => {
+      queryClient.invalidateQueries({ queryKey: ["services"] })
       queryClient.invalidateQueries({ queryKey: ["services-stats"] })
       if (filesHaveChanges) {
         uploadFiles(data)
@@ -267,34 +268,44 @@ const ServiceForm = ({ isCreate = true, serviceToEdit }: { isCreate?: boolean; s
       ) : (
         <>
           <div className="w-full bg-surface rounded-lg shadow-luxury flex flex-col">
-            <header className="flex items-center justify-between px-8 pt-10 pb-6 border-b border-luxury-border bg-surface z-10">
-              <div className="w-[100px]">
-                <Button
-                  startIcon={<ArrowLeft />}
-                  disabled={isPending}
-                  size="large"
-                  type="button"
-                  color="secondaryDark"
-                  onClick={() => router.back()}>
-                  Back
-                </Button>
+            <header className="px-8 pt-10 pb-6 border-b border-luxury-border bg-surface z-10">
+              <div className="flex items-center justify-between">
+                <div className="w-[100px]">
+                  <Button
+                    startIcon={<ArrowLeft />}
+                    disabled={isPending}
+                    size="large"
+                    type="button"
+                    color="secondaryDark"
+                    onClick={() => router.back()}>
+                    Back
+                  </Button>
+                </div>
+                <div className="text-center flex flex-col items-center justify-center">
+                  <h1 className="text-3xl font-serif font-bold text-deep-brown mb-2">
+                    {isCreate ? "New" : "Update"} Service
+                  </h1>
+                  {isCreate ? (
+                    <p className="text-sm text-luxury-gray dark:text-gray-400">
+                      Fulfill the details to list your service in the luxury portal.
+                    </p>
+                  ) : (
+                    <div className="flex items-center gap-1">
+                      <b>Status:</b>
+                      <StatusBadge status={serviceToEditForm.serviceStatus.name} />
+                    </div>
+                  )}
+                </div>
+                <div className="w-[100px]"></div>
               </div>
-              <div className="text-center flex flex-col items-center justify-center">
-                <h1 className="text-3xl font-serif font-bold text-deep-brown mb-2">
-                  {isCreate ? "New" : "Update"} Service
-                </h1>
-                {isCreate ? (
-                  <p className="text-sm text-luxury-gray dark:text-gray-400">
-                    Fulfill the details to list your service in the luxury portal.
-                  </p>
-                ) : (
-                  <div className="flex items-center gap-1">
-                    <b>Status:</b>
-                    <StatusBadge status={serviceToEditForm.serviceStatus.name} />
-                  </div>
-                )}
-              </div>
-              <div className="w-[100px]"></div>
+              {!isCreate && serviceToEditForm.serviceStatus.id === 3 && serviceToEditForm.serviceComments.length && (
+                <div className="mt-4">
+                  <Alert severity="warning">
+                    <AlertTitle>Rejection reason</AlertTitle>
+                    {serviceToEditForm.serviceComments[0].comment}
+                  </Alert>
+                </div>
+              )}
             </header>
             <div className="flex-1 bg-surface">
               <div className="px-8 pt-8 pb-4 sm:px-12 sm:pt-12 sm:pb-8 space-y-8">

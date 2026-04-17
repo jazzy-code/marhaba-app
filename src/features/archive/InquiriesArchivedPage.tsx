@@ -73,11 +73,6 @@ const InquiriesArchivedPage: FC<ListPageProps> = ({ initialData }) => {
     }
   })
 
-  const handleArchive = (inquiry: any) => {
-    setSelectedInquiry(inquiry)
-    setModalDeleteOpen(true)
-  }
-
   const handlePreview = (inquiry: any) => {
     setSelectedInquiry(inquiry)
     setOpenModalInquiryPreview(true)

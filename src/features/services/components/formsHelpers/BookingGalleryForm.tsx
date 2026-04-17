@@ -5,7 +5,7 @@ import { useRef, useState } from "react"
 import { FormLabel } from "@mui/material"
 
 import { useFormikContext } from "formik"
-import { BookPlus, FilePlus, ImagePlus, Images, Trash } from "lucide-react"
+import { BookPlus, FilePlus, ImagePlus, Images, Link2, Trash } from "lucide-react"
 
 import { MAX_GALLERY_FILES, MAX_SIZE_FILES } from "@/constants"
 
@@ -101,9 +101,7 @@ const BookingGalleryForm = ({ serviceFiles, setServiceFiles }: BookingGalleryFor
             <div>
               <FormLabel>Destination URL</FormLabel>
               <div className="relative">
-                <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-luxury-gray/50 text-[20px]">
-                  link
-                </span>
+                <Link2 className="absolute left-3 top-1/2 -translate-y-1/2 text-luxury-gray/50 w-5" />
                 <input
                   className="pl-10 w-full bg-white border-luxury-border rounded text-luxury-gray focus:ring-1 focus:ring-primary-gold focus:border-primary-gold py-2.5"
                   placeholder="https://reserva..."

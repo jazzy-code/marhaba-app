@@ -1,4 +1,4 @@
-import { Checkbox, FormControlLabel, FormGroup, FormLabel, Grid, TextField } from "@mui/material"
+import { Checkbox, FormControlLabel, FormGroup, FormHelperText, FormLabel, Grid, TextField } from "@mui/material"
 import { FormikProvider, useFormik } from "formik"
 
 import { useServices } from "@/context/ServicesContext"
@@ -7,6 +7,7 @@ import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 import type { ServiceFormProps } from "@/types/services"
 
 import { serviceBeautySpaForm } from "../../lib/ServicesFormValues"
+import { serviceBeautySpaFormSchema } from "../../schemas/serviceForm.schema"
 import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServiceBeautySpaForm = ({
@@ -25,6 +26,7 @@ const ServiceBeautySpaForm = ({
     initialValues: isCreate
       ? formatServiceForm(serviceBeautySpaForm, serviceType)
       : formatServiceToEditForm(serviceToEditForm, ["Treatment", "Product"]),
+    validationSchema: serviceBeautySpaFormSchema,
     validateOnChange: false,
     validateOnBlur: true,
     onSubmit: (values) => mutate(values)
@@ -67,7 +69,10 @@ const ServiceBeautySpaForm = ({
           </Grid>
 
           <Grid size={12}>
-            <FormLabel>Treatments</FormLabel>
+            <FormLabel required>Treatments</FormLabel>
+            <FormHelperText error={handleErrorFieldMessage("beautySpaHasTreatments")}>
+              {handleErrorFieldMessage("beautySpaHasTreatments")}
+            </FormHelperText>
             <FormGroup>
               <Grid container spacing={1}>
                 {treatments.map((treatment) => (
@@ -91,7 +96,7 @@ const ServiceBeautySpaForm = ({
 
           <Grid size={12}>
             <FormLabel>Products</FormLabel>
-            <FormGroup>
+            <FormGroup className="!mt-3">
               <Grid container spacing={1}>
                 {products.map((product) => (
                   <Grid size={4} key={product.id}>

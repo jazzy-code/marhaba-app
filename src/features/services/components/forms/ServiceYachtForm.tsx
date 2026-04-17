@@ -11,6 +11,7 @@ import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 import type { ServiceFormProps } from "@/types/services"
 
 import { serviceYachtForm } from "../../lib/ServicesFormValues"
+import { serviceYachtFormSchema } from "../../schemas/serviceForm.schema"
 import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServiceYachtForm = ({
@@ -30,6 +31,7 @@ const ServiceYachtForm = ({
     initialValues: isCreate
       ? formatServiceForm(serviceYachtForm, serviceType)
       : formatServiceToEditForm(serviceToEditForm, ["Amenity", "Tripulation"]),
+    validationSchema: serviceYachtFormSchema,
     validateOnChange: false,
     validateOnBlur: true,
     onSubmit: (values) => mutate(values)
@@ -71,7 +73,7 @@ const ServiceYachtForm = ({
         setServiceFiles={setServiceFiles}>
         <Grid container spacing={3}>
           <Grid size={6}>
-            <FormLabel>Modality</FormLabel>
+            <FormLabel required>Modality</FormLabel>
             <SelectModality
               value={values.modality}
               error={handleErrorField("modality")}
@@ -82,7 +84,7 @@ const ServiceYachtForm = ({
           </Grid>
 
           <Grid size={6}>
-            <FormLabel>Shipyard</FormLabel>
+            <FormLabel required>Shipyard</FormLabel>
             <TextField
               name="shipyard"
               value={values.shipyard}
@@ -94,7 +96,7 @@ const ServiceYachtForm = ({
           </Grid>
 
           <Grid size={6}>
-            <FormLabel>Model</FormLabel>
+            <FormLabel required>Model</FormLabel>
             <TextField
               name="model"
               value={values.model}
@@ -106,7 +108,7 @@ const ServiceYachtForm = ({
           </Grid>
 
           <Grid size={3}>
-            <FormLabel>Construction Year</FormLabel>
+            <FormLabel required>Construction Year</FormLabel>
             <TextField
               name="constructionYear"
               value={values.constructionYear}
@@ -119,7 +121,7 @@ const ServiceYachtForm = ({
           </Grid>
 
           <Grid size={3}>
-            <FormLabel>Refit Year</FormLabel>
+            <FormLabel required>Refit Year</FormLabel>
             <TextField
               name="refitYear"
               value={values.refitYear}
@@ -132,7 +134,7 @@ const ServiceYachtForm = ({
           </Grid>
 
           <Grid size={3}>
-            <FormLabel>Length (m)</FormLabel>
+            <FormLabel required>Length (m)</FormLabel>
             <TextField
               name="lengthMeters"
               value={values.lengthMeters}
@@ -145,7 +147,7 @@ const ServiceYachtForm = ({
           </Grid>
 
           <Grid size={3}>
-            <FormLabel>Max Speed</FormLabel>
+            <FormLabel required>Max Speed</FormLabel>
             <TextField
               name="maxSpeed"
               value={values.maxSpeed}
@@ -158,7 +160,7 @@ const ServiceYachtForm = ({
           </Grid>
 
           <Grid size={3}>
-            <FormLabel>Total Cabins</FormLabel>
+            <FormLabel required>Total Cabins</FormLabel>
             <TextField
               name="totalCabins"
               value={values.totalCabins}
@@ -171,7 +173,7 @@ const ServiceYachtForm = ({
           </Grid>
 
           <Grid size={3}>
-            <FormLabel>Passengers Capacity</FormLabel>
+            <FormLabel required>Passengers Capacity</FormLabel>
             <TextField
               name="passengersCapacity"
               value={values.passengersCapacity}
@@ -186,7 +188,7 @@ const ServiceYachtForm = ({
           {values.modality === "RENT" && (
             <>
               <Grid size={4}>
-                <FormLabel>Port</FormLabel>
+                <FormLabel required>Port</FormLabel>
                 <TextField
                   name="port"
                   value={values.port}
@@ -198,7 +200,7 @@ const ServiceYachtForm = ({
               </Grid>
 
               <Grid size={4}>
-                <FormLabel>Fuel Performance</FormLabel>
+                <FormLabel required>Fuel Performance</FormLabel>
                 <TextField
                   name="fuelPerformance"
                   value={values.fuelPerformance}
@@ -211,7 +213,7 @@ const ServiceYachtForm = ({
               </Grid>
 
               <Grid size={4}>
-                <FormLabel>Country</FormLabel>
+                <FormLabel required>Country</FormLabel>
                 <TextField
                   select
                   name="countryId"
@@ -232,7 +234,7 @@ const ServiceYachtForm = ({
 
           {values.modality === "SALE" && (
             <Grid size={6}>
-              <FormLabel>Motor Hours</FormLabel>
+              <FormLabel required>Motor Hours</FormLabel>
               <TextField
                 name="motorHours"
                 value={values.motorHours}

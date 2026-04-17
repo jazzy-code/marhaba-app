@@ -29,7 +29,7 @@ const ServiceBaseFormWrapper = ({
   const router = useRouter()
   const { handleSubmit } = useFormikContext()
 
-  const [acceptTerms, setAcceptTerms] = useState(false)
+  const [acceptTerms, setAcceptTerms] = useState(!isCreate)
 
   return (
     <form onSubmit={handleSubmit}>

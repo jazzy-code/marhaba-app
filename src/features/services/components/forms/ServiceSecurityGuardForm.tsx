@@ -1,4 +1,14 @@
-import { Checkbox, FormControlLabel, FormGroup, FormLabel, Grid, MenuItem, Switch, TextField } from "@mui/material"
+import {
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  FormHelperText,
+  FormLabel,
+  Grid,
+  MenuItem,
+  Switch,
+  TextField
+} from "@mui/material"
 import { FormikProvider, useFormik } from "formik"
 
 import { useServices } from "@/context/ServicesContext"
@@ -7,7 +17,7 @@ import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 import type { ServiceFormProps } from "@/types/services"
 
 import { serviceSecurityGuardForm } from "../../lib/ServicesFormValues"
-
+import { serviceSecurityGuardFormSchema } from "../../schemas/serviceForm.schema"
 import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServiceSecurityGuardForm = ({
@@ -27,6 +37,7 @@ const ServiceSecurityGuardForm = ({
     initialValues: isCreate
       ? formatServiceForm(serviceSecurityGuardForm, serviceType)
       : formatServiceToEditForm(serviceToEditForm, ["Profile", "Language"]),
+    validationSchema: serviceSecurityGuardFormSchema,
     validateOnChange: false,
     validateOnBlur: true,
     onSubmit: (values) => mutate(values)
@@ -44,7 +55,7 @@ const ServiceSecurityGuardForm = ({
         setServiceFiles={setServiceFiles}>
         <Grid container spacing={3}>
           <Grid size={4}>
-            <FormLabel>Background Type</FormLabel>
+            <FormLabel required>Background Type</FormLabel>
             <TextField
               select
               name="securityGuardBackgroundTypeId"
@@ -86,7 +97,7 @@ const ServiceSecurityGuardForm = ({
             />
           </Grid>
           <Grid size={4}>
-            <FormLabel>Minimum Contract Unit</FormLabel>
+            <FormLabel required>Minimum Contract Unit</FormLabel>
             <TextField
               select
               name="minContractUnity"
@@ -100,7 +111,7 @@ const ServiceSecurityGuardForm = ({
             </TextField>
           </Grid>
           <Grid size={4}>
-            <FormLabel>Minimum Contract Period</FormLabel>
+            <FormLabel required>Minimum Contract Period</FormLabel>
             <TextField
               type="number"
               name="minContractPeriod"
@@ -113,7 +124,10 @@ const ServiceSecurityGuardForm = ({
           </Grid>
 
           <Grid size={12}>
-            <FormLabel>Security Guard Profile</FormLabel>
+            <FormLabel required>Security Guard Profile</FormLabel>
+            <FormHelperText error={handleErrorFieldMessage("securityGuardHasProfiles")}>
+              {handleErrorFieldMessage("securityGuardHasProfiles")}
+            </FormHelperText>
             <FormGroup>
               <Grid container spacing={1}>
                 {profiles.map((profile) => (
@@ -136,7 +150,10 @@ const ServiceSecurityGuardForm = ({
           </Grid>
 
           <Grid size={12}>
-            <FormLabel>Languages</FormLabel>
+            <FormLabel required>Languages</FormLabel>
+            <FormHelperText error={handleErrorFieldMessage("securityGuardHasLanguages")}>
+              {handleErrorFieldMessage("securityGuardHasLanguages")}
+            </FormHelperText>
             <FormGroup>
               <Grid container spacing={1}>
                 {languages.map((lang) => (

@@ -9,6 +9,7 @@ import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 import type { ServiceFormProps } from "@/types/services"
 
 import { serviceLuxuryStayForm } from "../../lib/ServicesFormValues"
+import { serviceLuxuryStayFormSchema } from "../../schemas/serviceForm.schema"
 import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServiceLuxuryStayForm = ({
@@ -27,6 +28,7 @@ const ServiceLuxuryStayForm = ({
     initialValues: isCreate
       ? formatServiceForm(serviceLuxuryStayForm, serviceType)
       : formatServiceToEditForm(serviceToEditForm, ["Amenity"]),
+    validationSchema: serviceLuxuryStayFormSchema,
     validateOnChange: false,
     validateOnBlur: true,
     onSubmit: (values) => mutate(values)

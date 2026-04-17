@@ -21,7 +21,6 @@
     "dayjs": "^1.11.20",
     "formik": "^2.4.9",
     "lucide-react": "^0.562.0",
-    "material-symbols": "^0.40.2",
     "next": "16.1.1",
     "pluralize": "^8.0.0",
     "postcss": "^8.5.6",

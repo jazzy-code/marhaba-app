@@ -7,7 +7,7 @@ import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 import type { ServiceFormProps } from "@/types/services"
 
 import { servicePrivateEventForm } from "../../lib/ServicesFormValues"
-
+import { servicePrivateEventFormSchema } from "../../schemas/serviceForm.schema"
 import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServicePrivateEventForm = ({
@@ -26,6 +26,7 @@ const ServicePrivateEventForm = ({
     initialValues: isCreate
       ? formatServiceForm(servicePrivateEventForm, serviceType)
       : formatServiceToEditForm(serviceToEditForm, ["Amenity"]),
+    validationSchema: servicePrivateEventFormSchema,
     validateOnChange: false,
     validateOnBlur: true,
     onSubmit: (values) => mutate(values)
@@ -43,7 +44,7 @@ const ServicePrivateEventForm = ({
         setServiceFiles={setServiceFiles}>
         <Grid container spacing={3}>
           <Grid size={6}>
-            <FormLabel>Event Type</FormLabel>
+            <FormLabel required>Event Type</FormLabel>
             <TextField
               select
               name="privateEventTypeId"
@@ -61,7 +62,7 @@ const ServicePrivateEventForm = ({
           </Grid>
 
           <Grid size={3}>
-            <FormLabel>Capacity</FormLabel>
+            <FormLabel required>Capacity</FormLabel>
             <TextField
               type="number"
               name="capacity"
@@ -74,7 +75,7 @@ const ServicePrivateEventForm = ({
           </Grid>
 
           <Grid size={3}>
-            <FormLabel>Lead Time (Days)</FormLabel>
+            <FormLabel required>Lead Time (Days)</FormLabel>
             <TextField
               type="number"
               name="leadTimeDays"

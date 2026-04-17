@@ -24,7 +24,7 @@ const PriceConfigurationForm = () => {
       </h3>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div>
-          <FormLabel>Price Model</FormLabel>
+          <FormLabel required>Price Model</FormLabel>
           <TextField
             select
             name="priceModel"
@@ -46,7 +46,7 @@ const PriceConfigurationForm = () => {
           </TextField>
         </div>
         <div>
-          <FormLabel>Price</FormLabel>
+          <FormLabel required={values.priceModel !== "CONSULT"}>Price</FormLabel>
           <TextField
             name="price"
             value={values.price}
@@ -66,7 +66,7 @@ const PriceConfigurationForm = () => {
           />
         </div>
         <div>
-          <FormLabel>Currency</FormLabel>
+          <FormLabel required={values.priceModel !== "CONSULT"}>Currency</FormLabel>
           <TextField
             select
             name="currency"

@@ -1,4 +1,13 @@
-import { Checkbox, FormControlLabel, FormGroup, FormLabel, Grid, MenuItem, TextField } from "@mui/material"
+import {
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  FormHelperText,
+  FormLabel,
+  Grid,
+  MenuItem,
+  TextField
+} from "@mui/material"
 import { FormikProvider, useFormik } from "formik"
 
 import { useServices } from "@/context/ServicesContext"
@@ -7,7 +16,7 @@ import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 import type { ServiceFormProps } from "@/types/services"
 
 import { servicePrivateStaffForm } from "../../lib/ServicesFormValues"
-
+import { servicePrivateStaffFormSchema } from "../../schemas/serviceForm.schema"
 import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServicePrivateStaffForm = ({
@@ -27,6 +36,7 @@ const ServicePrivateStaffForm = ({
     initialValues: isCreate
       ? formatServiceForm(servicePrivateStaffForm, serviceType)
       : formatServiceToEditForm(serviceToEditForm, ["Qualification", "Language"]),
+    validationSchema: servicePrivateStaffFormSchema,
     validateOnChange: false,
     validateOnBlur: true,
     onSubmit: (values) => mutate(values)
@@ -44,7 +54,7 @@ const ServicePrivateStaffForm = ({
         setServiceFiles={setServiceFiles}>
         <Grid container spacing={3}>
           <Grid size={6}>
-            <FormLabel>Staff Role</FormLabel>
+            <FormLabel required>Staff Role</FormLabel>
             <TextField
               select
               name="privateStaffRoleId"
@@ -62,7 +72,7 @@ const ServicePrivateStaffForm = ({
           </Grid>
 
           <Grid size={6}>
-            <FormLabel>Work Regime</FormLabel>
+            <FormLabel required>Work Regime</FormLabel>
             <TextField
               select
               name="regime"
@@ -90,7 +100,10 @@ const ServicePrivateStaffForm = ({
           </Grid>
 
           <Grid size={12}>
-            <FormLabel>Qualifications</FormLabel>
+            <FormLabel required>Qualifications</FormLabel>
+            <FormHelperText error={handleErrorFieldMessage("privateStaffHasQualifications")}>
+              {handleErrorFieldMessage("privateStaffHasQualifications")}
+            </FormHelperText>
             <FormGroup>
               <Grid container spacing={1}>
                 {qualifications.map((q) => (
@@ -113,7 +126,10 @@ const ServicePrivateStaffForm = ({
           </Grid>
 
           <Grid size={12}>
-            <FormLabel>Languages</FormLabel>
+            <FormLabel required>Languages</FormLabel>
+            <FormHelperText error={handleErrorFieldMessage("privateStaffHasLanguages")}>
+              {handleErrorFieldMessage("privateStaffHasLanguages")}
+            </FormHelperText>
             <FormGroup>
               <Grid container spacing={1}>
                 {languages.map((lang) => (

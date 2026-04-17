@@ -11,7 +11,7 @@ import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 import type { ServiceFormProps } from "@/types/services"
 
 import { serviceLuxuryCarForm } from "../../lib/ServicesFormValues"
-
+import { serviceLuxuryCarFormSchema } from "../../schemas/serviceForm.schema"
 import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServiceLuxuryCarsForm = ({
@@ -30,6 +30,7 @@ const ServiceLuxuryCarsForm = ({
     initialValues: isCreate
       ? formatServiceForm(serviceLuxuryCarForm, serviceType)
       : formatServiceToEditForm(serviceToEditForm, ["Amenity"]),
+    validationSchema: serviceLuxuryCarFormSchema,
     validateOnChange: false,
     validateOnBlur: true,
     onSubmit: (values) => mutate(values)
@@ -60,7 +61,7 @@ const ServiceLuxuryCarsForm = ({
         setServiceFiles={setServiceFiles}>
         <Grid container spacing={3}>
           <Grid size={6}>
-            <FormLabel>Modality</FormLabel>
+            <FormLabel required>Modality</FormLabel>
             <SelectModality
               value={values.modality}
               error={handleErrorField("modality")}
@@ -70,7 +71,7 @@ const ServiceLuxuryCarsForm = ({
             />
           </Grid>
           <Grid size={6}>
-            <FormLabel>Brand</FormLabel>
+            <FormLabel required>Brand</FormLabel>
             <TextField
               name="brand"
               value={values.brand}
@@ -81,7 +82,7 @@ const ServiceLuxuryCarsForm = ({
             />
           </Grid>
           <Grid size={4}>
-            <FormLabel>Model</FormLabel>
+            <FormLabel required>Model</FormLabel>
             <TextField
               name="model"
               value={values.model}
@@ -92,7 +93,7 @@ const ServiceLuxuryCarsForm = ({
             />
           </Grid>
           <Grid size={4}>
-            <FormLabel>Edition</FormLabel>
+            <FormLabel required>Edition</FormLabel>
             <TextField
               name="edition"
               value={values.edition}
@@ -103,7 +104,7 @@ const ServiceLuxuryCarsForm = ({
             />
           </Grid>
           <Grid size={4}>
-            <FormLabel>Year</FormLabel>
+            <FormLabel required>Year</FormLabel>
             <TextField
               name="year"
               value={values.year}
@@ -115,7 +116,7 @@ const ServiceLuxuryCarsForm = ({
             />
           </Grid>
           <Grid size={3}>
-            <FormLabel>Transmission</FormLabel>
+            <FormLabel required>Transmission</FormLabel>
             <TextField
               select
               name="transmission"
@@ -129,7 +130,7 @@ const ServiceLuxuryCarsForm = ({
             </TextField>
           </Grid>
           <Grid size={3}>
-            <FormLabel>Motor Type</FormLabel>
+            <FormLabel required>Motor Type</FormLabel>
             <TextField
               select
               name="motorType"
@@ -146,7 +147,7 @@ const ServiceLuxuryCarsForm = ({
             </TextField>
           </Grid>
           <Grid size={3}>
-            <FormLabel>Horse Power (CV)</FormLabel>
+            <FormLabel required>Horse Power (CV)</FormLabel>
             <TextField
               name="cv"
               value={values.cv}
@@ -158,7 +159,7 @@ const ServiceLuxuryCarsForm = ({
             />
           </Grid>
           <Grid size={3}>
-            <FormLabel>Passengers Capacity</FormLabel>
+            <FormLabel required>Passengers Capacity</FormLabel>
             <TextField
               name="passengersCapacity"
               value={values.passengersCapacity}
@@ -170,7 +171,7 @@ const ServiceLuxuryCarsForm = ({
             />
           </Grid>
           <Grid size={6}>
-            <FormLabel>Exterior Color</FormLabel>
+            <FormLabel required>Exterior Color</FormLabel>
             <TextField
               select
               name="luxuryCarExteriorColorId"
@@ -187,7 +188,7 @@ const ServiceLuxuryCarsForm = ({
             </TextField>
           </Grid>
           <Grid size={6}>
-            <FormLabel>Interior Color</FormLabel>
+            <FormLabel required>Interior Color</FormLabel>
             <TextField
               select
               name="luxuryCarInteriorColorId"
@@ -207,7 +208,7 @@ const ServiceLuxuryCarsForm = ({
           {values.modality === "RENT" && (
             <>
               <Grid size={3}>
-                <FormLabel>Drive Mode</FormLabel>
+                <FormLabel required>Drive Mode</FormLabel>
                 <TextField
                   select
                   name="driveMode"
@@ -221,7 +222,7 @@ const ServiceLuxuryCarsForm = ({
                 </TextField>
               </Grid>
               <Grid size={3}>
-                <FormLabel>Security Deposit</FormLabel>
+                <FormLabel required>Security Deposit</FormLabel>
                 <TextField
                   name="securityDeposit"
                   value={values.securityDeposit}
@@ -233,7 +234,7 @@ const ServiceLuxuryCarsForm = ({
                 />
               </Grid>
               <Grid size={3}>
-                <FormLabel>Daily Kilometers</FormLabel>
+                <FormLabel required>Daily Kilometers</FormLabel>
                 <TextField
                   name="dailyKilometers"
                   value={values.dailyKilometers}
@@ -245,7 +246,7 @@ const ServiceLuxuryCarsForm = ({
                 />
               </Grid>
               <Grid size={3}>
-                <FormLabel>Minimum Age</FormLabel>
+                <FormLabel required>Minimum Age</FormLabel>
                 <TextField
                   name="minAge"
                   value={values.minAge}
@@ -262,7 +263,7 @@ const ServiceLuxuryCarsForm = ({
           {values.modality === "SALE" && (
             <>
               <Grid size={4}>
-                <FormLabel>Owner Type</FormLabel>
+                <FormLabel required>Owner Type</FormLabel>
                 <TextField
                   select
                   name="ownerType"
@@ -276,7 +277,7 @@ const ServiceLuxuryCarsForm = ({
                 </TextField>
               </Grid>
               <Grid size={4}>
-                <FormLabel>Kilometers</FormLabel>
+                <FormLabel required>Kilometers</FormLabel>
                 <TextField
                   name="kilometers"
                   value={values.kilometers}
@@ -288,7 +289,7 @@ const ServiceLuxuryCarsForm = ({
                 />
               </Grid>
               <Grid size={4}>
-                <FormLabel>Legal situation</FormLabel>
+                <FormLabel required>Legal situation</FormLabel>
                 <TextField
                   select
                   name="luxuryCarLegalSituationId"

@@ -1,11 +1,10 @@
 "use client"
 
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, MapPin } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 const CatalogServicesResults = ({ services }: { services: any }) => {
   const { data = [] } = services
-  console.log("data", data)
   const router = useRouter()
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -28,7 +27,7 @@ const CatalogServicesResults = ({ services }: { services: any }) => {
           <div className="p-6 flex flex-col flex-1">
             <h3 className="font-serif text-xl text-deep-brown mb-2">{service.title}</h3>
             <div className="flex items-center gap-2 text-[10px] text-text-muted uppercase tracking-wider mb-6">
-              <span className="material-symbols-outlined text-primary-gold text-[14px] icon-filled">location_on</span>
+              <MapPin className="w-4 h-4 text-primary-gold" />
               {service.city?.name}, {service.district}
             </div>
             <div className="mt-auto pt-6 border-t border-brand-border/20 flex justify-between items-center">

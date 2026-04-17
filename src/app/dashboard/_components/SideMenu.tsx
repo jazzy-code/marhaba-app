@@ -5,6 +5,7 @@ import { Archive, Headset, LayoutDashboard, Mail, Rows3, Settings } from "lucide
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
+import MarhabaIcon from "@/assets/icons/MarhabaIcon"
 import { useInquiriesStats } from "@/hooks/useInquiresStats"
 import { useServicesStats } from "@/hooks/useServicesStats"
 
@@ -24,7 +25,7 @@ const SideMenu = () => {
       <div className="p-8 pb-4">
         <div className="flex items-center gap-3">
           <div className="h-10 w-10 bg-primary-gold/20 rounded-full flex items-center justify-center text-primary-gold font-serif font-bold text-xl">
-            M
+            <MarhabaIcon size={30} />
           </div>
           <div>
             <h1 className="font-serif text-lg font-bold text-stone-900 leading-tight">Marbella</h1>

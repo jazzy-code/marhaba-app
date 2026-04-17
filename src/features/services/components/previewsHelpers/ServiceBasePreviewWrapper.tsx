@@ -2,7 +2,7 @@
 
 import { ReactNode, useState } from "react"
 
-import { MapPin, Share2 } from "lucide-react"
+import { BadgeCheck, Gem, MapPin, Share2 } from "lucide-react"
 
 import ModalInquiry from "@/components/modals/ModalInquiry"
 import { CUR_SYM } from "@/constants"
@@ -231,7 +231,7 @@ const ServiceBasePreviewWrapper = ({ service, characteristics, children }: Servi
               </div>
               {service.exclusiveListing && (
                 <div className="flex mt-8 sm:mt-0 items-center gap-2 px-5 py-2 border border-brand-border rounded-sm">
-                  <span className="material-symbols-outlined icon-filled text-brand-accent text-[16px]">verified</span>
+                  <BadgeCheck className="w-6 text-brand-accent" />
                   <span className="text-[10px] uppercase tracking-widest font-semibold text-brand-primary">
                     Exclusive Listing
                   </span>
@@ -310,7 +310,7 @@ const ServiceBasePreviewWrapper = ({ service, characteristics, children }: Servi
               </div>
               <div className="bg-white border border-brand-border/60 p-6 rounded-sm flex items-start gap-5">
                 <div className="bg-page p-2.5 rounded-full text-brand-accent shrink-0 border border-brand-border/50">
-                  <span className="material-symbols-outlined text-[20px]">diamond</span>
+                  <Gem className="w-6" />
                 </div>
                 <div>
                   <h4 className="text-xs font-bold uppercase tracking-widest text-brand-primary mb-2">

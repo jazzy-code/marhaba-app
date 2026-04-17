@@ -11,7 +11,7 @@ import { formatServiceForm, formatServiceToEditForm } from "@/lib/services"
 import type { ServiceFormProps } from "@/types/services"
 
 import { serviceJetForm } from "../../lib/ServicesFormValues"
-
+import { serviceJetFormSchema } from "../../schemas/serviceForm.schema"
 import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServiceJetForm = ({
@@ -30,6 +30,7 @@ const ServiceJetForm = ({
     initialValues: isCreate
       ? formatServiceForm(serviceJetForm, serviceType)
       : formatServiceToEditForm(serviceToEditForm, ["Amenity"]),
+    validationSchema: serviceJetFormSchema,
     validateOnChange: false,
     validateOnBlur: true,
     onSubmit: (values) => mutate(values)
@@ -68,7 +69,7 @@ const ServiceJetForm = ({
           </Grid>
 
           <Grid size={6}>
-            <FormLabel>Model</FormLabel>
+            <FormLabel required>Model</FormLabel>
             <TextField
               name="model"
               value={values.model}
@@ -80,7 +81,7 @@ const ServiceJetForm = ({
           </Grid>
 
           <Grid size={6}>
-            <FormLabel>Jet Category</FormLabel>
+            <FormLabel required>Jet Category</FormLabel>
             <TextField
               select
               name="jetCategoryId"
@@ -98,7 +99,7 @@ const ServiceJetForm = ({
           </Grid>
 
           <Grid size={3}>
-            <FormLabel>NM Range</FormLabel>
+            <FormLabel required>NM Range</FormLabel>
             <TextField
               name="nmRange"
               value={values.nmRange}
@@ -111,7 +112,7 @@ const ServiceJetForm = ({
           </Grid>
 
           <Grid size={3}>
-            <FormLabel>Passengers Capacity</FormLabel>
+            <FormLabel required>Passengers Capacity</FormLabel>
             <TextField
               name="passengersCapacity"
               value={values.passengersCapacity}

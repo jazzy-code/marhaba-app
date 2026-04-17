@@ -1,4 +1,13 @@
-import { Checkbox, FormControlLabel, FormGroup, FormLabel, Grid, MenuItem, TextField } from "@mui/material"
+import {
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  FormHelperText,
+  FormLabel,
+  Grid,
+  MenuItem,
+  TextField
+} from "@mui/material"
 import { FormikProvider, useFormik } from "formik"
 
 import { useServices } from "@/context/ServicesContext"
@@ -8,6 +17,7 @@ import type { ServiceFormProps } from "@/types/services"
 
 import { serviceMedicalCareForm } from "../../lib/ServicesFormValues"
 
+import { serviceMedicalCareFormSchema } from "../../schemas/serviceForm.schema"
 import ServiceBaseFormWrapper from "../formsHelpers/ServiceBaseFormWrapper"
 
 const ServiceMedicalCareForm = ({
@@ -27,6 +37,7 @@ const ServiceMedicalCareForm = ({
     initialValues: isCreate
       ? formatServiceForm(serviceMedicalCareForm, serviceType)
       : formatServiceToEditForm(serviceToEditForm, ["Service", "Specialty", "Language", "Attention"]),
+    validationSchema: serviceMedicalCareFormSchema,
     validateOnChange: false,
     validateOnBlur: true,
     onSubmit: (values) => mutate(values)
@@ -97,7 +108,10 @@ const ServiceMedicalCareForm = ({
           </Grid>
 
           <Grid size={12}>
-            <FormLabel>Services</FormLabel>
+            <FormLabel required>Services</FormLabel>
+            <FormHelperText error={handleErrorFieldMessage("medicalCareHasServices")}>
+              {handleErrorFieldMessage("medicalCareHasServices")}
+            </FormHelperText>
             <FormGroup>
               <Grid container spacing={1}>
                 {services.map((service) => (
@@ -120,7 +134,10 @@ const ServiceMedicalCareForm = ({
           </Grid>
 
           <Grid size={12}>
-            <FormLabel>Specialties</FormLabel>
+            <FormLabel required>Specialties</FormLabel>
+            <FormHelperText error={handleErrorFieldMessage("medicalCareHasSpecialties")}>
+              {handleErrorFieldMessage("medicalCareHasSpecialties")}
+            </FormHelperText>
             <FormGroup>
               <Grid container spacing={1}>
                 {specialties.map((spec) => (
@@ -143,7 +160,10 @@ const ServiceMedicalCareForm = ({
           </Grid>
 
           <Grid size={12}>
-            <FormLabel>Languages</FormLabel>
+            <FormLabel required>Languages</FormLabel>
+            <FormHelperText error={handleErrorFieldMessage("medicalCareHasLanguages")}>
+              {handleErrorFieldMessage("medicalCareHasLanguages")}
+            </FormHelperText>
             <FormGroup>
               <Grid container spacing={1}>
                 {languages.map((lang) => (
@@ -166,7 +186,10 @@ const ServiceMedicalCareForm = ({
           </Grid>
 
           <Grid size={12}>
-            <FormLabel>Attention Types</FormLabel>
+            <FormLabel required>Attention Types</FormLabel>
+            <FormHelperText error={handleErrorFieldMessage("medicalCareHasAttentions")}>
+              {handleErrorFieldMessage("medicalCareHasAttentions")}
+            </FormHelperText>
             <FormGroup>
               <Grid container spacing={1}>
                 {attentions.map((att) => (

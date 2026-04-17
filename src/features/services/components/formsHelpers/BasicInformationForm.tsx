@@ -36,7 +36,6 @@ const BasicInformationForm = () => {
           </div>
           <TextField
             name="title"
-            placeholder="Ej: Cena Gastronómica Privada al Atardecer"
             value={values.title}
             slotProps={{ htmlInput: { maxLength: 50 } }}
             error={handleErrorField("title")}
@@ -46,10 +45,10 @@ const BasicInformationForm = () => {
           />
         </div>
         <div className="md:col-span-1 mt-2">
-          <FormLabel required>Reference</FormLabel>
+          <FormLabel>Reference</FormLabel>
           <TextField
             name="reference"
-            placeholder="Ej: 123456"
+            placeholder="ABC123"
             value={values.reference}
             error={handleErrorField("reference")}
             helperText={handleErrorFieldMessage("reference")}
@@ -68,7 +67,6 @@ const BasicInformationForm = () => {
           </div>
           <TextField
             name="subtitle"
-            placeholder="Ej: Cena Gastronómica Privada al Atardecer"
             value={values.subtitle}
             slotProps={{ htmlInput: { maxLength: 100 } }}
             error={handleErrorField("subtitle")}
@@ -90,9 +88,7 @@ const BasicInformationForm = () => {
         </div>
         <div className="md:col-span-3">
           <div className="flex justify-between items-center mb-1">
-            <FormLabel className="!mb-0" required>
-              Short description
-            </FormLabel>
+            <FormLabel className="!mb-0">Short description</FormLabel>
             <span className="text-[10px] bg-primary-gold/10 text-primary-gold px-2 py-0.5 rounded-full font-medium">
               {values.shortDescription?.length || 0}/300
             </span>
@@ -100,7 +96,6 @@ const BasicInformationForm = () => {
           <TextField
             multiline
             rows={2}
-            placeholder="Breve resumen atractivo"
             name="shortDescription"
             value={values.shortDescription}
             slotProps={{ htmlInput: { maxLength: 300 } }}
@@ -111,9 +106,7 @@ const BasicInformationForm = () => {
         </div>
         <div className="md:col-span-3">
           <div className="flex justify-between items-center mb-1">
-            <FormLabel className="!mb-0" required>
-              Long description
-            </FormLabel>
+            <FormLabel className="!mb-0">Long description</FormLabel>
             <span className="text-[10px] bg-primary-gold/10 text-primary-gold px-2 py-0.5 rounded-full font-medium">
               {values.longDescription?.length || 0}/1000
             </span>
@@ -185,9 +178,13 @@ const BasicInformationForm = () => {
           )}
         </div>
         <div className="md:col-span-3">
-          <FormLabel required>Address</FormLabel>
+          <span className="italic font-semibold text-sm">
+            ** If your service is not phisical, you can skip the following part **
+          </span>
+        </div>
+        <div className="md:col-span-3">
+          <FormLabel>Address</FormLabel>
           <TextField
-            placeholder="Av. Paseo de la Reforma 123"
             name="address"
             value={values.address}
             error={handleErrorField("address")}
@@ -197,9 +194,9 @@ const BasicInformationForm = () => {
           />
         </div>
         <div className="md:col-span-3">
-          <FormLabel required>Location link</FormLabel>
+          <FormLabel>Location link</FormLabel>
           <TextField
-            placeholder="Link de Google Maps"
+            placeholder="Google Maps / Apple Maps Link"
             name="locationUrl"
             value={values.locationUrl}
             error={handleErrorField("locationUrl")}

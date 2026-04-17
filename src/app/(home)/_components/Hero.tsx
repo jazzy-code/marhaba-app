@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 
+import { Search } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 const Hero = () => {
@@ -33,7 +34,7 @@ const Hero = () => {
           </h2>
           <div className="w-full max-w-3xl bg-white rounded-sm shadow-2xl flex flex-col sm:flex-row gap-2 p-2">
             <div className="flex-1 flex items-center px-4">
-              <span className="material-symbols-outlined text-deep-brown/60 text-2xl">search</span>
+              <Search className="w-6 h-6 text-deep-brown" />
               <input
                 className="w-full border-none bg-transparent px-4 py-3 text-deep-brown placeholder-deep-brown/50 focus:ring-0 font-sans text-lg outline-none"
                 placeholder="What are you looking for?"
