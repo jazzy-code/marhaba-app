@@ -88,14 +88,14 @@ const BookingGalleryForm = ({ serviceFiles, setServiceFiles }: BookingGalleryFor
         <div className="md:col-span-3 bg-gradient-to-br from-luxury-input to-white border border-luxury-border rounded-lg p-6 shadow-sm">
           <h3 className="text-lg font-serif font-semibold text-deep-brown mb-6 flex items-center gap-2">
             <BookPlus className="text-primary-gold" />
-            Booking Configuration (Core)
+            Petition Channel
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <FormLabel>Booking Mode</FormLabel>
               <select className="w-full bg-white border-luxury-border rounded text-luxury-gray focus:ring-1 focus:ring-primary-gold focus:border-primary-gold py-2.5">
-                <option>Enlace Externo</option>
-                <option>Iframe Integrado</option>
+                <option>External Link</option>
+                <option>Integrated iFrame</option>
               </select>
             </div>
             <div>
@@ -202,7 +202,7 @@ const BookingGalleryForm = ({ serviceFiles, setServiceFiles }: BookingGalleryFor
                   <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-3 shadow-sm group-hover:scale-110 transition-transform">
                     <FilePlus className="text-primary-gold text-2xl" />
                   </div>
-                  <span className="text-[10px] uppercase font-bold mt-1">Añadir</span>
+                  <span className="text-[10px] uppercase font-bold mt-1">Add</span>
                 </button>
                 {filesPreview.galleryFiles.map((url: string, index: number) => (
                   <div

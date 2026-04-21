@@ -45,7 +45,7 @@ const BasicInformationForm = () => {
           />
         </div>
         <div className="md:col-span-1 mt-2">
-          <FormLabel>Reference</FormLabel>
+          <FormLabel>Reference (Optional)</FormLabel>
           <TextField
             name="reference"
             placeholder="ABC123"
@@ -56,7 +56,7 @@ const BasicInformationForm = () => {
             onBlur={handleBlur}
           />
         </div>
-        <div className="md:col-span-2 mt-2">
+        <div className="md:col-span-3 mt-2">
           <div className="flex justify-between items-center mb-1">
             <FormLabel className="!mb-0" required>
               Subtitle / Tagline
@@ -75,7 +75,7 @@ const BasicInformationForm = () => {
             onBlur={handleBlur}
           />
         </div>
-        <div className="md:col-span-1 flex items-end">
+        {/* <div className="md:col-span-1 flex items-end">
           <FormControlLabel
             control={
               <Switch
@@ -85,7 +85,7 @@ const BasicInformationForm = () => {
             }
             label="Exclusive Listing"
           />
-        </div>
+        </div> */}
         <div className="md:col-span-3">
           <div className="flex justify-between items-center mb-1">
             <FormLabel className="!mb-0">Short description</FormLabel>

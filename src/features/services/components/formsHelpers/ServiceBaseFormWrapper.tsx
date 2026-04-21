@@ -67,13 +67,12 @@ const ServiceBaseFormWrapper = ({
                   <Checkbox checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} />
                 </div>
                 <div className="text-sm text-luxury-gray">
-                  <span className="font-bold text-deep-brown block mb-1">Declaración de Conformidad</span>
-                  Confirmo que tengo los permisos necesarios para publicar la información e imágenes proporcionadas, y
-                  acepto los{" "}
+                  <span className="font-bold text-deep-brown block mb-1">Declaration of Compliance</span>I confirm that
+                  I have the necessary permissions to publish the information and images provided, and I accept the{" "}
                   <a className="text-primary-gold hover:text-primary-gold-dark underline" href="#">
-                    Términos y Condiciones
+                    Terms and Conditions
                   </a>{" "}
-                  del Portal de Proveedores Marhaba.
+                  of the Marhaba Supplier Portal.
                 </div>
               </div>
             </section>

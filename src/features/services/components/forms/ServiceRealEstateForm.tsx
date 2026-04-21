@@ -89,7 +89,7 @@ const ServiceRealEstateForm = ({
             </TextField>
           </Grid>
           <Grid size={4}>
-            <FormLabel>Rooms</FormLabel>
+            <FormLabel>Rooms Quantity</FormLabel>
             <TextField
               name="rooms"
               value={values.rooms}

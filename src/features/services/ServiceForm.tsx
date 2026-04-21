@@ -319,7 +319,17 @@ const ServiceForm = ({ isCreate = true, serviceToEdit }: { isCreate?: boolean; s
                       disabled={!isCreate}
                       name="serviceType"
                       value={serviceType}
+                      slotProps={{ select: { displayEmpty: true } }}
+                      sx={{
+                        "& .MuiSelect-select.MuiInputBase-input": {
+                          color: serviceType === "" ? "#acacac" : "black",
+                          fontWeight: serviceType === "" ? "inherit" : "500"
+                        }
+                      }}
                       onChange={(e) => setServiceType(e.target.value)}>
+                      <MenuItem value="" sx={{ color: "#acacac" }}>
+                        Select the type of service you offer
+                      </MenuItem>
                       {types.map((type) => (
                         <MenuItem key={type.key} value={type.key}>
                           {type.name}

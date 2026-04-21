@@ -36,13 +36,9 @@ const PriceConfigurationForm = () => {
             }}
             onChange={handleChange}
             onBlur={handleBlur}>
-            <MenuItem value="FIXED">
-              Fixed <small className="ms-1">(Ex. 150€)</small>
-            </MenuItem>
-            <MenuItem value="FROM">
-              From <small className="ms-1">(Ex. Starting at 150€)</small>
-            </MenuItem>
+            <MenuItem value="FIXED">Fixed (Ex. 150€)</MenuItem>
             <MenuItem value="CONSULT">To consult</MenuItem>
+            <MenuItem value="FROM">From (Ex. Starting at 100€)</MenuItem>
           </TextField>
         </div>
         <div>
