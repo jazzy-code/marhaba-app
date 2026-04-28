@@ -8,6 +8,8 @@ import Link from "next/link"
 
 import Hero from "@/app/(home)/_components/Hero"
 
+import LiveItThisWeek from "./_components/LiveItThisWeek"
+
 export default function HomePage() {
   const { user, isLoaded } = useUser()
   const { signOut } = useClerk()
@@ -47,19 +49,19 @@ export default function HomePage() {
                 category: "Marine",
                 title: "Marine",
                 desc: "Superyachts, charters, and exclusive maritime experiences.",
-                img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAKqtc55lgoFB9nQEZ4xr45KBWwOXDXsE7glySNiKUhyGoIP3rgwybX1l8gJo_cE_1fdDFES4zEygkee3GDW3aebKcxlDRnGGJdJwWQDl4XaT2K7SS82lorHD1fZ9hzQx46rqNDiK-u7W_Z4a7YHpNsbb8kq9_j6NPf7QamfcJZn64RuepHdjxldIaDNwAR01ko0E5Qnrb0Cz-OnsYl96cjo0vQPpEkBIUmSxzFjQ-PbuJOLcfhar7saESvqD6sUU6jmVPH_cEjUSw"
+                img: "images/marine.png"
               },
               {
                 category: "Estates",
                 title: "Estates",
                 desc: "Private villas, penthouses, and architectural masterpieces.",
-                img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAJ3aFVnzR8PfOFYEwRP0p7KGXmaH2X_u14veGqaiTM2pQQOfqQPuW7hjouIqpa9jCysM3WvXSgMmsG8T422AUrKwbUDfVfU_q5bPWVdh-ndRtR7jXa6WJgoI7IwJbGH3xOwM_ReiM3OlNZIsjqDdrQe42b6f0QJ8t4b5v_-lEp2cBjaendcz9nm_ONfixOAIxAG_ciLGVdg-2uAVLpTCaFvnGDOgiQESMBdI1RBPlpfUqJwg1bNnIYrRHSboalx-2-yyzoTX25Qns"
+                img: "images/real-estate.png"
               },
               {
                 category: "Gastronomy",
                 title: "Gastronomy",
                 desc: "Michelin-starred dining, private chefs, and rare vintages.",
-                img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCyXspzyLcH2gkJyWNu0s0spCTJqkb_R4Y_Z-LNher-UtJv1wgLEEv7XZ-FPISrD_0ZMVY5gxzA0xTn6FxiBXWkHS9PSIbaw1jMGxncWJ_DnR3P_EbZxW7uJYsmFsCi1kXLOUg4ww-U9_fnwY04Rw18N0O4_22FXZ-KHjtDnr4nYZn6tWTPeXQSHruy-tYG-mP_1PO9k63BYi054koWZ-eCHULryN0sDWBvUDhH3K3TpWRDD_CdmZb9QmfsBcN9qqPxqI6ZA0SlpOU"
+                img: "images/gastronomy.png"
               }
             ].map((item, idx) => (
               <Link
@@ -103,32 +105,32 @@ export default function HomePage() {
             <span className="mb-3 block font-display text-sm font-bold uppercase tracking-widest text-primary-gold">
               The Gold Standard
             </span>
-            <h2 className="font-serif text-4xl font-medium text-deep-brown md:text-5xl">Why the Elite Choose Us</h2>
+            <h2 className="font-serif text-4xl font-medium text-deep-brown md:text-5xl">Why You Trust Us</h2>
           </div>
           <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
             {[
               {
-                title: "Unrivaled Access",
-                icon: <Gem size={20} />,
-                desc: "Gain entry to off-market properties, private yachts, and exclusive events not available to the public."
+                title: "Total Access",
+                icon: <Gem size={30} />,
+                desc: "From private villa to domestic staff, yacht and jet transfers, golf and paddle experience, exclusive dining and lifestyle events. Everything arranged seamlessly for you."
               },
               {
-                title: "Vetted Excellence",
-                icon: <UserRoundCheck size={20} />,
-                desc: "Every partner is rigorously screened to ensure they meet our uncompromising standards of luxury and service."
+                title: "Trusted Partners",
+                icon: <UserRoundCheck size={30} />,
+                desc: "Every professional we work with meets the highest standards of service, reliability, and discretion."
               },
               {
-                title: "Bespoke Concierge",
-                icon: <Handshake size={20} />,
-                desc: "A dedicated team orchestrates every detail, ensuring your experience is seamless, personalized, and discreet."
+                title: "Effortless Service",
+                icon: <Handshake size={30} />,
+                desc: "Our team takes care of every detail, ensuring your experience is smooth, enjoyable, and exactly as you wish."
               }
             ].map((item, i) => (
               <div key={i} className="flex flex-col items-center text-center">
-                <div className="mb-6 flex size-16 items-center justify-center rounded-full bg-background-light text-primary-gold shadow-sm">
+                <div className="mb-6 flex size-20 items-center justify-center rounded-full bg-background-light text-primary-gold shadow-sm">
                   {item.icon}
                 </div>
-                <h3 className="mb-3 font-serif text-2xl text-deep-brown">{item.title}</h3>
-                <p className="font-sans text-text-muted/80 leading-relaxed">{item.desc}</p>
+                <h3 className="mb-3 font-serif text-2xl font-medium text-deep-brown">{item.title}</h3>
+                <p className="font-sans text-text-muted/90 leading-relaxed text-lg">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -140,7 +142,7 @@ export default function HomePage() {
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-16 flex flex-col items-center text-center">
             <h2 className="font-serif text-4xl font-bold text-deep-brown md:text-5xl">Seamless Orchestration</h2>
-            <p className="mt-4 max-w-2xl font-sans text-text-muted/80">
+            <p className="mt-4 max-w-2xl font-sans text-lg text-text-muted/90">
               From request to reality in three simple steps.
             </p>
           </div>
@@ -167,12 +169,12 @@ export default function HomePage() {
             ].map((item, i) => (
               <div key={i} className="relative z-10 flex flex-col items-center text-center">
                 <div className="mb-6 flex size-24 items-center justify-center rounded-full border border-white bg-surface shadow-md">
-                  <span className="font-serif text-4xl font-medium text-primary-gold">{item.step}</span>
+                  <div className="font-serif text-5xl font-medium text-primary-gold pb-4">{item.step}</div>
                 </div>
-                <h3 className="mb-2 font-display text-lg font-bold uppercase tracking-wider text-deep-brown">
+                <h3 className="mb-2 font-serif text-lg font-bold uppercase tracking-wider text-deep-brown">
                   {item.title}
                 </h3>
-                <p className="px-4 font-sans text-sm text-text-muted/90">{item.desc}</p>
+                <p className="px-4 font-sans text-md text-text-muted/90">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -187,75 +189,7 @@ export default function HomePage() {
       </section>
 
       {/* Weekly Features Section */}
-      <section className="bg-[#F9F8F6] py-24 border-t border-deep-brown/10 relative overflow-hidden">
-        <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="mb-14 text-center">
-            <h2 className="font-serif text-3xl text-deep-brown md:text-4xl lg:text-5xl">Weekly Curated Experiences</h2>
-            <div className="mx-auto mt-4 h-px w-16 bg-primary-gold"></div>
-          </div>
-
-          <div className="scrollbar-hide flex snap-x snap-mandatory gap-6 overflow-x-auto pb-8 px-2 -mx-2">
-            {[
-              {
-                type: "Villa Special",
-                title: "Sunset Palace Estate",
-                desc: "Exclusive weekend access to the Golden Mile's finest property.",
-                img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCtILZOPLCHEuwmQo5Xj3zd9XtU1ucWg3Dajt0x_bl0L1LbTgyYQPeKTyvoGgTKsbcd0rzA1U2IO1YXQ5up8dmHjJIv9SzhKAzemL7fCPujoY5AXNKx0iaVMbxp8NEXsuygv6OeJvXAsywXY1HvBlkunoFf0rAJ5JDNx5IU3vBiV84JIkH3yHzCM1MdFyJ3oeLjm7vdz51C6NGiHgbQi03VksJxIf58y-QcLyfJL06mwD4rfPzQuTQPf7EXF9eP11JHRIgoK0aSQF8"
-              },
-              {
-                type: "Gastronomy",
-                title: "Chef's Table: Dani García",
-                desc: "Private tasting menu for 8 guests with wine pairing.",
-                img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCyXspzyLcH2gkJyWNu0s0spCTJqkb_R4Y_Z-LNher-UtJv1wgLEEv7XZ-FPISrD_0ZMVY5gxzA0xTn6FxiBXWkHS9PSIbaw1jMGxncWJ_DnR3P_EbZxW7uJYsmFsCi1kXLOUg4ww-U9_fnwY04Rw18N0O4_22FXZ-KHjtDnr4nYZn6tWTPeXQSHruy-tYG-mP_1PO9k63BYi054koWZ-eCHULryN0sDWBvUDhH3K3TpWRDD_CdmZb9QmfsBcN9qqPxqI6ZA0SlpOU"
-              },
-              {
-                type: "Yacht Charter",
-                title: "The Mediterranean Pearl",
-                desc: "3-day charter to Ibiza including crew and catering.",
-                img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAKqtc55lgoFB9nQEZ4xr45KBWwOXDXsE7glySNiKUhyGoIP3rgwybX1l8gJo_cE_1fdDFES4zEygkee3GDW3aebKcxlDRnGGJdJwWQDl4XaT2K7SS82lorHD1fZ9hzQx46rqNDiK-u7W_Z4a7YHpNsbb8kq9_j6NPf7QamfcJZn64RuepHdjxldIaDNwAR01ko0E5Qnrb0Cz-OnsYl96cjo0vQPpEkBIUmSxzFjQ-PbuJOLcfhar7saESvqD6sUU6jmVPH_cEjUSw"
-              },
-              {
-                type: "Wellness",
-                title: "Holistic Retreat",
-                desc: "Full spa takeover and personalized therapy sessions.",
-                img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAJ3aFVnzR8PfOFYEwRP0p7KGXmaH2X_u14veGqaiTM2pQQOfqQPuW7hjouIqpa9jCysM3WvXSgMmsG8T422AUrKwbUDfVfU_q5bPWVdh-ndRtR7jXa6WJgoI7IwJbGH3xOwM_ReiM3OlNZIsjqDdrQe42b6f0QJ8t4b5v_-lEp2cBjaendcz9nm_ONfixOAIxAG_ciLGVdg-2uAVLpTCaFvnGDOgiQESMBdI1RBPlpfUqJwg1bNnIYrRHSboalx-2-yyzoTX25Qns"
-              }
-            ].map((item, idx) => (
-              <div key={idx} className="min-w-[300px] md:min-w-[360px] snap-center flex flex-col gap-6">
-                <Link
-                  href="/catalog"
-                  className="group relative aspect-[16/9] w-full cursor-pointer overflow-hidden rounded-sm shadow-md transition-all hover:shadow-lg">
-                  <div
-                    className="h-full w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                    style={{ backgroundImage: `url(${item.img})` }}></div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-deep-brown/90 to-transparent opacity-60 group-hover:opacity-75 transition-opacity"></div>
-                  <div className="absolute bottom-0 p-6 text-left">
-                    <span className="mb-1 block text-xs font-bold uppercase tracking-widest text-primary-gold">
-                      {item.type}
-                    </span>
-                    <h3 className="font-serif text-xl text-white">{item.title}</h3>
-                    <p className="mt-1 text-sm text-white/80 line-clamp-2">{item.desc}</p>
-                  </div>
-                </Link>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-4 flex justify-center gap-2">
-            <div className="h-1.5 w-8 rounded-full bg-deep-brown"></div>
-            <div className="h-1.5 w-1.5 rounded-full bg-deep-brown/30"></div>
-            <div className="h-1.5 w-1.5 rounded-full bg-deep-brown/30"></div>
-          </div>
-
-          <div className="mt-12 flex justify-center">
-            <Link
-              href="/catalog"
-              className="rounded-sm border border-deep-brown bg-transparent px-8 py-3 text-sm font-bold uppercase tracking-widest text-deep-brown transition-all hover:bg-deep-brown hover:text-white hover:shadow-md active:scale-95">
-              View All Weekly Features
-            </Link>
-          </div>
-        </div>
-      </section>
+      <LiveItThisWeek />
 
       {/* Stats Section */}
       <section className="border-y border-deep-brown/10 bg-deep-brown py-12">
@@ -271,7 +205,7 @@ export default function HomePage() {
             </div>
             <div>
               <p className="font-serif text-3xl font-medium text-white">24/7</p>
-              <p className="mt-1 text-xs font-bold uppercase tracking-wider text-white">Concierge Support</p>
+              <p className="mt-1 text-xs font-bold uppercase tracking-wider text-white">Support</p>
             </div>
             <div>
               <p className="font-serif text-3xl font-medium text-white">€500M+</p>

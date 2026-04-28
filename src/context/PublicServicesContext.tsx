@@ -6,6 +6,7 @@ import { CategoryItem, ServiceTypeItem } from "@/types/services"
 interface PublicServicesContextProps {
   serviceTypes: ServiceTypeItem[]
   categories: CategoryItem[]
+  latestServices: any[]
 }
 
 const PublicServicesContext = createContext<PublicServicesContextProps | undefined>(undefined)

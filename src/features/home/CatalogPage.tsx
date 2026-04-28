@@ -53,7 +53,7 @@ const CatalogPage = ({ initialData, slug }: CatalogPageProps) => {
             <span className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3 text-primary-gold block">
               The Elite Collection
             </span>
-            <h2 className="font-serif text-4xl text-deep-brown">Available Offerings</h2>
+            <h2 className="font-serif text-4xl text-deep-brown">Available Services</h2>
           </div>
           <div className="relative w-full md:w-80">
             <SearchBar

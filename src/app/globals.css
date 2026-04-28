@@ -3,10 +3,11 @@
 @theme {
   /* Configuración de Colores de AI Studio */
   --color-page: #f9f8f6;
-  --color-primary-gold: #b08d57;
-  --color-primary-gold-dark: #8c6d3f;
+  --color-primary-gold: #b8a38c;
+  --color-primary-gold-light: #f2e6d8;
+  --color-primary-gold-dark: #8a7b75;
   --color-deep-brown: #2f2003;
-  --color-background-light: #f9f8f6;
+  --color-background-light: #ff2e6d8;
   --color-surface: #ffffff;
   --color-surface-dark: #2a2721;
   --color-text-main: #1b140d;
@@ -16,12 +17,12 @@
   --color-luxury-gray: #6b625c;
   --color-luxury-input: #f9f9f6;
   --color-luxury-border: #efe7e2;
-  --color-brown-dark: #5c554b;
+  --color-brown-dark: #2e2003;
   --color-brown-text: #2f2003;
 
   /* Colores de Marca Anidados */
   --color-brand-primary: #2f2003;
-  --color-brand-secondary: #5c554b;
+  --color-brand-secondary: #2e2003;
   --color-brand-accent: #c5a572;
   --color-brand-border: #e5e0d8;
   --color-brand-surface: #ffffff;

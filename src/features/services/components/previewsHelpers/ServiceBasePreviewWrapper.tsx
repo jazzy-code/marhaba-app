@@ -4,6 +4,7 @@ import { ReactNode, useState } from "react"
 
 import { BadgeCheck, Gem, MapPin, Share2 } from "lucide-react"
 
+import WhatsappIcon from "@/assets/icons/WhatsappIcon"
 import ModalInquiry from "@/components/modals/ModalInquiry"
 import { CUR_SYM } from "@/constants"
 import { useCurrency } from "@/hooks/useCurrency"
@@ -321,9 +322,13 @@ const ServiceBasePreviewWrapper = ({ service, characteristics, children }: Servi
                     with full discretion.
                   </p>
                   <a
-                    className="text-[10px] font-bold uppercase tracking-widest text-brand-primary border-b border-brand-primary/30 hover:border-brand-primary pb-0.5 transition-colors"
-                    href="#">
-                    Speak with an Advisor
+                    className="text-[10px] flex items-center font-bold uppercase tracking-widest text-brand-primary border-b border-brand-primary/30 hover:border-brand-primary pb-0.5 transition-colors"
+                    href="https://wa.me/34691250100?text=I'm%20interested%20in%20off-market%20opportunities%20with%20Marhaba%20Marbella."
+                    target="_blank">
+                    <div className="size-4 flex items-center justify-center me-2">
+                      <WhatsappIcon />
+                    </div>
+                    <span>Speak with an Advisor</span>
                   </a>
                 </div>
               </div>

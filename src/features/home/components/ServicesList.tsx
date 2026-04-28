@@ -29,7 +29,7 @@ const ServicesList = () => {
               key={type.key}
               href={`/catalog/${type.slug}`}
               className={`px-2 rounded-md text-left py-1 text-xs uppercase tracking-widest ${pathname === `/catalog/${type.slug}` ? menuSelectedClasses : menuClasses}`}>
-              {type.name}
+              Your {type.name}
             </Link>
           ))}
         </div>

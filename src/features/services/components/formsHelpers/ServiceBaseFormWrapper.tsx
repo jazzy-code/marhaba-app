@@ -72,7 +72,7 @@ const ServiceBaseFormWrapper = ({
                   <a className="text-primary-gold hover:text-primary-gold-dark underline" href="#">
                     Terms and Conditions
                   </a>{" "}
-                  of the Marhaba Supplier Portal.
+                  of the Marhaba Marbella Supplier Portal.
                 </div>
               </div>
             </section>

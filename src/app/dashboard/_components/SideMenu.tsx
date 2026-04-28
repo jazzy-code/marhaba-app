@@ -5,7 +5,7 @@ import { Archive, Headset, LayoutDashboard, Mail, Rows3, Settings } from "lucide
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-import MarhabaIcon from "@/assets/icons/MarhabaIcon"
+import MarhabaMarbellaIcon from "@/assets/icons/MarhabaIcon"
 import { useInquiriesStats } from "@/hooks/useInquiresStats"
 import { useServicesStats } from "@/hooks/useServicesStats"
 
@@ -16,7 +16,7 @@ const SideMenu = () => {
   const { user } = useUser()
 
   const menuSelectedClasses =
-    "flex items-center gap-3 px-4 py-3 bg-primary-gold/10 text-primary-gold dark:text-primary-gold rounded-sm transition-colors group"
+    "flex items-center gap-3 px-4 py-3 bg-brown-dark text-primary-gold-light dark:text-primary-gold rounded-sm transition-colors group"
   const menuClasses =
     "flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-sm transition-colors group"
 
@@ -24,12 +24,12 @@ const SideMenu = () => {
     <aside className="hidden lg:flex w-72 flex-col bg-background-light dark:bg-stone-900 border-r border-stone-200 dark:border-stone-800 h-full">
       <div className="p-8 pb-4">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 bg-primary-gold/20 rounded-full flex items-center justify-center text-primary-gold font-serif font-bold text-xl">
-            <MarhabaIcon size={30} />
+          <div className="size-12 bg-primary-gold/20 rounded-full p-2 flex items-center justify-center text-primary-gold font-serif font-bold text-xl">
+            <MarhabaMarbellaIcon />
           </div>
           <div>
-            <h1 className="font-serif text-lg font-bold text-stone-900 leading-tight">Marbella</h1>
-            <p className="text-xs text-primary-gold font-medium tracking-widest uppercase">Provider Portal</p>
+            <h1 className="font-serif text-lg font-bold text-stone-900 leading-tight">Marhaba Marbella</h1>
+            <p className="text-xs text-primary-gold font-semibold tracking-widest uppercase">Provider Portal</p>
           </div>
         </div>
       </div>
@@ -73,7 +73,8 @@ const SideMenu = () => {
         </a>
         <a
           className="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-sm transition-colors group"
-          href="#">
+          href="https://wa.me/34691250100?text=Necesito%20ayuda%20con%20mi%20portal%20de%20proveedor"
+          target="_blank">
           <Headset className="group-hover:text-primary-gold transition-colors" />
           <span className="font-medium text-sm">Support</span>
         </a>

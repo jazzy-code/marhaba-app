@@ -17,7 +17,7 @@ const playfairDisplay = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: "Marhaba",
+  title: "Marhaba Marbella",
   description: "The luxurious Market Place for the best experiences in Marbella"
 }
 
@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className="light">
-        <body className={`${playfairDisplay.variable} ${manrope.variable} antialiased`}>
+        <body className={`${playfairDisplay.variable} ${manrope.variable} antialiased relative`}>
           <QueryProvider>
             <MuiProvider>{children}</MuiProvider>
           </QueryProvider>

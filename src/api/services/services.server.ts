@@ -65,3 +65,9 @@ export async function getServicesStats() {
   if (data.error) return null
   return data
 }
+
+export async function getLatestServices() {
+  const data = await apiServer(`/public/${prefix}/latest`)
+  if (data.error) return null
+  return data
+}
