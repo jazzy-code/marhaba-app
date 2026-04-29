@@ -1,10 +1,11 @@
+"use client"
+
 import Link from "next/link"
 
 import { usePublicServices } from "@/context/PublicServicesContext"
 
 const LiveItThisWeek = () => {
   const { latestServices } = usePublicServices()
-  console.log(latestServices)
   const mockedServices = [
     {
       type: "Villa Special",
