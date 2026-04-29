@@ -68,6 +68,6 @@ export async function getServicesStats() {
 
 export async function getLatestServices() {
   const data = await apiServer(`/public/${prefix}/latest`)
-  if (data.error) return null
+  if (data.error) return []
   return data
 }
