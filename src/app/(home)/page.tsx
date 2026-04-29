@@ -189,7 +189,7 @@ export default function HomePage() {
       </section>
 
       {/* Weekly Features Section */}
-      <LiveItThisWeek />
+      {/* <LiveItThisWeek /> */}
 
       {/* Stats Section */}
       <section className="border-y border-deep-brown/10 bg-deep-brown py-12">
