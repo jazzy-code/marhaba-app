@@ -1,4 +1,6 @@
 "use client"
+// app/page.tsx
+export const dynamic = "force-dynamic"
 
 import { useEffect } from "react"
 
@@ -189,7 +191,7 @@ export default function HomePage() {
       </section>
 
       {/* Weekly Features Section */}
-      {/* <LiveItThisWeek /> */}
+      <LiveItThisWeek />
 
       {/* Stats Section */}
       <section className="border-y border-deep-brown/10 bg-deep-brown py-12">
