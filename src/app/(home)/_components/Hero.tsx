@@ -30,7 +30,24 @@ const Hero = () => {
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center">
         <div className="w-full max-w-5xl animate-fade-in flex flex-col items-center">
-          <div className="w-full max-w-3xl bg-white rounded-sm mb-14 shadow-2xl flex flex-col sm:flex-row gap-2 p-2">
+          <h1 className="my-6 font-serif text-6xl font-medium leading-tight tracking-tight text-white drop-shadow-lg md:text-7xl lg:text-8xl">
+            Marbella in one click
+          </h1>
+          <h2 className="mb-14 font-sans text-lg font-light text-white/90 md:text-2xl lg:text-3xl tracking-wide max-w-2xl">
+            Your Luxury Services. Built on trust. Delivered with excellence.
+          </h2>
+          <div className="w-full max-w-4xl flex gap-6 mb-8 justify-center">
+            {categories.map((category) => (
+              <Link
+                key={category.id}
+                href="/catalog"
+                className="rounded-sm border-2 border-white text-white hover:border-deep-brown bg-deep-brown/70 px-8 py-4 text-sm font-bold uppercase tracking-widest text-deep-brown transition-all hover:bg-deep-brown hover:text-white hover:shadow-lg active:scale-95">
+                {category.name}
+              </Link>
+            ))}
+          </div>
+
+          <div className="w-full max-w-3xl bg-white rounded-sm mt-8 shadow-2xl flex flex-col sm:flex-row gap-2 p-2">
             <div className="flex-1 flex items-center px-4">
               <Search className="w-6 h-6 text-deep-brown" />
               <input
@@ -48,23 +65,6 @@ const Hero = () => {
               className="h-14 sm:w-auto w-full rounded-sm bg-primary-gold px-10 text-sm font-bold tracking-widest text-white transition-all hover:bg-[#967645] hover:shadow-lg active:scale-95 uppercase">
               DISCOVER
             </button>
-          </div>
-
-          <h1 className="my-6 font-serif text-6xl font-medium leading-tight tracking-tight text-white drop-shadow-lg md:text-7xl lg:text-8xl">
-            Marbella in one click
-          </h1>
-          <h2 className="mb-14 font-sans text-lg font-light text-white/90 md:text-2xl lg:text-3xl tracking-wide max-w-2xl">
-            Your Luxury Services. Built on trust. Delivered with excellence.
-          </h2>
-          <div className="w-full max-w-4xl flex gap-6 mb-8 justify-center">
-            {categories.map((category) => (
-              <Link
-                key={category.id}
-                href="/catalog"
-                className="rounded-sm border-2 border-white text-white hover:border-deep-brown bg-deep-brown/70 px-8 py-4 text-sm font-bold uppercase tracking-widest text-deep-brown transition-all hover:bg-deep-brown hover:text-white hover:shadow-lg active:scale-95">
-                {category.name}
-              </Link>
-            ))}
           </div>
         </div>
       </div>

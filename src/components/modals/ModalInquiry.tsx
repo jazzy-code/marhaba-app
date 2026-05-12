@@ -30,7 +30,7 @@ const ModalInquiry = ({ open, service, onClose }: ModalInquiryProps) => {
       email: "",
       phone: "",
       message: "",
-      serviceId: service.id
+      serviceId: service.serviceId
     },
     enableReinitialize: true,
     onSubmit: (data: any) => mutate(data)

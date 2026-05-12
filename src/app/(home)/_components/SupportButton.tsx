@@ -36,7 +36,7 @@ const SupportButton = () => {
       {/* Botón */}
       <div
         className="h-12 w-12 p-1 rounded-full flex items-center justify-center bg-primary-gold-light text-[#6f7a4a] shadow-lg cursor-pointer hover:bg-primary-gold-dark hover:text-primary-gold-light transition-all active:scale-95"
-        onClick={() => window.open("https://wa.me/tunumero", "_blank")}>
+        onClick={() => window.open("https://wa.me/34691250100", "_blank")}>
         <WhatsappIcon />
       </div>
     </div>

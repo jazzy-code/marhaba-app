@@ -56,8 +56,6 @@ const InquiriesPage: FC<ListPageProps> = ({ initialData }) => {
     refetchOnMount: false
   })
 
-  console.log(inquiries)
-
   const { mutate, isPending: isArchiving } = useMutation({
     mutationFn: async (data: any) => {
       const token = await getToken()

@@ -3,6 +3,7 @@ import { getLatestServices, getPublicServiceTypes } from "@/api/services/service
 import Header from "@/app/(home)/_components/Header"
 import { PublicServicesProvider } from "@/context/PublicServicesContext"
 
+import Footer from "./_components/Footer"
 import SupportButton from "./_components/SupportButton"
 
 export default async function HomeLayout({ children }: { children: React.ReactNode }) {
@@ -15,6 +16,7 @@ export default async function HomeLayout({ children }: { children: React.ReactNo
       <Header />
       {children}
       <SupportButton />
+      <Footer />
     </PublicServicesProvider>
   )
 }
