@@ -1,6 +1,5 @@
 "use client"
 
-import { useUser } from "@clerk/nextjs"
 import { Archive, Headset, LayoutDashboard, Mail, Rows3, Settings } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -13,7 +12,6 @@ const SideMenu = () => {
   const pathname = usePathname()
   const { data: servicesStats } = useServicesStats()
   const { data: inquiriesStats } = useInquiriesStats()
-  const { user } = useUser()
 
   const menuSelectedClasses =
     "flex items-center gap-3 px-4 py-3 bg-brown-dark text-primary-gold-light dark:text-primary-gold rounded-sm transition-colors group"
@@ -79,22 +77,6 @@ const SideMenu = () => {
           <span className="font-medium text-sm">Support</span>
         </a>
       </nav>
-      <div className="p-4 border-t border-stone-200 dark:border-stone-800">
-        <div className="flex items-center gap-3 px-4 py-2">
-          <div
-            className="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-stone-100 dark:ring-stone-700"
-            style={{
-              backgroundImage:
-                'url("https://lh3.googleusercontent.com/aida-public/AB6AXuDt41JMuspw7_6XCRRRWo7P_24M3FDxXcbkBzhBquXgkuMcH_eennK9FLp-wBL9tdzuWQyodg9pZrwZUxDefhWh3OIS6ErRKpT6yWny8qs8efjMhouGrXR18A5GppOXnMGxTqSur_sJG1VckC3p-c8e9SEbAYC63C-TjMLKDsvsxc47up0oi2wyv0jyaiaQ33JOso8ZVwpUoOv2njPcegi8RkO7d03Sq2EoyFU5U-1zI-QrRGsgAvJiygSe2InqZozrKXk3F6Btmko")'
-            }}></div>
-          <div className="flex flex-col">
-            <span className="text-sm font-bold text-stone-900">
-              {user?.firstName} {user?.lastName}
-            </span>
-            <span className="text-xs text-stone-500">Provider</span>
-          </div>
-        </div>
-      </div>
     </aside>
   )
 }
