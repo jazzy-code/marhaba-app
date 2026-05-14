@@ -1,6 +1,7 @@
 import Link from "next/link"
 
 import MarhabaMarbellaLogo from "@/assets/images/MarhabaMarbellaLogo"
+import GoogleTranslate from "@/components/GoogleTranslate"
 
 const Footer = () => {
   return (
@@ -143,6 +144,11 @@ const Footer = () => {
               </li>
             </ul>
           </div>
+        </div>
+
+        <div className="flex flex-col gap-3 w-full pb-5 mt-14 md:mt-5">
+          <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-gold">Languages</h3>
+          <GoogleTranslate />
         </div>
 
         {/* MIDDLE LINE */}

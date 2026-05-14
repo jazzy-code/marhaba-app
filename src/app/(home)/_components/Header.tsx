@@ -3,11 +3,10 @@
 import { useEffect, useState } from "react"
 
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs"
-import { ChevronDown, Menu, X } from "lucide-react"
+import { ChevronDown, Languages, Menu, X } from "lucide-react"
 import { usePathname, useRouter } from "next/navigation"
 
 import MarhabaMarbellaLogo from "@/assets/images/MarhabaMarbellaLogo"
-import GoogleTranslate from "@/components/GoogleTranslate"
 import { usePublicServices } from "@/context/PublicServicesContext"
 
 const Header = () => {
@@ -40,15 +39,15 @@ const Header = () => {
   return (
     <>
       <header
-        className={`fixed left-0 z-[100] w-full transition-all duration-300 h-24 flex items-center ${
+        className={`fixed left-0 z-[100] w-full transition-all duration-300 h-20 md:h-24 flex items-center ${
           scrolled || !isHome || isMobileMenuOpen
             ? "bg-page/95 backdrop-blur-md border-b border-brand-border shadow-sm"
             : "bg-transparent"
         }`}>
-        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 lg:px-8">
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 lg:px-8">
           <div className="flex items-center gap-4 cursor-pointer" onClick={() => navigate("/")}>
             <div
-              className={`flex items-center justify-center ${
+              className={`flex items-center justify-center w-[230px] md:w-[250px] ${
                 scrolled || !isHome || isMobileMenuOpen ? "text-deep-brown" : "text-white"
               }`}>
               <MarhabaMarbellaLogo />
@@ -84,10 +83,17 @@ const Header = () => {
             ))}
           </nav>
 
-          <div className="flex items-center gap-6">
-            <GoogleTranslate />
-            <div
-              className={`h-4 border-l ${scrolled || !isHome ? "border-brand-border" : "border-[#E7E5E4]"} opacity-50`}></div>
+          <div className="flex items-center gap-2 md:gap-6">
+            <button
+              onClick={() => navigate("#google_translate_element")}
+              className={`text-[11px] uppercase tracking-[0.2em] font-semibold flex items-center gap-1.5 transition-colors duration-300 ${
+                scrolled || !isHome ? "text-brand-secondary hover:text-deep-brown" : "text-white/90 hover:text-white"
+              }`}>
+              <Languages />
+              <ChevronDown className="w-3 h-3 opacity-50 group-hover:rotate-180 transition-transform duration-300" />
+            </button>
+            {/* <div
+              className={`h-4 border-l ${scrolled || !isHome ? "border-brand-border" : "border-[#E7E5E4]"} opacity-50`}></div> */}
             <SignedOut>
               <div className="hidden md:flex items-center gap-4">
                 <SignInButton>

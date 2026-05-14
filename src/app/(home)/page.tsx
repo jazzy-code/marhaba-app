@@ -49,19 +49,19 @@ export default function HomePage() {
                 category: "Marine",
                 title: "Marine",
                 desc: "Superyachts, charters, and exclusive maritime experiences.",
-                img: "images/marine.png"
+                img: "/images/marine.png"
               },
               {
                 category: "Estates",
                 title: "Estates",
                 desc: "Private villas, penthouses, and architectural masterpieces.",
-                img: "images/real-estate.png"
+                img: "/images/real-estate.png"
               },
               {
                 category: "Gastronomy",
                 title: "Gastronomy",
                 desc: "Michelin-starred dining, private chefs, and rare vintages.",
-                img: "images/gastronomy.png"
+                img: "/images/gastronomy.png"
               }
             ].map((item, idx) => (
               <Link

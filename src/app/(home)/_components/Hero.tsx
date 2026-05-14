@@ -21,7 +21,7 @@ const Hero = () => {
     <section className="relative h-screen w-full overflow-hidden">
       <div className="absolute inset-0 z-0 scale-105 animate-[slow-zoom_20s_infinite_alternate]">
         <img
-          src="images/marbella-hero.jpg"
+          src="/images/marbella-hero.jpg"
           alt="Cinematic luxury villa with pool at sunset in Marbella"
           className="w-full h-full object-cover"
         />
@@ -36,7 +36,7 @@ const Hero = () => {
           <h2 className="mb-14 font-sans text-lg font-light text-white/90 md:text-2xl lg:text-3xl tracking-wide max-w-2xl">
             Your Luxury Services. Built on trust. Delivered with excellence.
           </h2>
-          <div className="w-full max-w-4xl flex gap-6 mb-8 justify-center">
+          <div className="w-full max-w-4xl flex flex-wrap gap-6 mb-8 justify-center">
             {categories.map((category) => (
               <Link
                 key={category.id}
