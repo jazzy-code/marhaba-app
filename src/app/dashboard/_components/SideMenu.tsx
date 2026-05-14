@@ -1,6 +1,6 @@
 "use client"
 
-import { Archive, Headset, LayoutDashboard, Mail, Rows3, Settings, ShieldCheck } from "lucide-react"
+import { Archive, Headset, LayoutDashboard, Mail, Rows3, ShieldCheck } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 

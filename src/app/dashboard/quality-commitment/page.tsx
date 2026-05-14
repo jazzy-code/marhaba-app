@@ -20,7 +20,7 @@ export default function QualityComitmentPage() {
           <div>
             <h2 className="mb-4 text-2xl font-semibold font-serif">1. Response Standard (The Gold Standard)</h2>
 
-            <p className="mb-4">Time is our clients’ most valuable asset.</p>
+            <p className="mb-4">Time is our clients' most valuable asset.</p>
 
             <div className="space-y-4">
               <div>
@@ -40,12 +40,12 @@ export default function QualityComitmentPage() {
               2. Transparency and Commercial Loyalty (Anti-Circumvention)
             </h2>
 
-            <p className="mb-4">Marhaba’s business model is based on mutual trust.</p>
+            <p className="mb-4">Marhaba's business model is based on mutual trust.</p>
 
             <div className="space-y-4">
               <div>
                 <span className="font-semibold">Lead Integrity:</span> The Provider agrees not to attempt to bypass the
-                platform’s commission (“circumvent the lead”) by contacting the client through external channels in
+                platform's commission (“circumvent the lead”) by contacting the client through external channels in
                 order to avoid the operation being registered.
               </div>
 
@@ -61,7 +61,7 @@ export default function QualityComitmentPage() {
             <h2 className="mb-4 text-2xl font-semibold font-serif">3. Excellence in Service Delivery</h2>
 
             <p className="mb-4">
-              Marhaba’s “Vetting” process is continuous. To remain on the platform, the Provider must:
+              Marhaba's “Vetting” process is continuous. To remain on the platform, the Provider must:
             </p>
 
             <div className="space-y-4">
@@ -85,7 +85,7 @@ export default function QualityComitmentPage() {
           <div>
             <h2 className="mb-4 text-2xl font-semibold font-serif">4. Content Updates</h2>
 
-            <p className="mb-4">An outdated profile damages the platform’s image.</p>
+            <p className="mb-4">An outdated profile damages the platform's image.</p>
 
             <div className="space-y-4">
               <div>
