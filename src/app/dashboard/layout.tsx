@@ -39,9 +39,9 @@ import {
 } from "@/api/serviceSecurityGuard/serviceSecurityGuard.server"
 import { getTrainingCoachDisciplines } from "@/api/serviceTrainingCoach/serviceTrainingCoach.server"
 import { getYachtTripulationRoles, getYachtAmenities } from "@/api/serviceYacht/serviceYacht.server"
-import Header from "@/app/dashboard/_components/Header"
-import SideMenu from "@/app/dashboard/_components/SideMenu"
 import { ServicesProvider } from "@/context/ServicesContext"
+
+import DashboardShell from "./_components/DashboardShell"
 
 export default async function LayoutDashboard({ children }: { children: React.ReactNode }) {
   const user = await currentUser()
@@ -204,13 +204,7 @@ export default async function LayoutDashboard({ children }: { children: React.Re
 
   return (
     <ServicesProvider value={allData}>
-      <div className="flex h-screen w-full">
-        <SideMenu />
-        <main className="flex-1 flex flex-col h-full overflow-hidden bg-stone-50/50 dark:bg-background-dark relative">
-          <Header />
-          {children}
-        </main>
-      </div>
+      <DashboardShell>{children}</DashboardShell>
     </ServicesProvider>
   )
 }

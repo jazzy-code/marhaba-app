@@ -5,12 +5,12 @@ import { Menu } from "lucide-react"
 
 import GoogleTranslate from "@/components/GoogleTranslate"
 
-const Header = () => {
+const Header = ({ onOpenMenu }: { onOpenMenu: () => void }) => {
   const { user } = useUser()
 
   return (
-    <header className="h-16 flex-shrink-0 border-b border-stone-200 dark:border-stone-800 bg-background-light dark:bg-stone-900 flex items-center justify-between px-8">
-      <button className="lg:hidden p-2 text-stone-500">
+    <header className="h-16 flex-shrink-0 border-b border-stone-200 dark:border-stone-800 bg-background-light dark:bg-stone-900 flex items-center justify-between pr-6 lg:pl-6 pl-2">
+      <button className="lg:hidden p-2 text-stone-500" onClick={onOpenMenu}>
         <Menu />
       </button>
       <div className="hidden md:flex items-center max-w-md w-full gap-3"></div>
