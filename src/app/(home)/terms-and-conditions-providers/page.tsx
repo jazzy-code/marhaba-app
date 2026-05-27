@@ -10,11 +10,6 @@ export default function TermsAndConditionsProvidersPage() {
               SUPPLIER TERMS & CONDITIONS (SUPPLIER TERMS & QUALITY AGREEMENT)
             </h1>
 
-            <p className="text-base leading-8 text-gray-700">
-              This is the text that must appear when the provider clicks on the link shown in the image previously
-              referenced.
-            </p>
-
             <p className="text-sm font-medium uppercase tracking-wide text-gray-500">Last updated: May 4, 2026</p>
 
             <p className="text-base leading-8 text-gray-700">

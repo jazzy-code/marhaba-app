@@ -52,11 +52,11 @@ export default function LegalNoticePage() {
                 This Legal Notice governs the access, navigation and use of the Marhaba Marbella web platform
                 (hereinafter, “the Platform”), accessible through the URL{" "}
                 <Link
-                  href="https://marhaba-app.vercel.app/"
+                  href="https://marhabamarbella.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-medium text-gray-900 underline underline-offset-4 transition-colors hover:text-primary-gold">
-                  https://marhaba-app.vercel.app/
+                  https://marhabamarbella.com/
                 </Link>
                 .
               </p>

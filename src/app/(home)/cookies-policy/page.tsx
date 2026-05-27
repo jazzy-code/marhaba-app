@@ -16,11 +16,11 @@ export default function CookiesPolicyPage() {
                 remember your preferences (such as language and right-to-left reading - RTL), and analyze traffic on our
                 platform{" "}
                 <Link
-                  href="https://marhaba-app.vercel.app/"
+                  href="https://marhabamarbella.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-medium text-gray-900 underline underline-offset-4 transition-colors hover:text-primary-gold">
-                  https://marhaba-app.vercel.app/
+                  https://marhabamarbella.com/
                 </Link>
                 .
               </p>

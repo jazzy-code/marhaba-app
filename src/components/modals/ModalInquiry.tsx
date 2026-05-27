@@ -1,10 +1,21 @@
 import { useState } from "react"
 
-import { Button, Dialog, DialogContent, DialogTitle, FormLabel, IconButton, TextField } from "@mui/material"
+import {
+  Button,
+  Checkbox,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  FormControlLabel,
+  FormLabel,
+  IconButton,
+  TextField
+} from "@mui/material"
 
 import { useMutation } from "@tanstack/react-query"
 import { useFormik } from "formik"
 import { Check, X } from "lucide-react"
+import Link from "next/link"
 
 import { createInquiry } from "@/api/inquiries/inquiries.client"
 import useFormikHelpers from "@/hooks/useFormikHelpers"
@@ -30,13 +41,14 @@ const ModalInquiry = ({ open, service, onClose }: ModalInquiryProps) => {
       email: "",
       phone: "",
       message: "",
+      acceptTerms: false,
       serviceId: service.serviceId
     },
     enableReinitialize: true,
     onSubmit: (data: any) => mutate(data)
   })
 
-  const { values, handleChange, handleBlur, handleSubmit, resetForm } = formik
+  const { values, handleChange, handleBlur, handleSubmit, resetForm, setFieldValue } = formik
 
   const { handleErrorField, handleErrorFieldMessage } = useFormikHelpers(formik)
 
@@ -143,6 +155,24 @@ const ModalInquiry = ({ open, service, onClose }: ModalInquiryProps) => {
                   onBlur={handleBlur}
                 />
               </div>
+              <div>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={values.acceptTerms}
+                      onChange={(e) => setFieldValue("acceptTerms", e.target.checked)}
+                    />
+                  }
+                  label={
+                    <>
+                      I accept the{" "}
+                      <Link href="/terms-and-conditions" target="_blank" className="hover:underline !text-primary-gold">
+                        Terms and Conditions
+                      </Link>
+                    </>
+                  }
+                />
+              </div>
             </div>
           )}
           <div className="flex flex-col gap-4 w-full mt-5">
@@ -152,6 +182,7 @@ const ModalInquiry = ({ open, service, onClose }: ModalInquiryProps) => {
                 variant="contained"
                 color="deepBrown"
                 fullWidth
+                disabled={!values.acceptTerms}
                 loading={isPending}
                 onClick={mutate}>
                 Send Inquiry

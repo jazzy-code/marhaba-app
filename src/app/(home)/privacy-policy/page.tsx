@@ -15,11 +15,11 @@ export default function PrivacyPolicyPage() {
                 At Marhaba Marbella, we value the trust of our users and providers. This Privacy Policy transparently
                 describes how we collect, use and protect your personal data through our platform{" "}
                 <Link
-                  href="https://marhaba-app.vercel.app/"
+                  href="https://marhabamarbella.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-medium text-gray-900 underline underline-offset-4 transition-colors hover:text-primary-gold">
-                  https://marhaba-app.vercel.app/
+                  https://marhabamarbella.com/
                 </Link>
                 .
               </p>

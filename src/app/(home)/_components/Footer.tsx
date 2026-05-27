@@ -1,3 +1,4 @@
+import { Facebook, Instagram, Linkedin } from "lucide-react"
 import Link from "next/link"
 
 import MarhabaMarbellaLogo from "@/assets/images/MarhabaMarbellaLogo"
@@ -25,21 +26,22 @@ const Footer = () => {
 
             <div className="flex items-center gap-4">
               <Link
-                href="#"
+                href="https://www.instagram.com/marhabamarbella/"
+                target="_blank"
                 className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sm text-white/80 transition-all duration-300 hover:border-primary-gold hover:bg-primary-gold/10 hover:text-primary-gold">
-                IG
+                <Instagram className="w-5 h-5" />
               </Link>
 
               <Link
                 href="#"
                 className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sm text-white/80 transition-all duration-300 hover:border-primary-gold hover:bg-primary-gold/10 hover:text-primary-gold">
-                FB
+                <Facebook className="w-5 h-5" />
               </Link>
 
               <Link
                 href="#"
                 className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sm text-white/80 transition-all duration-300 hover:border-primary-gold hover:bg-primary-gold/10 hover:text-primary-gold">
-                IN
+                <Linkedin className="w-5 h-5" />
               </Link>
             </div>
           </div>

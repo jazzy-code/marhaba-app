@@ -8,11 +8,6 @@ export default function TermsAndConditionsPage() {
               TERMS AND CONDITIONS OF USE AND CONTRACTING
             </h1>
 
-            <p className="text-base leading-8 text-gray-700">
-              This text must be placed on its own page (e.g. /terms-and-conditions) and must be mandatorily accepted
-              when creating an account.
-            </p>
-
             <p className="text-sm font-medium uppercase tracking-wide text-gray-500">Last updated: May 4, 2026</p>
 
             <p className="text-base leading-8 text-gray-700">
