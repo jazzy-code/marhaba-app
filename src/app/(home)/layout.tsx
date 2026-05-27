@@ -1,3 +1,5 @@
+import Script from "next/script"
+
 import { getCategories } from "@/api/categories/categories.server"
 import { getLatestServices, getPublicServiceTypes } from "@/api/services/services.server"
 import Header from "@/app/(home)/_components/Header"
@@ -17,6 +19,13 @@ export default async function HomeLayout({ children }: { children: React.ReactNo
       {children}
       <SupportButton />
       <Footer />
+      {process.env.NODE_ENV === "production" && (
+        <Script
+          id="cookieyes"
+          src="https://cdn-cookieyes.com/client_data/5a5b3fdc5ec26bd009a62d6131eeeccb/script.js"
+          strategy="afterInteractive"
+        />
+      )}
     </PublicServicesProvider>
   )
 }
